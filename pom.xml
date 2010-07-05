@@ -23,6 +23,7 @@
     <module>ejb</module>
     <module>jms</module>
     <module>jaxrs</module>
+    <module>jsf</module>
     <module>profiles</module>
 </modules>
 
