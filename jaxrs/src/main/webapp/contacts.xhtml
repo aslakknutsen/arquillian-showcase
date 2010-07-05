@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:l="http://java.sun.com/jsf/composite/locale"
+   template="/WEB-INF/templates/default.xhtml">
+
+   <ui:define name="metadata">
+      <f:metadata>
+         <f:viewParam name="customerId" value="#{selectedCustomerProducer.customerId}"/>
+         <f:event type="preRenderView" listener="#{selectedCustomerProducer.lookup}"/>
+      </f:metadata>
+   </ui:define>
+
+   <ui:define name="content">
+
+      <p><h:graphicImage value="/resources/gfx/contacts-tilt.gif" alt="Contacts"/></p>
+
+      <p><strong>Customer:</strong> #{selectedCustomer.name}</p>
+
+      <h:panelGroup rendered="#{empty contacts}">
+         <p>This customer does not have any contacts :(</p>
+      </h:panelGroup>
+      <h:form id="contactsForm" rendered="#{not empty contacts}">
+         <h:dataTable id="contactsTable" var="_contact" value="#{contacts}" styleClass="listing">
+            <h:column>
+               <f:facet name="header">Address</f:facet>
+               #{_contact.address}
+            </h:column>
+            <h:column>
+               <f:facet name="header">City</f:facet>
+               #{_contact.city}
+            </h:column>
+            <h:column>
+               <f:facet name="header">Phone</f:facet>
+               #{_contact.phone}
+            </h:column>
+         </h:dataTable>
+      </h:form>
+      <p>
+         <h:link outcome="/addContact.xhtml" value="Add contact" includeViewParams="true"/>
+         #{' | '}
+         <h:link outcome="/customers.xhtml" value="Back to customers" includeViewParams="true"/>
+      </p>
+
+   </ui:define>
+
+</ui:composition>

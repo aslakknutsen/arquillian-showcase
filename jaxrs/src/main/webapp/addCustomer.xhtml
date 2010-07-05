@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:sell="http://java.sun.com/jsf/composite/sellmore"
+   template="/WEB-INF/templates/default.xhtml">
+
+   <ui:define name="content">
+
+      <p><h:graphicImage value="/resources/gfx/add-customer-tilt.gif" alt="Add Customer"/></p>
+
+      <h:form id="customerForm">
+         <table class="form">
+            <ui:remove><!--
+            <tr>
+               <th>Name</th>
+               <td><h:inputText id="name" styleClass="text" value="#{customer.name}"/></td>
+               <td><h:message for="name" errorClass="invalid"/></td>
+            </tr>
+            --></ui:remove>
+            <ui:remove><!--<sell:rowInputContainer>
+               <h:inputText styleClass="text" value="#{customer.name}"/>
+            </sell:rowInputContainer>
+            --></ui:remove>
+            <sell:rowInputContainer id="name">
+               <h:inputText id="input" styleClass="text" value="#{customer.name}"/>
+            </sell:rowInputContainer>
+         </table>
+         <p class="actions">
+            <h:commandButton action="#{customerEditor.add}" value="Save"/>
+            <h:button outcome="/customers.xhtml" value="Cancel"/>
+         </p>
+      </h:form>
+
+   </ui:define>
+
+</ui:composition>

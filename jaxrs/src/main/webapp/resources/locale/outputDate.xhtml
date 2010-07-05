@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:cc="http://java.sun.com/jsf/composite">
+   <cc:interface>
+      <cc:attribute name="value" required="true" shortDescription="The value to format as a date"/>
+      <cc:attribute name="pattern" required="false" default="yyyy-MM-dd '@' HH:mm" shortDescription="The date format pattern"/>
+      <cc:attribute name="timeZone" required="false" default="EST" shortDescription="The time zone"/>
+   </cc:interface>
+   <cc:implementation>
+	  <h:outputText value="#{cc.attrs.value}">
+	     <f:convertDateTime pattern="#{cc.attrs.pattern}" timeZone="#{cc.attrs.timeZone}"/>
+	  </h:outputText>
+   </cc:implementation>
+</ui:composition>

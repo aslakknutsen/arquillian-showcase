@@ -1,0 +1,103 @@
+body {
+   margin: 0;
+   padding: 0;
+   background-color: #EEEEEE;
+   font-family: Verdana, sans-serif;
+   font-size: 0.9em;
+}
+a img {
+   border: 0;
+}
+#container {
+   margin: 0 auto;
+   padding: 0;
+   border: 1px solid #E5E5E5;
+   border-top: 0;
+   width: 865px; /* subtract 40px from banner width for padding */
+   background: #FFFFFF url(#{request.contextPath}/resources/gfx/sellmore-logo.png) no-repeat 30px 10px;
+   padding-top: 83px;
+}
+#content {
+   background: #FFFFFF url(#{request.contextPath}/resources/gfx/header-gradient.gif) repeat-x 0 -1px;
+   padding: 36px 20px 1em 20px;
+}
+#content a {
+   color: #007330;
+}
+#sidebar {
+   font-size: 0.9em;
+   width: 225px;
+   float: right;
+   border: 1px solid #666666;
+   background: #EAECEE;
+   padding: 0 15px 5px 15px;
+}
+#sidebar ul {
+   padding-left: 30px;
+}
+#footer {
+   background-color: #FFFFFF;
+   clear: both;
+   color: #666666;
+   font-size: 0.85em;
+   padding: 3em 0 0 0;
+}
+code {
+   font-size: 1.1em;
+}
+input.text, textarea {
+   font-family: Verdana, sans-serif;
+   font-size: .9em;
+   margin: 0;
+   padding: 1px;
+   width: 300px;
+}
+label.invalid {
+   color: red;
+}
+span.invalid.message {
+   padding-left: 3px;
+   color: red;
+}
+p.actions {
+   border-top: 1px solid #EAECEE;
+   padding-top: .5em;
+   width: 400px;
+}
+p.meta {
+   color: #666666;
+   font-size: .8em;
+   margin-bottom: -.5em;
+}
+table.listing {
+   border-collapse: collapse;
+   border: 0;
+   margin-bottom: .5em;
+   width: 400px;
+}
+table.listing th {
+   color: #00853E;
+   background: #ECECEC;
+   white-space: nowrap;
+   text-align: left;
+}
+table.listing th, table.listing td {
+   border: 0px;
+   padding: 3px;
+}
+table.listing td {
+   border-bottom: 1px solid #EAECEE;
+}
+table.form th {
+   text-align: right;
+   vertical-align: top;
+   padding-top: 3px;
+}
+p.prewrap {
+   width: 400px;
+   white-space: pre-wrap;       /* css-3 */
+   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+   white-space: -pre-wrap;      /* Opera 4-6 */
+   white-space: -o-pre-wrap;    /* Opera 7 */
+   word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}

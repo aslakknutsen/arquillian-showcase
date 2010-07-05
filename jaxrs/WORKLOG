@@ -1,0 +1,9 @@
+- prefetch data for line items
+- format amounts
+- format dates
+- insert order
+- composite component for form
+- tests
+- review queries
+
+see http://blogs.sun.com/arungupta/entry/totd_124_using_cdi_jpa

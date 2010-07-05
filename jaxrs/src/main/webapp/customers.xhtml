@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:l="http://java.sun.com/jsf/composite/locale"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+
+      <p><h:graphicImage value="/resources/gfx/customers-tilt.gif" alt="Customers"/></p>
+
+      <h:panelGroup rendered="#{empty customers}">
+         <p>You do not have any customers :(</p>
+      </h:panelGroup>
+      <h:form id="customersForm" rendered="#{not empty customers}">
+         <h:dataTable id="customersTable" var="_customer" value="#{customers}" styleClass="listing">
+            <h:column>
+               <f:facet name="header">Name</f:facet>
+               #{_customer.name}
+               <h:link outcome="/customer.xhtml" value="#{_customer.name}" rendered="false">
+                  <f:param name="id" value="#{_customer.id}"/>
+               </h:link>
+            </h:column>
+            <h:column>
+               <f:facet name="header">View</f:facet>
+               <h:link outcome="/orders.xhtml" value="Orders">
+                  <f:param name="customerId" value="#{_customer.id}"/>
+               </h:link>
+               #{' | '}
+               <h:link outcome="/contacts.xhtml" value="Contacts">
+                  <f:param name="customerId" value="#{_customer.id}"/>
+               </h:link>
+            </h:column>
+         </h:dataTable>
+      </h:form>
+      <p><h:link outcome="/addCustomer.xhtml" value="Add customer"/></p>
+
+   </ui:define>
+
+</ui:composition>

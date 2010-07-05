@@ -1,0 +1,8 @@
+insert into customer (name) values ('Acme Corporation')
+insert into customer (name) values ('Starbucks')
+insert into contact (address, city, phone, customer_id) values ('100 Broadway', 'New York', '212-555-1212', 1)
+insert into sales_order (created, amount, customer_id) values ('2010-05-25', 100.00, 1)
+insert into product (name, code, unit_price) values ('Portable Hole', 'PHOLE', 20)
+insert into product (name, code, unit_price) values ('Dynamite', 'DYN', 5)
+insert into line_item (order_id, product_id, quantity) values (1, 1, 3)
+insert into line_item (order_id, product_id, quantity) values (1, 2, 8)
