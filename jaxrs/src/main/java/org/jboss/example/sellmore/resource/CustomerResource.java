@@ -1,10 +1,8 @@
 package org.jboss.example.sellmore.resource;
 
-import org.jboss.example.sellmore.data.Customer_;
-import org.jboss.example.sellmore.data.Customer;
 import java.util.List;
+
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,6 +12,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
+import org.jboss.example.sellmore.data.Customer;
+import org.jboss.example.sellmore.data.Customer_;
 
 /**
  * A REST service for retrieving Customer records
