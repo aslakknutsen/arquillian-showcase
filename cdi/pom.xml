@@ -23,19 +23,19 @@
 	<description>Arquillian Showcase - CDI</description>
 	
 	<properties>
-		<version.weld_core>1.0.1-SP1</version.weld_core>
+		<version.weld_core>1.0.1-SP4</version.weld_core>
 	</properties>
 	
 	<profiles>
 		<profile>
-			<id>weld-embedded</id>
+			<id>embedded</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-weld-embedded</artifactId>
+					<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
 				</dependency>
 				<dependency>
 					<groupId>org.jboss.weld</groupId>
@@ -72,7 +72,7 @@
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-60</artifactId>
+					<artifactId>arquillian-jbossas-remote-6</artifactId>
 				</dependency>
 				<dependency>
 					<groupId>org.jboss.jbossas</groupId>

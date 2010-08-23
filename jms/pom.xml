@@ -23,16 +23,19 @@
 	<description>Arquillian Showcase - JMS</description>
 
 	<properties>
-		<version.jboss_60>6.0.0.20100429-M3</version.jboss_60>
+		<version.jboss_60>6.0.0.20100721-M4</version.jboss_60>
 	</properties>
 
 	<profiles>
 		<profile>
-			<id>jboss-embedded-60</id>
+			<id>embedded</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-embedded-60</artifactId>
+					<artifactId>arquillian-jbossas-embedded-6</artifactId>
 				</dependency>
 				<dependency>
 					<groupId>org.jboss.jbossas</groupId>
@@ -58,8 +61,12 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<additionalClasspathElements>
-								<additionalClasspathElement>${project.build.directory}/jboss-6.0.0.20100429-M3/client/jbossws-native-client.jar</additionalClasspathElement>
-								<additionalClasspathElement>${project.build.directory}/jboss-6.0.0.20100429-M3/server/default/deploy/jbossweb.sar</additionalClasspathElement>
+								<additionalClasspathElement>${project.build.directory}/jboss-${version.jboss_60}/client/jbossws-native-client.jar</additionalClasspathElement>
+								<!--
+									Because jbossweb.sar contains shared web.xml, which must be
+									visible from same CL as TomcatDeployer.class.getClassLoader
+								-->
+								<additionalClasspathElement>${project.build.directory}/jboss-${version.jboss_60}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
 							</additionalClasspathElements>
 
 							<redirectTestOutputToFile>true</redirectTestOutputToFile>
@@ -72,7 +79,7 @@
 								classes, methods, etc. EMB-41. Endorsed required for things like
 								WS support (EMB-61)
 							-->
-							<argLine>-Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djava.endorsed.dirs=${project.build.directory}/jboss-6.0.0.20100429-M3/lib/endorsed -Djboss.home=${project.build.directory}/jboss-6.0.0.20100429-M3 -Djboss.boot.server.log.dir=${project.build.directory}/jboss-6.0.0.20100429-M3</argLine>
+							<argLine>-Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djava.endorsed.dirs=${project.build.directory}/jboss-${version.jboss_60}/lib/endorsed -Djboss.home=${project.build.directory}/jboss-${version.jboss_60} -Djboss.boot.server.log.dir=${project.build.directory}/jboss-${version.jboss_60} -Dorg.jboss.reflect.spi.TypeInfoFactory=org.jboss.reflect.plugins.introspection.IntrospectionTypeInfoFactory</argLine>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -90,6 +97,7 @@
 										<artifactItem>
 											<groupId>org.jboss.jbossas</groupId>
 											<artifactId>jboss-as-distribution</artifactId>
+											<version>${version.jboss_60}</version>
 											<type>zip</type>
 											<overWrite>false</overWrite>
 											<outputDirectory>${project.build.directory}</outputDirectory>
@@ -104,13 +112,10 @@
 		</profile>
 		<profile>
 			<id>integration</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-60</artifactId>
+					<artifactId>arquillian-jbossas-remote-6</artifactId>
 				</dependency>
 				<dependency>
 					<groupId>org.jboss.jbossas</groupId>

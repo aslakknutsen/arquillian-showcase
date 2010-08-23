@@ -32,9 +32,9 @@
       <jboss.home>${env.JBOSS_HOME}</jboss.home>
       <jboss.domain>default</jboss.domain>
       <!-- The version of Weld extensions in use -->
-      <jboss-javaee6-spec.version>1.0.0.Beta4</jboss-javaee6-spec.version>
-      <arquillian.version>1.0.0-SNAPSHOT</arquillian.version>
-      <weld.version>1.0.1-Final</weld.version>
+      <jboss-javaee6-spec.version>1.0.0.Beta7</jboss-javaee6-spec.version>
+      <arquillian.version>1.0.0.Alpha3</arquillian.version>
+      <weld.version>1.0.1-SP4</weld.version>
       <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
    </properties>
 
@@ -150,6 +150,22 @@
 
    <profiles>
 		<profile>
+			<id>embedded</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>integration</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -157,7 +173,7 @@
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-60</artifactId>
+					<artifactId>arquillian-jbossas-remote-6</artifactId>
 				</dependency>
 				<dependency>
 					<groupId>org.jboss.jbossas</groupId>
@@ -177,11 +193,11 @@
 			</build>
 		</profile>
         <profile>
-            <id>glassfish-embedded-30</id>
+            <id>glassfish-embedded-3</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-embedded-30</artifactId>
+                    <artifactId>arquillian-glassfish-embedded-3</artifactId>
                     <version>${arquillian.version}</version>
                    <scope>test</scope>
                 </dependency>

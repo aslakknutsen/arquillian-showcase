@@ -20,11 +20,11 @@
 	<properties>
 
 		<!-- Versioning -->
-		<version.jboss_ee6_spec>1.0.0.Beta4</version.jboss_ee6_spec>
-		<version.arquillian>1.0.0.Alpha2</version.arquillian>
-		<version.jboss_60>6.0.0.20100429-M3</version.jboss_60>
+		<version.jboss_ee6_spec>1.0.0.Beta7</version.jboss_ee6_spec>
+		<version.arquillian>1.0.0.Alpha3</version.arquillian>
+		<version.jboss_60>6.0.0.20100721-M4</version.jboss_60>
 		<version.org.apache.openejb_openejb.core>3.1.2</version.org.apache.openejb_openejb.core>
-		<version.weld_core>1.0.1-SP1</version.weld_core>
+		<version.weld_core>1.0.1-SP4</version.weld_core>
 		<version.junit>4.8.1</version.junit>
 	</properties>
 
@@ -48,31 +48,31 @@
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
-				<artifactId>arquillian-weld-embedded</artifactId>
+				<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
 				<version>${version.arquillian}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
-				<artifactId>arquillian-openejb</artifactId>
+				<artifactId>arquillian-openejb-embedded-3.1</artifactId>
 				<version>${version.arquillian}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
-				<artifactId>arquillian-jbossas-remote-60</artifactId>
+				<artifactId>arquillian-jbossas-remote-6</artifactId>
 				<version>${version.arquillian}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
-				<artifactId>arquillian-jbossas-remote-51</artifactId>
+				<artifactId>arquillian-jbossas-remote-5.1</artifactId>
 				<version>${version.arquillian}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
-				<artifactId>arquillian-jbossas-embedded-60</artifactId>
+				<artifactId>arquillian-jbossas-embedded-6</artifactId>
 				<version>${version.arquillian}</version>
 				<scope>test</scope>
 			</dependency>
