@@ -12,12 +12,11 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.example.sellmore.data.Customer;
 import org.jboss.example.sellmore.persistence.EntityManagerProducer;
 import org.jboss.example.sellmore.resource.CustomerResource;
-import org.jboss.example.sellmore.rs.JaxRsConfig;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.impl.base.asset.ByteArrayAsset;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -30,15 +29,13 @@ public class CustomerResourceClientTest
    @Deployment
    public static WebArchive createTestArchive() 
    {
-      return ShrinkWrap.create("test.war", WebArchive.class)
+      return ShrinkWrap.create(WebArchive.class, "test.war")
          .addPackages(true, Customer.class.getPackage())
-         .addClasses(JaxRsConfig.class, EntityManagerProducer.class, CustomerResource.class)
+         .addClasses(EntityManagerProducer.class, CustomerResource.class)
          .addWebResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml")
          .addWebResource("import.sql", "classes/import.sql")
-         .addWebResource(new ByteArrayAsset(new byte[0]), "beans.xml")
+         .addWebResource(EmptyAsset.INSTANCE, "beans.xml")
          // temporarily required for restEasy Jax_RS 1.1 compliance in JBoss AS 6.0 M3
-         .addLibraries(
-            ArtifactResolver.resolve("org.jboss.resteasy:resteasy-cdi:2.0-beta-3-SNAPSHOT"))
          .setWebXML("WEB-INF/test-web.xml");
    }
 

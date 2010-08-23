@@ -21,7 +21,6 @@ import javax.ejb.EJB;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class InjectionTestCase
 {
    @Deployment
    public static JavaArchive createDeployment() {
-      return ShrinkWrap.create("blagh.jar", JavaArchive.class)
+      return ShrinkWrap.create(JavaArchive.class, "blagh.jar")
                .addClasses(
                      GreetingManager.class,
                      GreetingManagerBean.class);

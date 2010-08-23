@@ -32,7 +32,7 @@ public class TemperatureConverterTestCase
    @Deployment
    public static JavaArchive createTestArchive()
    {
-      return ShrinkWrap.create("test.jar", JavaArchive.class)
+      return ShrinkWrap.create(JavaArchive.class, "test.jar")
                   .addClasses(
                         TemperatureConverter.class,
                         TemperatureConverterBean.class);

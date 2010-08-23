@@ -23,8 +23,8 @@ import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.impl.base.asset.ByteArrayAsset;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,14 +41,14 @@ public class JSFUnitTestCase
    @Deployment
    public static WebArchive createDeployment()
    {
-      return ShrinkWrap.create("test.war", WebArchive.class)
+      return ShrinkWrap.create(WebArchive.class ,"test.war")
                   .addClasses(
                         RequestScopeBean.class, 
                         ScopeAwareBean.class)
                   .setWebXML("jsf/jsf-web.xml")
                   .addResource("jsf/index.xhtml", "index.xhtml")
                   .addWebResource("jsf/faces-config.xml", "faces-config.xml")
-                  .addWebResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+                  .addWebResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
    }
 
    @Test
