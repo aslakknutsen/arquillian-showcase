@@ -14,7 +14,6 @@
    <artifactId>arquillian-sandbox-showcase-cdi</artifactId>
    <packaging>jar</packaging>
    <name>Arquillian Showcase - CDI</name>
-   <url>http://www.jboss.org</url>
    <description>Arquillian Showcase - CDI</description>
 
    <dependencies>

@@ -19,7 +19,6 @@
 	<artifactId>arquillian-sandbox-showcase-jms</artifactId>
 	<packaging>jar</packaging>
 	<name>Arquillian Showcase - JMS</name>
-	<url>http://www.jboss.org</url>
 	<description>Arquillian Showcase - JMS</description>
 
 	<properties>

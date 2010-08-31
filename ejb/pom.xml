@@ -13,7 +13,6 @@
    <artifactId>arquillian-sandbox-showcase-ejb</artifactId>
    <packaging>jar</packaging>
    <name>Arquillian Showcase - EJB</name>
-   <url>http://www.jboss.org</url>
    <description>Arquillian Showcase - EJB</description>
 
    <properties>

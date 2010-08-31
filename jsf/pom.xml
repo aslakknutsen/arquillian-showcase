@@ -19,7 +19,6 @@
 	<artifactId>arquillian-sandbox-showcase-jsf</artifactId>
 	<packaging>jar</packaging>
 	<name>Arquillian Showcase - JSF</name>
-	<url>http://www.jboss.org</url>
 	<description>Arquillian Showcase - JSF</description>
 
 	<properties>
