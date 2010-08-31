@@ -22,7 +22,7 @@ import javax.enterprise.context.RequestScoped;
 @RequestScoped
 public class AsynchronousPaymentProcessor implements PaymentProcessor {
 
-   public void process(String payment) 
+   public void process(double payment) 
    { 
 	   
    }

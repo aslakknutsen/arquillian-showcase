@@ -16,16 +16,20 @@
  */
 package com.acme.jsf;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import javax.faces.application.ProjectStage;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.jsfunit.framework.Environment;
 import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
-import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,45 +43,40 @@ import org.junit.runner.RunWith;
 public class JSFUnitTestCase
 {
    @Deployment
-   public static WebArchive createDeployment()
+   public static Archive<?> createDeployment()
    {
       return ShrinkWrap.create(WebArchive.class ,"test.war")
-                  .addClasses(
-                        RequestScopeBean.class, 
-                        ScopeAwareBean.class)
-                  .setWebXML("jsf/jsf-web.xml")
-                  .addResource("jsf/index.xhtml", "index.xhtml")
-                  .addWebResource("jsf/faces-config.xml", "faces-config.xml")
-                  .addWebResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
+            .addClasses(RequestScopedBean.class, ManagedBeanScopeAware.class)
+            .setWebXML("jsf/jsf-web.xml")
+            .addResource("jsf/index.xhtml", "index.xhtml")
+            .addWebResource("jsf/faces-config.xml", "faces-config.xml")
+            .addWebResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Test
    public void shouldExecutePage() throws Exception
    {
-      JSFSession jsfSession = new JSFSession("/index.jsf");
-      
-      Assert.assertTrue(Environment.is12Compatible());
-      Assert.assertTrue(Environment.is20Compatible());
-      Assert.assertEquals(2, Environment.getJSFMajorVersion());
-      Assert.assertEquals(0, Environment.getJSFMinorVersion());
-
-      JSFServerSession server = jsfSession.getJSFServerSession();
-      
-      Assert.assertEquals("request", server.getManagedBeanValue("#{requestBean.scope}"));
+      validateManagedBeanValueOnIndexPage();
    }
 
    @Test
-   public void shouldExecutePage2() throws Exception
+   public void shouldExecutePageAgain() throws Exception
+   {
+      validateManagedBeanValueOnIndexPage();
+   }
+
+   protected void validateManagedBeanValueOnIndexPage() throws Exception
    {
       JSFSession jsfSession = new JSFSession("/index.jsf");
-
-      Assert.assertTrue(Environment.is12Compatible());
-      Assert.assertTrue(Environment.is20Compatible());
-      Assert.assertEquals(2, Environment.getJSFMajorVersion());
-      Assert.assertEquals(0, Environment.getJSFMinorVersion());
+      System.out.println("GET /index.jsf HTTP/1.1\n\n" + jsfSession.getJSFClientSession().getPageAsText());
+      assertTrue(Environment.is12Compatible());
+      assertTrue(Environment.is20Compatible());
+      assertEquals(2, Environment.getJSFMajorVersion());
+      assertEquals(0, Environment.getJSFMinorVersion());
 
       JSFServerSession server = jsfSession.getJSFServerSession();
 
-      Assert.assertEquals("request", server.getManagedBeanValue("#{requestBean.scope}"));
+      assertEquals("request", server.getManagedBeanValue("#{requestBean.scope}"));
+      assertEquals(ProjectStage.Development, server.getFacesContext().getApplication().getProjectStage());
    }
 }

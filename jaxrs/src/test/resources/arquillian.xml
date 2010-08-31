@@ -1,15 +1,14 @@
 <arquillian xmlns="http://jboss.com/arquillian"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:glassfish="urn:arq:org.jboss.arquillian.glassfish.embedded30">
+   xmlns:glassfish-embedded="urn:arq:org.jboss.arquillian.container.glassfish.embedded_3">
 
    <engine>
-      <deploymentExportPath>/tmp/</deploymentExportPath>
+      <deploymentExportPath>target/</deploymentExportPath>
    </engine>
-   
-   <glassfish:container>
-      <glassfish:bindPort>7171</glassfish:bindPort>
-      <glassfish:instanceRoot>src/test/glassfish</glassfish:instanceRoot>
-      <glassfish:autoDelete>false</glassfish:autoDelete> 
-   </glassfish:container>  
+
+   <glassfish-embedded:container>
+      <glassfish-embedded:bindHttpPort>7070</glassfish-embedded:bindHttpPort>
+      <glassfish-embedded:sunResourcesXml>src/test/resources-glassfish-embedded/sun-resources.xml</glassfish-embedded:sunResourcesXml>
+   </glassfish-embedded:container>
 
 </arquillian>

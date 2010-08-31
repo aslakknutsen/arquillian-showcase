@@ -1,9 +1,0 @@
-This is an example Java EE 6 application based on the Weld Java EE 6 Maven archetype.
-
-This application demonstrates the master-detail record scenario for orders and line items.
-
-http://www.oracle.com/technology/products/enterprise-pack-for-eclipse/spring-jpa-tutorial/jpatutorial.html
-http://new.myfonts.com/fonts/typeart/label-gun/
-http://www.insidebuymore.com/
-tilt: -3.5 degrees
-small size: 50px height
