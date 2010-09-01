@@ -21,4 +21,6 @@ public interface TemperatureConverter
    double convertToCelsius(double f);
 
    double convertToFarenheit(double c);
+   
+   boolean isTransactionActive();
 }

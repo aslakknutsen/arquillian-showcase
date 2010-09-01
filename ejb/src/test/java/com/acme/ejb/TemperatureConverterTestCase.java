@@ -17,6 +17,7 @@
 package com.acme.ejb;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.ejb.EJB;
 
@@ -46,6 +47,7 @@ public class TemperatureConverterTestCase
    {
       assertEquals(converter.convertToCelsius(32d), 0d, 0d);
       assertEquals(converter.convertToCelsius(212d), 100d, 0d);
+      converter.isTransactionActive();
    }
 
    @Test
@@ -53,5 +55,11 @@ public class TemperatureConverterTestCase
    {
       assertEquals(converter.convertToFarenheit(0d), 32d, 0d);
       assertEquals(converter.convertToFarenheit(100d), 212d, 0d);
+   }
+   
+   @Test
+   public void testTransactionActive()
+   {
+      assertTrue(converter.isTransactionActive());
    }
 }

@@ -6,7 +6,7 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <artifactId>arquillian-sandbox-showcase</artifactId>
+      <artifactId>arquillian-sandbox-showcase-profiles</artifactId>
       <groupId>org.jboss.arquillian.sandbox.showcase</groupId>
       <version>1.0.0-SNAPSHOT</version>
 		<relativePath>../profiles/pom.xml</relativePath>
@@ -28,34 +28,6 @@
       <version.junit>4.8.1</version.junit>
       <version.weld>1.0.1-Final</version.weld>
    </properties>
-
-   <repositories>
-      <repository>
-         <id>jboss-public-repository</id>
-         <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public</url>
-         <releases>
-            <updatePolicy>never</updatePolicy>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </repository>
-   </repositories>
-
-   <pluginRepositories>
-      <pluginRepository>
-         <id>jboss-public-repository</id>
-         <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public</url>
-         <releases>
-            <updatePolicy>never</updatePolicy>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </pluginRepository>
-   </pluginRepositories>
 
    <dependencies>
 

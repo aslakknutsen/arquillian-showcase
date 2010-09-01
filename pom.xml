@@ -8,7 +8,7 @@
    <version>1.0.0-SNAPSHOT</version>
    <packaging>pom</packaging>
    <name>Arquillian Showcase Aggregator</name>
-   <url>http://www.jboss.org</url>
+   <url>http://www.jboss.org/arquillian</url>
    <description>Arquillian Showcase Aggregator</description>
 
    <modules>
