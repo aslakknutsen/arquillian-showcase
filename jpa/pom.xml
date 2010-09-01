@@ -313,11 +313,11 @@
 
       <profile>
          <!-- Sample test requires Hibernate to be installed in GlassFish -->
-         <id>glassfish-remote-30</id>
+         <id>glassfish-remote-3</id>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-remote-30</artifactId>
+               <artifactId>arquillian-glassfish-remote-3</artifactId>
                <version>${version.arquillian}</version>
                <scope>test</scope>
             </dependency>
