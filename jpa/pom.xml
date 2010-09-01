@@ -6,13 +6,13 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <artifactId>arquillian-sandbox-showcase-profiles</artifactId>
-      <groupId>org.jboss.arquillian.sandbox.showcase</groupId>
+      <artifactId>arquillian-showcase-profiles</artifactId>
+      <groupId>org.jboss.arquillian.showcase</groupId>
       <version>1.0.0-SNAPSHOT</version>
 		<relativePath>../profiles/pom.xml</relativePath>
    </parent>
 
-   <artifactId>arquillian-sandbox-showcase-jpa</artifactId>
+   <artifactId>arquillian-showcase-jpa</artifactId>
    <packaging>jar</packaging>
    <name>Arquillian Showcase - JPA</name>
    <description>Arquillian Showcase - JPA</description>

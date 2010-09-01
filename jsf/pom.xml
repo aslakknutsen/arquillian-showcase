@@ -9,14 +9,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.jboss.arquillian.sandbox.showcase</groupId>
-		<artifactId>arquillian-sandbox-showcase-profiles</artifactId>
+		<groupId>org.jboss.arquillian.showcase</groupId>
+		<artifactId>arquillian-showcase-profiles</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../profiles/pom.xml</relativePath>
 	</parent>
 
 	<!-- Artifact Information  -->
-	<artifactId>arquillian-sandbox-showcase-jsf</artifactId>
+	<artifactId>arquillian-showcase-jsf</artifactId>
 	<packaging>jar</packaging>
 	<name>Arquillian Showcase - JSF</name>
 	<description>Arquillian Showcase - JSF</description>
