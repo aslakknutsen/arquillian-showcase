@@ -3,11 +3,15 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:glassfish-remote="urn:arq:org.jboss.arquillian.container.glassfish.remote_3">
 
+   <engine>
+      <deploymentExportPath>target/</deploymentExportPath>
+   </engine>
+
    <!-- Configuration shown for demonstration purposes -->
    <glassfish-remote:container>
       <glassfish-remote:deploymentUri>deployer:Sun:AppServer::localhost:4848</glassfish-remote:deploymentUri>
       <glassfish-remote:remoteServerAddress>localhost</glassfish-remote:remoteServerAddress>
-      <glassfish-remote:remoteServerHttpPort>8080</glassfish-remote:remoteServerHttpPort>
+      <glassfish-remote:remoteServerHttpPort>7070</glassfish-remote:remoteServerHttpPort>
    </glassfish-remote:container>
 
 </arquillian>
