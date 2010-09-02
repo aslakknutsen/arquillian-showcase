@@ -30,22 +30,22 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class GreeterTestCase
 {
+   // @formatter:off
    @Deployment
    public static Archive<?> createDeployment() {
       return ShrinkWrap.create(JavaArchive.class)
             .addClasses(Greeter.class, GreeterBean.class);
    }
-   
+   // @formatter:on
+
    @EJB
    Greeter greeter;
-   
+
    @Test
    public void shouldBeAbleToInjectEJBAndInvoke() throws Exception
    {
       String userName = "Earthlings";
-      
-      Assert.assertEquals(
-            "Hello, " + userName,
-            greeter.greet(userName));
+
+      Assert.assertEquals("Hello, " + userName, greeter.greet(userName));
    }
 }
