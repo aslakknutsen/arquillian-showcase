@@ -32,21 +32,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-@Ignore
+//@Ignore
 public class FireAndForgetTestCase
 {
    @Deployment
    public static Archive<?> createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClasses(FireAndForget.class, AbstractFireAndForgetBean.class, BlockingFireAndForgetBean.class);
+            .addClasses(FireAndForget.class, AbstractFireAndForgetBean.class,
+                  BlockingFireAndForget.class, BlockingFireAndForgetBean.class);
    }
 
    @EJB
    BlockingFireAndForget asyncBean;
 
    @Test
-   public void shouldBeAbleToInjectEJBAndInvoke() throws Exception
+   public void shouldInvokeAsynchronously() throws Exception
    {
       // use latch barrier or something to verify code is executing asynchronously
       System.out.println("Current thread [id=" + Thread.currentThread().getId() + "; name=" + Thread.currentThread().getName() + "]");
