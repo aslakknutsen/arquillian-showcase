@@ -5,15 +5,17 @@ import java.util.concurrent.CountDownLatch;
 import javax.ejb.Asynchronous;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 
+@Alternative
 @Stateless
-@Local(BlockingFireAndForget.class)
-public class BlockingFireAndForgetBean extends AbstractFireAndForgetBean implements BlockingFireAndForget
+@Local(FireAndForget.class)
+public class BlockingFireAndForgetBean extends FireAndForgetBean
 {
    public static CountDownLatch LATCH = new CountDownLatch(1);
-   
+
    public static ThreadLocal<Long> threadValue = new ThreadLocal<Long>();
-   
+
    @Override
    @Asynchronous
    public void fire(long busy)

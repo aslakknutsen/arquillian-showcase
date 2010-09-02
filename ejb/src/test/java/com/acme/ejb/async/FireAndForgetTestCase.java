@@ -20,14 +20,14 @@ import static org.junit.Assert.assertNull;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,12 +39,16 @@ public class FireAndForgetTestCase
    public static Archive<?> createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClasses(FireAndForget.class, AbstractFireAndForgetBean.class,
-                  BlockingFireAndForget.class, BlockingFireAndForgetBean.class);
+            .addClasses(FireAndForget.class, FireAndForgetBean.class, BlockingFireAndForgetBean.class)
+            .addManifestResource(
+                  new StringAsset(
+                        "<beans><alternatives><class>" + 
+                        BlockingFireAndForgetBean.class.getName() + 
+                        "</class></alternatives></beans>"), "beans.xml");
    }
 
-   @EJB
-   BlockingFireAndForget asyncBean;
+   @Inject
+   FireAndForget asyncBean;
 
    @Test
    public void shouldInvokeAsynchronously() throws Exception
