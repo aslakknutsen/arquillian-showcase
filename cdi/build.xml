@@ -16,7 +16,7 @@
    <property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes"/>
    <property name="project.testSource.directory" value="src/test/java"/>
    <property name="project.testResource.directory" value="src/test/resources"/>
-   <property name="project.test.reportsOutputDirectory" value="${project.build.directory}/surefire-reports"/>
+   <property name="project.test.reportsOutputDirectory" value="${project.build.directory}/test-results"/>
    <property name="project.test.useFile" value="true"/>
 
    <property name="maven.repo.central" value="http://repo1.maven.org/maven2"/>
