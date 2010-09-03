@@ -12,8 +12,8 @@
 
    <artifactId>arquillian-showcase-ejb</artifactId>
    <packaging>jar</packaging>
-   <name>Arquillian Showcase - EJB</name>
-   <description>Arquillian Showcase - EJB</description>
+   <name>Arquillian Showcase: EJB</name>
+   <description>Examples that demonstrate how to test EJB components using Arquillian</description>
 
    <properties>
       <version.glassfish>3.0.1-b20</version.glassfish>

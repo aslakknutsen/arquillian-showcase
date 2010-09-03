@@ -18,8 +18,8 @@
 	<!-- Artifact Information  -->
 	<artifactId>arquillian-showcase-jsf</artifactId>
 	<packaging>jar</packaging>
-	<name>Arquillian Showcase - JSF</name>
-	<description>Arquillian Showcase - JSF</description>
+	<name>Arquillian Showcase: JSF</name>
+	<description>Examples that demonstrate how to test JSF pages using Arquillian and JSFUnit</description>
 
 	<properties>
 		<version.jbossas_60>6.0.0.20100721-M4</version.jbossas_60>

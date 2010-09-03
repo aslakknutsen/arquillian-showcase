@@ -12,8 +12,8 @@
 
    <artifactId>arquillian-showcase-jaxrs</artifactId>
    <packaging>jar</packaging>
-   <name>Arquillian Showcase - JAX-RS</name>
-   <description>Arquillian Showcase - JAX-RS</description>
+   <name>Arquillian Showcase: JAX-RS</name>
+   <description>Examples that demonstrate how to test JAX-RS endpoints backed by JPA using Arquillian</description>
 
    <properties>
       <!--

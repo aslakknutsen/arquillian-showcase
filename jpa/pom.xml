@@ -14,8 +14,8 @@
 
    <artifactId>arquillian-showcase-jpa</artifactId>
    <packaging>jar</packaging>
-   <name>Arquillian Showcase - JPA</name>
-   <description>Arquillian Showcase - JPA</description>
+   <name>Arquillian Showcase: JPA</name>
+   <description>Examples that demonstrate how to test JPA to read and write a database using Arquillian</description>
 
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

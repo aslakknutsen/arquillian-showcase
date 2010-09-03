@@ -5,7 +5,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<!-- Model Information -->
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -15,11 +14,10 @@
 		<relativePath>../profiles/pom.xml</relativePath>
 	</parent>
 
-	<!-- Artifact Information  -->
 	<artifactId>arquillian-showcase-jms</artifactId>
 	<packaging>jar</packaging>
-	<name>Arquillian Showcase - JMS</name>
-	<description>Arquillian Showcase - JMS</description>
+	<name>Arquillian Showcase: JMS</name>
+	<description>Examples that demonstrate how to test JMS destinations using Arquillian</description>
 
 	<properties>
 		<version.jbossas_60>6.0.0.20100721-M4</version.jbossas_60>

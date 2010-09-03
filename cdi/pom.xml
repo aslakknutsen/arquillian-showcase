@@ -13,8 +13,8 @@
 
    <artifactId>arquillian-showcase-cdi</artifactId>
    <packaging>jar</packaging>
-   <name>Arquillian Showcase - CDI</name>
-   <description>Arquillian Showcase - CDI</description>
+   <name>Arquillian Showcase: CDI</name>
+   <description>Examples that demonstrate how to test CDI components using Arquillian</description>
 
    <dependencies>
       <dependency>

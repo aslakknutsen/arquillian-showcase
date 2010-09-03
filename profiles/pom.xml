@@ -8,9 +8,9 @@
    <artifactId>arquillian-showcase-profiles</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>pom</packaging>
-   <name>Arquillian Showcase - Profiles</name>
+   <name>Arquillian Showcase: Profiles</name>
    <url>http://jboss.org/arquillian</url>
-   <description>Arquillian Showcase - Profiles</description>
+   <description>Parent build for the Arquillian showcase</description>
 
    <properties>
       <version.arquillian>1.0.0.Alpha3</version.arquillian>
@@ -25,7 +25,7 @@
       <repository>
          <id>jboss-public-repository</id>
          <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public</url>
+         <url>http://repository.jboss.org/nexus/content/groups/public</url>
          <releases>
             <updatePolicy>never</updatePolicy>
          </releases>
@@ -39,7 +39,7 @@
       <pluginRepository>
          <id>jboss-public-repository</id>
          <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public</url>
+         <url>http://repository.jboss.org/nexus/content/groups/public</url>
          <releases>
             <updatePolicy>never</updatePolicy>
          </releases>
