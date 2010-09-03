@@ -2,71 +2,55 @@ apply plugin: 'java'
 
 setBuildDir('target')
 
+library_versions = [
+   junit: '4.8.1', arquillian: '1.0.0.Alpha3', jbossJavaeeSpec: '1.0.0.Beta7', weld: '1.0.1-Final',
+   slf4j: '1.5.8', log4j: '1.2.14', jbossas: '6.0.0.20100721-M4', glassfish: '3.0.1-b20'
+]
+
 repositories {
    mavenCentral()
-   mavenRepo urls: ["http://repository.jboss.org/nexus/content/groups/public/"]
+   mavenRepo urls: 'http://repository.jboss.org/nexus/content/groups/public/'
+   mavenRepo urls: 'http://repository.jboss.org/maven2/'
+}
+
+configurations {
+   jbossasRemoteTestCompile { extendsFrom compile }
+   jbossasRemoteTestRuntime { extendsFrom jbossasRemoteTestCompile, runtime }
+   glassfishEmbeddedTestCompile { extendsFrom compile }
+   glassfishEmbeddedTestRuntime { extendsFrom glassfishEmbeddedTestCompile, runtime }
 }
 
 dependencies {
-   //compile group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: '1.0.0.Beta7', ext: 'pom', transitive: true
-   compile group: 'org.jboss.spec.javax.annotation', name: 'jboss-annotations-api_1.1_spec', version: '1.0.0.Beta2'
-   compile group: 'org.jboss.spec.javax.resource', name: 'jboss-connector-api_1.5_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.ejb', name: 'jboss-ejb-api_3.1_spec', version: '1.0.0.CR2'
-   compile group: 'org.jboss.spec.javax.el', name: 'jboss-el-api_2.2_spec', version: '1.0.0.Beta2'
-   compile group: 'org.jboss.spec.javax.interceptor', name: 'jboss-interceptors-api_1.1_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.security.jacc', name: 'jboss-jacc-api_1.4_spec', version: '1.0.0.Beta2'
-   compile group: 'org.jboss.spec.javax.enterprise.deploy', name: 'jboss-jad-api_1.2_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.security.auth.message', name: 'jboss-jaspi-api_1.0_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.xml.registry', name: 'jboss-jaxr-api_1.0_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.jms', name: 'jboss-jms-api_1.1_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.servlet.jsp', name: 'jboss-jsp-api_2.2_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.servlet', name: 'jboss-servlet-api_3.0_spec', version: '1.0.0.Beta2'
-   compile group: 'org.jboss.spec.javax.transaction', name: 'jboss-transaction-api_1.1_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.xml.bind', name: 'jboss-jaxb-api_2.2_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.xml.soap', name: 'jboss-saaj-api_1.3_spec', version: '1.0.0.Beta1'
-   compile group: 'org.jboss.spec.javax.xml.ws', name: 'jboss-jaxws-api_2.2_spec', version: '1.0.0.Beta1'
-   compile group: 'javax.activation', name: 'activation', version: '1.1.1'
-   compile group: 'javax.enterprise', name: 'cdi-api', version: '1.0-SP1'
-   compile group: 'javax.faces', name: 'jsf-api', version: '1.2_13'
-   compile group: 'javax.inject', name: 'javax.inject', version: '1'
-   compile group: 'javax.jws', name: 'jsr181-api', version: '1.0-MR1'
-   compile group: 'javax.mail', name: 'mail', version: '1.4.2'
-   compile group: 'javax.servlet', name: 'jstl', version: '1.2'
-   compile group: 'javax.xml', name: 'jaxrpc-api', version: '1.1'
-   compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version: '1.0.0.Final'
-   compile group: 'org.jboss.resteasy', name: 'jaxrs-api', version: '2.0.0.GA'
-   compile group: 'stax', name: 'stax-api', version: '1.0'
-   compile group: 'javax.validation', name: 'validation-api', version: '1.0.0.GA'
+   compile group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: library_versions.jbossJavaeeSpec
+   testCompile group: 'junit', name: 'junit', version: library_versions.junit
+   testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: library_versions.arquillian
+   testRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: library_versions.arquillian
+   testRuntime group: 'org.jboss.weld', name: 'weld-core', version: library_versions.weld
+   testRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: library_versions.slf4j
+   testRuntime group: 'log4j', name: 'log4j', version: library_versions.log4j
+   jbossasRemoteTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-jbossas-remote-6', version: library_versions.arquillian
+   jbossasRemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-client', version: library_versions.jbossas
+   glassfishEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-glassfish-embedded-3', version: library_versions.arquillian
+   glassfishEmbeddedTestRuntime group: 'org.glassfish.extras', name: 'glassfish-embedded-all', version: library_versions.glassfish
+}
 
-   // Arquillian/JUnit API
-   testCompile group: 'junit', name: 'junit', version: '4.8.1'
-   testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: '1.0.0.Alpha3'
-   testCompile group: 'org.jboss.arquillian', name: 'arquillian-api', version: '1.0.0.Alpha3'
-   testCompile group: 'org.jboss.shrinkwrap', name: 'shrinkwrap-api', version: '1.0.0-alpha-11'
-   testCompile group: 'org.jboss.shrinkwrap', name: 'shrinkwrap-spi', version: '1.0.0-alpha-11'
-   testCompile group: 'org.jboss.arquillian', name: 'arquillian-spi', version: '1.0.0.Alpha3'
+sourceSets {
+   jbossasRemoteTest {
+      compileClasspath = sourceSets.main.classes + configurations.jbossasRemoteTestCompile
+      runtimeClasspath = classes + sourceSets.main.classes + configurations.jbossasRemoteTestRuntime
+   }
+   glassfishEmbeddedTest {
+      compileClasspath = sourceSets.main.classes + configurations.glassfishEmbeddedTestCompile
+      runtimeClasspath = classes + sourceSets.main.classes + configurations.glassfishEmbeddedTestRuntime
+   }
+}
 
-   // Arquillian runtime
-   testRuntime group: 'org.jboss.arquillian', name: 'arquillian-impl-base', version: '1.0.0.Alpha3'
-   testRuntime group: 'org.jboss.shrinkwrap', name: 'shrinkwrap-impl-base', version: '1.0.0-alpha-11'
-   testRuntime group: 'org.jboss.shrinkwrap', name: 'shrinkwrap-extension-classloader', version: '1.0.0-alpha-11'
+task jbossasRemoteTest(type: Test) {
+   testClassesDir = sourceSets.jbossasRemoteTest.classesDir
+   classpath = sourceSets.jbossasRemoteTest.runtimeClasspath
+}
 
-   // Weld Embedded container
-   testRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: '1.0.0.Alpha3'
-   testRuntime group: 'org.jboss.arquillian.protocol', name: 'arquillian-protocol-local', version: '1.0.0.Alpha3'
-   testRuntime group: 'org.jboss.arquillian.testenricher', name: 'arquillian-testenricher-cdi', version: '1.0.0.Alpha3'
-   testRuntime group: 'org.jboss.weld', name: 'weld-core', version: '1.0.1-Final'
-   testRuntime group: 'org.jboss.weld', name: 'weld-spi', version: '1.0-SP1'
-   testRuntime group: 'javax.annotation', name: 'jsr250-api', version: '1.0'
-   testRuntime group: 'javassist', name: 'javassist', version: '3.11.0.GA'
-   testRuntime group: 'com.google.collections', name: 'google-collections', version: '1.0'
-   testRuntime group: 'org.jboss.interceptor', name: 'jboss-interceptor-api', version: '1.1'
-   testRuntime group: 'org.jboss.interceptor', name: 'jboss-interceptor', version: '1.0.0-CR11'
-   testRuntime group: 'org.slf4j', name: 'slf4j-ext', version: '1.5.10'
-   testRuntime group: 'ch.qos.cal10n', name: 'cal10n-api', version: '0.7.2'
-   testRuntime group: 'org.slf4j', name: 'slf4j-api', version: '1.5.10'
-   testRuntime group: 'org.jboss.weld', name: 'weld-api', version: '1.0-SP1'
-   testRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.5.8'
-   testRuntime group: 'log4j', name: 'log4j', version: '1.2.14'
-   testRuntime group: 'javax.el', name: 'el-api', version: '2.2'
+task glassfishEmbeddedTest(type: Test) {
+   testClassesDir = sourceSets.glassfishEmbeddedTest.classesDir
+   classpath = sourceSets.glassfishEmbeddedTest.runtimeClasspath
 }
