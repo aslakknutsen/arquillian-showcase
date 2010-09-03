@@ -1,4 +1,6 @@
 .classpath
+.gradle/
+.ivy/
 .project
 .settings/
 target/
