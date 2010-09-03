@@ -5,17 +5,19 @@
       revision="1.0.0-SNAPSHOT">
    </info>
    <configurations>
-		<conf name="default" visibility="public" description="runtime dependencies and master artifact can be used with this conf" extends="runtime,master"/>
-		<conf name="master" visibility="public" description="contains only the artifact published by this module itself, with no transitive dependencies"/>
+      <conf name="default" visibility="public" description="runtime dependencies and master artifact can be used with this conf" extends="runtime,master"/>
+      <conf name="master" visibility="public" description="contains only the artifact published by this module itself, with no transitive dependencies"/>
       <conf name="compile" visibility="public" description="this is the default scope, used if none is specified. Compile dependencies are available in all classpaths."/>
+      <conf name="compile-only" visibility="public" description="this is the default scope, used if none is specified. Compile dependencies are available in all classpaths." extends="compile"/>
       <conf name="provided" visibility="public" description="this is much like compile, but indicates you expect the JDK or a container to provide it. It is only available on the compilation classpath, and is not transitive."/>
       <conf name="runtime" visibility="public" description="this scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath." extends="compile"/>
       <conf name="test" visibility="public" description="this scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath." extends="runtime"/>
-      <conf name="test-weld-embedded" visibility="private" description="this scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases." extends="test"/>
-      <conf name="test-jbossas-remote" visibility="private" description="this scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases." extends="test"/>
+      <conf name="test-weld-embedded" visibility="private" description="This scope is for executing Arquillian tests in Weld Embedded" extends="test"/>
+      <conf name="test-jbossas-remote" visibility="private" description="This scope is for executing Arquillian tests on a remote JBoss AS instance" extends="test"/>
+      <conf name="test-glassfish-embedded" visibility="private" description="This scope is for executing Arquillian tests in Embedded GlassFish" extends="test"/>
    </configurations>
    <dependencies>
-      <dependency org="org.jboss.spec" name="jboss-javaee-6.0" rev="1.0.0.Beta7" force="true" conf="compile->compile(*)">
+      <dependency org="org.jboss.spec" name="jboss-javaee-6.0" rev="1.0.0.Beta7" force="true" conf="compile-only->compile(*)">
          <artifact name="jboss-javaee-6.0" type="pom" ext="pom" conf=""/>
       </dependency>
       <dependency org="org.jboss.arquillian" name="arquillian-junit" rev="1.0.0.Alpha3" force="true" conf="test->default(*)"/>
@@ -30,5 +32,7 @@
       <dependency org="org.jboss.jbossas" name="jboss-as-client" rev="6.0.0.20100721-M4" force="true" conf="test-jbossas-remote->default(*)">
          <artifact name="jboss-as-client" type="pom" ext="pom" conf=""/>
       </dependency>
+      <dependency org="org.jboss.arquillian.container" name="arquillian-glassfish-embedded-3" rev="1.0.0.Alpha3" force="true" conf="test-glassfish-embedded->default(*)"/>
+      <dependency org="org.glassfish.extras" name="glassfish-embedded-all" rev="3.0.1-b20" force="true" conf="test-glassfish-embedded->default(*)"/>
    </dependencies>
 </ivy-module>

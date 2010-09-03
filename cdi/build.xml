@@ -76,8 +76,8 @@
    <!-- ====================================================================== -->
 
    <target name="compile" depends="init" description="Compile the code">
-      <ivy:resolve conf="compile"/>
-      <ivy:cachepath pathid="build.classpath" conf="compile"/>
+      <ivy:resolve conf="compile-only"/>
+      <ivy:cachepath pathid="build.classpath" conf="compile-only"/>
       <mkdir dir="${project.build.outputDirectory}"/>
       <javac destdir="${project.build.outputDirectory}"
              nowarn="true"
@@ -119,6 +119,7 @@
             <pathelement location="${project.testSource.directory}"/>
          </src>
          <classpath>
+            <path refid="build.classpath"/>
             <path refid="build.test.classpath"/>
             <pathelement location="${project.build.outputDirectory}"/>
          </classpath>
@@ -138,11 +139,11 @@
 
    <target name="test-weld-embedded"
            depends="compile-tests"
-           description="Run the test cases on Weld embedded">
+           description="Run the test cases on Weld Embedded">
       <mkdir dir="${project.test.reportsOutputDirectory}"/>
       <ivy:resolve conf="test-weld-embedded"/>
       <ivy:cachepath pathid="build.test.classpath.weld-embedded" conf="test-weld-embedded"/>
-      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" dir=".">
+      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
          <sysproperty key="basedir" value="."/>
          <formatter type="xml"/>
          <formatter type="plain" usefile="${project.test.useFile}"/>
@@ -170,16 +171,48 @@
 
    <target name="test-jbossas-remote"
            depends="compile-tests"
-           description="Run the test cases on JBoss AS remote">
+           description="Run the test cases on a remote JBoss AS instance">
       <mkdir dir="${project.test.reportsOutputDirectory}"/>
       <ivy:resolve conf="test-jbossas-remote"/>
       <ivy:cachepath pathid="build.test.classpath.jbossas-remote" conf="test-jbossas-remote"/>
-      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" dir=".">
+      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
          <sysproperty key="basedir" value="."/>
          <formatter type="xml"/>
          <formatter type="plain" usefile="${project.test.useFile}"/>
          <classpath>
             <path refid="build.test.classpath.jbossas-remote"/>
+            <pathelement location="${project.build.outputDirectory}"/>
+            <pathelement location="${project.build.testOutputDirectory}"/>
+         </classpath>
+         <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
+            <fileset dir="${project.testSource.directory}">
+               <include name="**/Test*.java"/>
+               <include name="**/*Test.java"/>
+               <include name="**/*TestCase.java"/>
+               <exclude name="**/*Abstract*Test.java"/>
+            </fileset>
+         </batchtest>
+         <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
+            <fileset dir="${project.testSource.directory}">
+               <include name="**/${test}.java"/>
+               <exclude name="**/*Abstract*Test.java"/>
+            </fileset>
+         </batchtest>
+      </junit>
+   </target>
+
+   <target name="test-glassfish-embedded"
+           depends="compile-tests"
+           description="Run the test cases on Embedded GlassFish">
+      <mkdir dir="${project.test.reportsOutputDirectory}"/>
+      <ivy:resolve conf="test-glassfish-embedded"/>
+      <ivy:cachepath pathid="build.test.classpath.glassfish-embedded" conf="test-glassfish-embedded"/>
+      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
+         <sysproperty key="basedir" value="."/>
+         <formatter type="xml"/>
+         <formatter type="plain" usefile="${project.test.useFile}"/>
+         <classpath>
+            <path refid="build.test.classpath.glassfish-embedded"/>
             <pathelement location="${project.build.outputDirectory}"/>
             <pathelement location="${project.build.testOutputDirectory}"/>
          </classpath>
