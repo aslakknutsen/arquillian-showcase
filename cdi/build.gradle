@@ -12,6 +12,7 @@ repositories {
    mavenRepo urls: 'http://repository.jboss.org/nexus/content/groups/public/'
    mavenRepo urls: 'http://repository.jboss.org/maven2/'
 }
+
 configurations {
    // remove compile inheritance to avoid complexities w/ container classpaths
    runtime.setExtendsFrom([] as Set)
@@ -48,15 +49,12 @@ dependencies {
 
 sourceSets {
    weldEmbeddedTest {
-      compileClasspath = sourceSets.main.classes
       runtimeClasspath = sourceSets.main.classes + configurations.weldEmbeddedTestRuntime
    }
    jbossasRemoteTest {
-      compileClasspath = sourceSets.main.classes
       runtimeClasspath = sourceSets.main.classes + configurations.jbossasRemoteTestRuntime
    }
    glassfishEmbeddedTest {
-      compileClasspath = sourceSets.main.classes
       runtimeClasspath = sourceSets.main.classes + configurations.glassfishEmbeddedTestRuntime
    }
 }
