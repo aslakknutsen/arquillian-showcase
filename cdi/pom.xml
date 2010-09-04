@@ -61,11 +61,6 @@
                <artifactId>log4j</artifactId>
              <version>1.2.14</version>
             </dependency>
-            <dependency>
-               <groupId>javax.el</groupId>
-               <artifactId>el-api</artifactId>
-               <version>2.2</version>
-            </dependency>
          </dependencies>
          <dependencyManagement>
             <dependencies>
@@ -92,6 +87,16 @@
                <type>pom</type>
             </dependency>
          </dependencies>
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-jbossas</directory>
+               </testResource>
+            </testResources>
+         </build>
       </profile>
       <profile>
          <id>openwebbeans</id>
