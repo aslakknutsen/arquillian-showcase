@@ -1,6 +1,6 @@
-apply plugin: 'java'
+apply plugin: JavaPlugin
 
-setBuildDir('target/gradle-build')
+buildDir = 'target/gradle-build'
 
 libraryVersions = [
    junit: '4.8.1', arquillian: '1.0.0.Alpha3', jbossJavaeeSpec: '1.0.0.Beta7', weld: '1.0.1-Final',
@@ -9,8 +9,8 @@ libraryVersions = [
 
 repositories {
    mavenCentral()
-   mavenRepo urls: 'http://repository.jboss.org/nexus/content/groups/public/'
-   mavenRepo urls: 'http://repository.jboss.org/maven2/'
+   mavenRepo urls: 'http://repository.jboss.org/nexus/content/groups/public'
+   mavenRepo urls: 'http://repository.jboss.org/nexus/content/repositories/deprecated'
 }
 
 configurations {
@@ -21,7 +21,7 @@ configurations {
 }
 
 dependencies {
-   // replace javax.enterprise:cdi-api with org.jboss.spec:jboss-javaee-6.0 if you need to compile against full Java EE API
+   // replace javax.enterprise:cdi-api with group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec to compile against full Java EE API
    compileOnly group: 'javax.enterprise', name: 'cdi-api', version: libraryVersions.cdi
 
    testCompile group: 'junit', name: 'junit', version: libraryVersions.junit
