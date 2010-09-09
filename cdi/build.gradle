@@ -3,12 +3,14 @@ apply plugin: JavaPlugin
 buildDir = 'target/gradle-build'
 
 libraryVersions = [
-   junit: '4.8.1', arquillian: '1.0.0.Alpha3', jbossJavaeeSpec: '1.0.0.Beta7', weld: '1.0.1-Final',
+   junit: '4.8.1', arquillian: '1.0.0.Alpha4', jbossJavaeeSpec: '1.0.0.Beta7', weld: '1.0.1-Final',
    slf4j: '1.5.8', log4j: '1.2.14', jbossas: '6.0.0.20100721-M4', glassfish: '3.0.1-b20', cdi: '1.0-SP1'
 ]
 
 repositories {
    mavenCentral()
+   // enable if you want to use snapshots published locally
+   //mavenRepo urls: 'file://' + System.getProperty('user.home') + '/.m2/repository'
    mavenRepo urls: 'http://repository.jboss.org/nexus/content/groups/public'
    mavenRepo urls: 'http://repository.jboss.org/nexus/content/repositories/deprecated'
 }
@@ -27,7 +29,7 @@ dependencies {
    testCompile group: 'junit', name: 'junit', version: libraryVersions.junit
    testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: libraryVersions.arquillian
 
-   weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: libraryVersions.arquillian
+   weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: '1.0.0.Alpha3'
    weldEmbeddedTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
    weldEmbeddedTestRuntime group: 'org.jboss.weld', name: 'weld-core', version: libraryVersions.weld
    weldEmbeddedTestRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: libraryVersions.slf4j
@@ -50,17 +52,21 @@ sourceSets {
    }
 }
 
-task weldEmbeddedTest(type: Test) {
-   testClassesDir = sourceSets.test.classesDir
-   classpath = sourceSets.test.classes + sourceSets.main.classes + configurations.weldEmbeddedTestRuntime
+task weldEmbeddedTest(type: Test)
+
+task jbossasRemoteTest(type: Test)
+
+task glassfishEmbeddedTest(type: Test)
+
+tasks.withType(Test).matching({ t-> t.name.endsWith('Test') } as Spec).each { t ->
+   t.testClassesDir = sourceSets.test.classesDir
+   t.classpath = sourceSets.test.classes + sourceSets.main.classes + configurations[t.name + 'Runtime']
+   if (t.name.startsWith('jbossas')) {
+     t.classpath += files('src/test/resources-jbossas')
+   }
 }
 
-task jbossasRemoteTest(type: Test) {
-   testClassesDir = sourceSets.test.classesDir
-   classpath = sourceSets.test.classes + sourceSets.main.classes + files('src/test/resources-jbossas') + configurations.jbossasRemoteTestRuntime
-}
-
-task glassfishEmbeddedTest(type: Test) {
-   testClassesDir = sourceSets.test.classesDir
-   classpath = sourceSets.test.classes + sourceSets.main.classes + configurations.glassfishEmbeddedTestRuntime
+test {
+  dependsOn { weldEmbeddedTest }
+  setEnabled(false)
 }
