@@ -70,3 +70,8 @@ test {
   dependsOn { weldEmbeddedTest }
   setEnabled(false)
 }
+
+task generateWrapper(type: Wrapper) {
+   gradleVersion = '0.9-rc-1'
+   jarPath = 'gradle-wrapper'
+}

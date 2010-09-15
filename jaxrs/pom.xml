@@ -5,9 +5,9 @@
 
    <parent>
       <groupId>org.jboss.arquillian.showcase</groupId>
-      <artifactId>arquillian-showcase-profiles</artifactId>
+      <artifactId>arquillian-showcase-parent</artifactId>
       <version>1.0.0-SNAPSHOT</version>
-      <relativePath>../profiles/pom.xml</relativePath>
+      <relativePath>../parent/pom.xml</relativePath>
    </parent>
 
    <artifactId>arquillian-showcase-jaxrs</artifactId>

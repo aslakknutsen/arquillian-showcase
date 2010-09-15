@@ -5,10 +5,10 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.arquillian.showcase</groupId>
-   <artifactId>arquillian-showcase-profiles</artifactId>
+   <artifactId>arquillian-showcase-parent</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>pom</packaging>
-   <name>Arquillian Showcase: Profiles</name>
+   <name>Arquillian Showcase Parent</name>
    <url>http://jboss.org/arquillian</url>
    <description>Parent build for the Arquillian showcase</description>
 

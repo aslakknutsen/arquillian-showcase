@@ -8,11 +8,11 @@
    <version>1.0.0-SNAPSHOT</version>
    <packaging>pom</packaging>
    <name>Arquillian Showcase Aggregator</name>
-   <url>http://www.jboss.org/arquillian</url>
+   <url>http://jboss.org/arquillian</url>
    <description>Arquillian Showcase Aggregator</description>
 
    <modules>
-      <module>profiles</module>
+      <module>parent</module>
       <module>cdi</module>
       <module>ejb</module>
       <module>jms</module>
