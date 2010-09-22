@@ -19,6 +19,9 @@
    <profiles>
       <profile>
          <id>arq-jbossas-embedded</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
@@ -99,9 +102,6 @@
       </profile>
       <profile>
          <id>arq-jbossas-remote</id>
-         <activation>
-            <activeByDefault>true</activeByDefault>
-         </activation>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
