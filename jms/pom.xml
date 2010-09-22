@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!--
-  vi:ts=2:sw=2:expandtab:
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -19,13 +16,60 @@
 	<name>Arquillian Showcase: JMS</name>
 	<description>Examples that demonstrate how to test JMS destinations using Arquillian</description>
 
-	<properties>
-		<version.jbossas_60>6.0.0.20100721-M4</version.jbossas_60>
-	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian</groupId>
+			<artifactId>arquillian-junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>		
+	</dependencies>
 
 	<profiles>
 		<profile>
-			<id>embedded</id>
+			<id>arq-jbossas-remote</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-jbossas-remote-6</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.jbossas</groupId>
+					<artifactId>jboss-as-client</artifactId>
+					<type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+      <profile>
+         <id>arq-jbossas-managed</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-managed-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-client</artifactId>
+               <type>pom</type>
+               <scope>provided</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-server-manager</artifactId>
+               <version>${version.jbossas_server_manager}</version>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+      </profile>
+		<profile>
+			<id>arq-jbossas-embedded</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -107,36 +151,9 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
-			<id>integration</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-client</artifactId>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-		</profile>
 	</profiles>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian</groupId>
-			<artifactId>arquillian-junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>		
-	</dependencies>
-
+<!--
+vi:ts=3:sw=3:expandtab:
+-->
 </project>

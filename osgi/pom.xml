@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>org.jboss.arquillian.showcase</groupId>
+      <artifactId>arquillian-showcase-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../parent/pom.xml</relativePath>
+   </parent>
+
+   <artifactId>arquillian-showcase-osgi</artifactId>
+   <packaging>jar</packaging>
+   <name>Arquillian Showcase: OSGi</name>
+   <description>Examples that demonstrate how to test OSGI bundles using Arquillian</description>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.jboss.arquillian</groupId>
+         <artifactId>arquillian-junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+
+   <!-- not working
+   <build>
+      <plugins>
+         <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>bundles</id>
+                  <phase>test-compile</phase>
+                  <goals>
+                     <goal>directory-single</goal>
+                  </goals>
+                  <configuration>
+                     <finalName>test-libs</finalName>
+                     <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                     <appendAssemblyId>false</appendAssemblyId>
+                     <descriptors>
+                        <descriptor>assembly-bundles.xml</descriptor>
+                     </descriptors>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+   -->
+   
+   <profiles>
+      <profile>
+         <id>arq-osgi-embedded</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-osgi-embedded-4.2</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.arquillian.protocol</groupId>
+               <artifactId>arquillian-protocol-jmx</artifactId>
+               <version>${version.arquillian}</version>
+               <scope>provided</scope>
+            </dependency>
+            <dependency>
+               <groupId>javax.enterprise</groupId>
+               <artifactId>cdi-api</artifactId>
+               <version>1.0</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.osgi</groupId>
+               <artifactId>org.osgi.core</artifactId>
+               <version>4.2.0</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.osgi</groupId>
+               <artifactId>org.osgi.compendium</artifactId>
+               <version>4.2.0</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.osgi.framework</groupId>
+               <artifactId>jboss-osgi-framework-core</artifactId>
+               <version>1.0.0.Alpha6</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.osgi.resolver</groupId>
+               <artifactId>jbosgi-resolver-felix</artifactId>
+               <version>3.0.1</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.logging</groupId>
+               <artifactId>jboss-logging-log4j</artifactId>
+               <version>2.1.0.GA</version>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+      </profile>
+   </profiles>
+   
+<!--
+vi:ts=3:sw=3:expandtab:
+-->
+</project>

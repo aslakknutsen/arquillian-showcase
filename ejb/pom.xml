@@ -15,10 +15,6 @@
    <name>Arquillian Showcase: EJB</name>
    <description>Examples that demonstrate how to test EJB components using Arquillian</description>
 
-   <properties>
-      <version.glassfish>3.0.1-b20</version.glassfish>
-   </properties>
-
    <dependencies>
       <dependency>
          <groupId>javax.enterprise</groupId>
@@ -38,7 +34,7 @@
 
    <profiles>
       <profile>
-         <id>embedded</id>
+         <id>arq-openejb-embedded</id>
          <activation>
             <activeByDefault>true</activeByDefault>
          </activation>
@@ -52,9 +48,23 @@
                <artifactId>openejb-core</artifactId>
             </dependency>
          </dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<includes>
+								<include>com/acme/ejb/GreeterTestCase.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
       </profile>
+
       <profile>
-         <id>integration</id>
+         <id>arq-jbossas-remote</id>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
@@ -82,38 +92,30 @@
             </testResources>
          </build>
       </profile>
-      <profile>
-         <id>glassfish-embedded-3</id>
-         <dependencies>
-            <dependency>
-               <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-embedded-3</artifactId>
-               <version>${version.arquillian}</version>
-               <scope>test</scope>
-            </dependency>
-            <dependency>
-               <groupId>org.glassfish.extras</groupId>
-               <artifactId>glassfish-embedded-all</artifactId>
-               <version>${version.glassfish}</version>
-               <scope>provided</scope>
-            </dependency>
-         </dependencies>
-      </profile>
 
       <profile>
-         <id>glassfish-remote-3</id>
+         <id>arq-jbossas-managed</id>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-remote-3</artifactId>
-               <version>${version.arquillian}</version>
-               <scope>test</scope>
+               <artifactId>arquillian-jbossas-managed-6</artifactId>
             </dependency>
             <dependency>
-               <groupId>org.glassfish.extras</groupId>
-               <artifactId>glassfish-embedded-all</artifactId>
-               <version>${version.glassfish}</version>
+               <groupId>org.jboss.ejb3</groupId>
+               <artifactId>jboss-ejb3-api</artifactId>
+               <version>3.1.0</version>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-client</artifactId>
+               <type>pom</type>
                <scope>provided</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-server-manager</artifactId>
+               <version>${version.jbossas_server_manager}</version>
+               <scope>test</scope>
             </dependency>
          </dependencies>
          <build>
@@ -122,10 +124,38 @@
                   <directory>src/test/resources</directory>
                </testResource>
                <testResource>
-                  <directory>src/test/resources-glassfish-remote</directory>
+                  <directory>src/test/resources-jbossas</directory>
                </testResource>
             </testResources>
          </build>
+      </profile>
+
+      <profile>
+         <id>arq-glassfish-embedded</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-glassfish-embedded-3</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.glassfish.extras</groupId>
+               <artifactId>glassfish-embedded-all</artifactId>
+            </dependency>
+         </dependencies>
+      </profile>
+
+      <profile>
+         <id>arq-glassfish-remote</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-glassfish-remote-3</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.glassfish.extras</groupId>
+               <artifactId>glassfish-embedded-all</artifactId>
+            </dependency>
+         </dependencies>
       </profile>
 
    </profiles>

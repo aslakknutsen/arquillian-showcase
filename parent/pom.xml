@@ -13,12 +13,16 @@
    <description>Parent build for the Arquillian showcase</description>
 
    <properties>
-      <version.arquillian>1.0.0.Alpha3</version.arquillian>
+      <version.arquillian>1.0.0.Alpha4</version.arquillian>
+      <version.glassfish>3.0.1</version.glassfish>
       <version.jboss_ee6_spec>1.0.0.Beta7</version.jboss_ee6_spec>
       <version.jbossas_60>6.0.0.20100721-M4</version.jbossas_60>
-      <version.org.apache.openejb_openejb.core>3.1.2</version.org.apache.openejb_openejb.core>
-      <version.weld_core>1.0.1-Final</version.weld_core>
+      <version.jbossas_server_manager>1.0.3.GA</version.jbossas_server_manager>
       <version.junit>4.8.1</version.junit>
+      <version.openejb>3.1.2</version.openejb>
+      <version.openwebbeans>1.0.0-M4</version.openwebbeans>
+      <version.resteasy>2.0.1.GA</version.resteasy>
+      <version.weld>1.0.1-Final</version.weld>
    </properties>
 
    <repositories>
@@ -52,7 +56,6 @@
    <dependencyManagement>
       <dependencies>
          
-         <!-- Java EE spec -->
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
@@ -60,7 +63,6 @@
             <type>pom</type>
          </dependency>
 
-         <!-- Arquillian -->
          <dependency>
             <groupId>org.jboss.arquillian</groupId>
             <artifactId>arquillian-junit</artifactId>
@@ -81,7 +83,25 @@
          </dependency>
          <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-openwebbeans-embedded-1</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-osgi-embedded-4.2</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-jbossas-remote-6</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-jbossas-managed-6</artifactId>
             <version>${version.arquillian}</version>
             <scope>test</scope>
          </dependency>
@@ -98,13 +118,24 @@
             <scope>test</scope>
          </dependency>
          <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-glassfish-remote-3</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-glassfish-embedded-3</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
             <groupId>org.jboss.arquillian.framework</groupId>
             <artifactId>arquillian-framework-jsfunit</artifactId>
             <version>${version.arquillian}</version>
             <scope>test</scope>
          </dependency>
          
-         <!-- Containers -->
          <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-depchain</artifactId>
@@ -126,13 +157,19 @@
          <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>openejb-core</artifactId>
-            <version>${version.org.apache.openejb_openejb.core}</version>
+            <version>${version.openejb}</version>
          </dependency>
          <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-core-bom</artifactId>
-            <version>${version.weld_core}</version>
+            <version>${version.weld}</version>
             <type>pom</type>
+         </dependency>
+         <dependency>
+            <groupId>org.glassfish.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+            <version>${version.glassfish}</version>
+            <scope>provided</scope>
          </dependency>
 
          <dependency>
@@ -141,7 +178,6 @@
             <version>1.1.1</version>
          </dependency>
 
-         <!-- Test -->
          <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

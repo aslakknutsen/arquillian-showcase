@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <arquillian xmlns="http://jboss.com/arquillian"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:glassfish-remote="urn:arq:org.jboss.arquillian.container.glassfish.remote_3">
+   xmlns:glassfish-remote="urn:arq:org.jboss.arquillian.container.glassfish.remote_3"
+   xmlns:jbossas-managed="urn:arq:org.jboss.arquillian.container.jbossas.managed_6">
 
    <engine>
       <deploymentExportPath>target/</deploymentExportPath>
@@ -13,5 +14,11 @@
       <glassfish-remote:remoteServerAddress>localhost</glassfish-remote:remoteServerAddress>
       <glassfish-remote:remoteServerHttpPort>7070</glassfish-remote:remoteServerHttpPort>
    </glassfish-remote:container>
+
+   <!-- logThreshold in HEAD
+   <jbossas-managed:container>
+      <jbossas-managed:logThreshold>ERROR</jbossas-managed:logThreshold>
+   </jbossas-managed:container>
+   -->
 
 </arquillian>

@@ -1,148 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!--
-  vi:ts=2:sw=2:expandtab:
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<!-- Model Information -->
-	<modelVersion>4.0.0</modelVersion>
+   <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.jboss.arquillian.showcase</groupId>
-		<artifactId>arquillian-showcase-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../parent/pom.xml</relativePath>
-	</parent>
+   <parent>
+      <groupId>org.jboss.arquillian.showcase</groupId>
+      <artifactId>arquillian-showcase-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../parent/pom.xml</relativePath>
+   </parent>
 
-	<!-- Artifact Information  -->
-	<artifactId>arquillian-showcase-jsf</artifactId>
-	<packaging>jar</packaging>
-	<name>Arquillian Showcase: JSF</name>
-	<description>Examples that demonstrate how to test JSF pages using Arquillian and JSFUnit</description>
+   <artifactId>arquillian-showcase-jsf</artifactId>
+   <packaging>jar</packaging>
+   <name>Arquillian Showcase: JSF</name>
+   <description>Examples that demonstrate how to test JSF pages using Arquillian and JSFUnit</description>
 
-	<properties>
-		<version.jbossas_60>6.0.0.20100721-M4</version.jbossas_60>
-	</properties>
+   <profiles>
+      <profile>
+         <id>arq-jbossas-embedded</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-embedded-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-depchain</artifactId>
+               <version>${version.jbossas_60}</version>
+               <type>pom</type>
+            </dependency>
+         </dependencies>
+         <dependencyManagement>
+            <dependencies>
+               <dependency>
+                  <groupId>org.jboss.jbossas</groupId>
+                  <artifactId>jboss-as-depchain</artifactId>
+                  <version>${version.jbossas_60}</version>
+                  <type>pom</type>
+                  <scope>import</scope>
+               </dependency>
+            </dependencies>
+         </dependencyManagement>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <configuration>
+                     <additionalClasspathElements>
+                        <additionalClasspathElement>${project.build.directory}/jboss-${version.jbossas_60}/client/jbossws-native-client.jar</additionalClasspathElement>
+                        <!--
+                           Because jbossweb.sar contains shared web.xml, which must be
+                           visible from same CL as TomcatDeployer.class.getClassLoader
+                        -->
+                        <additionalClasspathElement>${project.build.directory}/jboss-${version.jbossas_60}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
+                     </additionalClasspathElements>
 
-	<profiles>
-		<profile>
-			<id>embedded</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-embedded-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-depchain</artifactId>
-					<version>${version.jbossas_60}</version>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>org.jboss.jbossas</groupId>
-						<artifactId>jboss-as-depchain</artifactId>
-						<version>${version.jbossas_60}</version>
-						<type>pom</type>
-						<scope>import</scope>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<additionalClasspathElements>
-								<additionalClasspathElement>${project.build.directory}/jboss-${version.jbossas_60}/client/jbossws-native-client.jar</additionalClasspathElement>
-								<!--
-									Because jbossweb.sar contains shared web.xml, which must be
-									visible from same CL as TomcatDeployer.class.getClassLoader
-								-->
-								<additionalClasspathElement>${project.build.directory}/jboss-${version.jbossas_60}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
-							</additionalClasspathElements>
+                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                     <trimStackTrace>false</trimStackTrace>
+                     <printSummary>true</printSummary>
+                     <forkMode>once</forkMode>
 
-							<redirectTestOutputToFile>true</redirectTestOutputToFile>
-							<trimStackTrace>false</trimStackTrace>
-							<printSummary>true</printSummary>
-							<forkMode>once</forkMode>
+                     <!--
+                        MaxPermSize Required to bump the space for relective data like
+                        classes, methods, etc. EMB-41. Endorsed required for things like
+                        WS support (EMB-61)
+                     -->
+                     <argLine>-Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djava.endorsed.dirs=${project.build.directory}/jboss-${version.jbossas_60}/lib/endorsed -Djboss.home=${project.build.directory}/jboss-${version.jbossas_60} -Djboss.boot.server.log.dir=${project.build.directory}/jboss-${version.jbossas_60} -Dorg.jboss.reflect.spi.TypeInfoFactory=org.jboss.reflect.plugins.introspection.IntrospectionTypeInfoFactory</argLine>
+                  </configuration>
+               </plugin>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-dependency-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>unpack</id>
+                        <phase>process-test-classes</phase> <!-- So run before testing -->
+                        <goals>
+                           <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                           <artifactItems>
+                              <artifactItem>
+                                 <groupId>org.jboss.jbossas</groupId>
+                                 <artifactId>jboss-as-distribution</artifactId>
+                                 <version>${version.jbossas_60}</version>
+                                 <type>zip</type>
+                                 <overWrite>false</overWrite>
+                                 <outputDirectory>${project.build.directory}</outputDirectory>
+                              </artifactItem>
+                           </artifactItems>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+      <profile>
+         <id>arq-jbossas-remote</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-remote-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-client</artifactId>
+               <type>pom</type>
+            </dependency>
+         </dependencies>
+      </profile>
+   </profiles>
 
-							<!--
-								MaxPermSize Required to bump the space for relective data like
-								classes, methods, etc. EMB-41. Endorsed required for things like
-								WS support (EMB-61)
-							-->
-							<argLine>-Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djava.endorsed.dirs=${project.build.directory}/jboss-${version.jbossas_60}/lib/endorsed -Djboss.home=${project.build.directory}/jboss-${version.jbossas_60} -Djboss.boot.server.log.dir=${project.build.directory}/jboss-${version.jbossas_60} -Dorg.jboss.reflect.spi.TypeInfoFactory=org.jboss.reflect.plugins.introspection.IntrospectionTypeInfoFactory</argLine>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>unpack</id>
-								<phase>process-test-classes</phase> <!-- So run before testing -->
-								<goals>
-									<goal>unpack</goal>
-								</goals>
-								<configuration>
-									<artifactItems>
-										<artifactItem>
-											<groupId>org.jboss.jbossas</groupId>
-											<artifactId>jboss-as-distribution</artifactId>
-											<version>${version.jbossas_60}</version>
-											<type>zip</type>
-											<overWrite>false</overWrite>
-											<outputDirectory>${project.build.directory}</outputDirectory>
-										</artifactItem>
-									</artifactItems>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>integration</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-client</artifactId>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
+   <dependencies>
+      <dependency>
+         <groupId>org.jboss.spec</groupId>
+         <artifactId>jboss-javaee-6.0</artifactId>
+         <type>pom</type>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.arquillian</groupId>
+         <artifactId>arquillian-junit</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.arquillian.framework</groupId>
+         <artifactId>arquillian-framework-jsfunit</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+      </dependency>
+   </dependencies>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian</groupId>
-			<artifactId>arquillian-junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.framework</groupId>
-			<artifactId>arquillian-framework-jsfunit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>		
-	</dependencies>
-
+<!--
+vi:ts=3:sw=3:expandtab:
+-->
 </project>

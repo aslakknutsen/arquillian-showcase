@@ -31,17 +31,13 @@
       -->
       <jboss.home>${env.JBOSS_HOME}</jboss.home>
       <jboss.domain>default</jboss.domain>
-      <!-- The version of Weld extensions in use -->
-      <jboss-javaee6-spec.version>1.0.0.Beta7</jboss-javaee6-spec.version>
-      <arquillian.version>1.0.0.Alpha3</arquillian.version>
-      <weld.version>1.0.1-Final</weld.version>
    </properties>
 
    <dependencies>
       <dependency>
          <groupId>org.jboss.spec</groupId>
          <artifactId>jboss-javaee-6.0</artifactId>
-         <version>${jboss-javaee6-spec.version}</version>
+         <version>${version.jboss_ee6_spec}</version>
          <type>pom</type>
          <scope>provided</scope>
          <exclusions>
@@ -66,7 +62,7 @@
       <dependency>
          <groupId>org.jboss.resteasy</groupId>
          <artifactId>resteasy-cdi</artifactId>
-         <version>2.0.1.GA</version>
+         <version>${version.resteasy}</version>
          <exclusions>
             <exclusion>
                <groupId>org.jboss.resteasy</groupId>
@@ -97,7 +93,7 @@
       <dependency>
          <groupId>org.jboss.resteasy</groupId>
          <artifactId>resteasy-jaxrs</artifactId>
-         <version>2.0.1.GA</version>
+         <version>${version.resteasy}</version>
          <scope>test</scope>
       </dependency>
 
@@ -154,7 +150,7 @@
 
    <profiles>
       <profile>
-         <id>embedded</id>
+         <id>default</id>
          <activation>
             <activeByDefault>true</activeByDefault>
          </activation>
@@ -170,7 +166,7 @@
          </build>
       </profile>
       <profile>
-         <id>glassfish-embedded-3</id>
+         <id>arq-glassfish-embedded</id>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
@@ -215,7 +211,7 @@
          </build>
       </profile>
       <profile>
-         <id>integration</id>
+         <id>arq-jbossas-remote</id>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
