@@ -24,7 +24,13 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-      </dependency>      
+      </dependency>
+      <dependency>
+         <groupId>org.hamcrest</groupId>
+         <artifactId>hamcrest-core</artifactId>
+         <version>1.2</version>
+         <scope>test</scope>
+      </dependency>
    </dependencies>
    
    <profiles>
@@ -92,6 +98,43 @@
                <groupId>org.jboss.jbossas</groupId>
                <artifactId>jboss-as-client</artifactId>
                <type>pom</type>
+            </dependency>
+         </dependencies>
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-jbossas</directory>
+               </testResource>
+            </testResources>
+         </build>
+      </profile>
+
+      <profile>
+         <id>arq-jbossas-managed</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-managed-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.spec</groupId>
+               <artifactId>jboss-javaee-6.0</artifactId>
+               <type>pom</type>         
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-client</artifactId>
+               <type>pom</type>
+               <scope>provided</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-server-manager</artifactId>
+               <version>${version.jbossas_server_manager}</version>
+               <scope>test</scope>
             </dependency>
          </dependencies>
          <build>

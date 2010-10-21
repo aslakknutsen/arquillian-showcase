@@ -1,6 +1,7 @@
 package com.acme.cdi.measurement;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 import javax.inject.Inject;
 
@@ -30,15 +31,15 @@ public class TemperatureConverterTestCase
    @Test
    public void testConvertToCelsius()
    {
-      assertEquals(converter.convertToCelsius(32d), 0d, 0d);
-      assertEquals(converter.convertToCelsius(212d), 100d, 0d);
+      assertThat(converter.convertToCelsius(32d), equalTo(0d));
+      assertThat(converter.convertToCelsius(212d), equalTo(100d));
    }
 
    @Test
    public void testConvertToFarenheit()
    {
-      assertEquals(converter.convertToFarenheit(0d), 32d, 0d);
-      assertEquals(converter.convertToFarenheit(100d), 212d, 0d);
+      assertThat(converter.convertToFarenheit(0d), equalTo(32d));
+      assertThat(converter.convertToFarenheit(100d), equalTo(212d));
    }
 
 }

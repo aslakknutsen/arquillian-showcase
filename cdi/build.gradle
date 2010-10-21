@@ -27,6 +27,7 @@ dependencies {
    compileOnly group: 'javax.enterprise', name: 'cdi-api', version: libraryVersions.cdi
 
    testCompile group: 'junit', name: 'junit', version: libraryVersions.junit
+   testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.2'
    testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: libraryVersions.arquillian
 
    weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: '1.0.0.Alpha3'
