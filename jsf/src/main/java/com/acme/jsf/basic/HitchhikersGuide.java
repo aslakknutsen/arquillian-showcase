@@ -20,17 +20,46 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package com.acme.jsf;
+package com.acme.jsf.basic;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.ProjectStage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
-/**
- * @author Stan Silvert
- * @since 1.0
- */
-@ManagedBean(name = "requestBean")
 @RequestScoped
-public class RequestScopedBean extends ManagedBeanScopeAware 
+@ManagedBean(name = "hitchhikersGuide")
+public class HitchhikersGuide
 {
+   private String ultimateAnswer;
+   
+   @ManagedProperty(value = "#{facesContext.application.projectStage}")
+   private ProjectStage journeyStage;
+
+   public String getUltimateAnswer()
+   {
+      return ultimateAnswer;
+   }
+
+   public void setUltimateAnswer(String ultimateAnswer)
+   {
+      this.ultimateAnswer = ultimateAnswer;
+   }
+   
+   public ProjectStage getJourneyStage()
+   {
+      return journeyStage;
+   }
+
+   public void setJourneyStage(ProjectStage journeyStage)
+   {
+      this.journeyStage = journeyStage;
+   }
+
+   @PostConstruct
+   public void findUltimateAnswerToUltimateQuestion()
+   {
+      ultimateAnswer = "42";
+   }
 }

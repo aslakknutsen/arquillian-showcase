@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.acme.jsf;
+package com.acme.jsf.basic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -28,29 +28,21 @@ import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * JSFUnitTestCase
- *
- * @author <a href="mailto:aslak@conduct.no">Aslak Knutsen</a>
- * @version $Revision: $
- */
 @RunWith(Arquillian.class)
-public class JSFUnitTestCase
+public class BasicJSFUnitTestCase
 {
    @Deployment
    public static Archive<?> createDeployment()
    {
-      return ShrinkWrap.create(WebArchive.class ,"test.war")
-            .addClasses(RequestScopedBean.class, ManagedBeanScopeAware.class)
-            .setWebXML("jsf/jsf-web.xml")
-            .addResource("jsf/index.xhtml", "index.xhtml")
-            .addWebResource("jsf/faces-config.xml", "faces-config.xml")
-            .addWebResource(EmptyAsset.INSTANCE, "beans.xml");
+      return ShrinkWrap.create(WebArchive.class, "test.war")
+            .addClass(HitchhikersGuide.class)
+            .addResource("basic/index.xhtml", "index.xhtml")
+            .addWebResource("common/faces-config.xml", "faces-config.xml")
+            .setWebXML("common/jsf-web.xml");
    }
 
    @Test
@@ -76,7 +68,8 @@ public class JSFUnitTestCase
 
       JSFServerSession server = jsfSession.getJSFServerSession();
 
-      assertEquals("request", server.getManagedBeanValue("#{requestBean.scope}"));
+      assertEquals("42", server.getManagedBeanValue("#{hitchhikersGuide.ultimateAnswer}"));
+      assertEquals(ProjectStage.Development, server.getManagedBeanValue("#{hitchhikersGuide.journeyStage}"));
       assertEquals(ProjectStage.Development, server.getFacesContext().getApplication().getProjectStage());
    }
 }
