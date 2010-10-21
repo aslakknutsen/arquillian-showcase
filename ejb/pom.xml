@@ -53,10 +53,12 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
+                  <version>2.6</version>
 						<configuration>
-							<includes>
-								<include>com/acme/ejb/GreeterTestCase.java</include>
-							</includes>
+							<excludes>
+								<exclude>com/acme/ejb/TemperatureConverterTestCase.java</exclude>
+                        <exclude>com/acme/ejb/calc/MortgageCalculatorEnvEntryTestCase.java</exclude>
+							</excludes>
 						</configuration>
 					</plugin>
 				</plugins>
