@@ -53,7 +53,7 @@ public class GamePersistenceTestCase
    {
       return ShrinkWrap.create(WebArchive.class, "test.war")
             .addPackage(Game.class.getPackage())
-            .addWebResource("test-persistence.xml", "classes/META-INF/persistence.xml")
+            .addManifestResource("test-persistence.xml", "persistence.xml")
             .addWebResource(EmptyAsset.INSTANCE, "beans.xml");
    }
    
@@ -91,7 +91,7 @@ public class GamePersistenceTestCase
       utx.begin();
       em.joinTransaction();
       System.out.println("Selecting (using JPQL)...");
-      games = em.createQuery("select g from Game g order by g.id").getResultList();
+      games = em.createQuery("select g from Game g order by g.id", Game.class).getResultList();
       System.out.println("Found " + games.size() + " games (using JPQL)");
       assertEquals(GAME_TITLES.length, games.size());
       for (int i = 0; i < GAME_TITLES.length; i++) {
