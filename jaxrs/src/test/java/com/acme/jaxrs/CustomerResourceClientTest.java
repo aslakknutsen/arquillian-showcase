@@ -34,7 +34,7 @@ public class CustomerResourceClientTest
       return ShrinkWrap.create(WebArchive.class, "test.war")
             .addPackage(Customer.class.getPackage())
             .addClasses(EntityManagerProducer.class, CustomerResource.class)
-            .addWebResource("test-persistence.xml", "classes/META-INF/persistence.xml")
+            .addManifestResource("test-persistence.xml", "persistence.xml")
             .addWebResource("import.sql", "classes/import.sql")
             
             // enable to activate JAX-RS 1.1 on compliant containers
