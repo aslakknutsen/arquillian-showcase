@@ -17,6 +17,7 @@
       <module>ejb</module>
       <module>jms</module>
       <module>jpa</module>
+      <module>jpa-lite</module>
       <module>jaxrs</module>
       <module>jsf</module>
    </modules>
