@@ -3,6 +3,27 @@
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
    version="3.0">
 
+    <filter>
+      <filter-name>JSFUnitCleanupTestTreadFilter</filter-name>
+      <filter-class>org.jboss.arquillian.framework.jsfunit.JSFUnitCleanupTestTreadFilter</filter-class>
+    </filter>
+
+    <filter>
+      <filter-name>JSFUnitFilter</filter-name>
+      <filter-class>org.jboss.jsfunit.framework.JSFUnitFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+      <filter-name>JSFUnitCleanupTestTreadFilter</filter-name>
+      <url-pattern>/ArquillianServletRunner</url-pattern>
+    </filter-mapping>    
+
+    <filter-mapping>
+      <filter-name>JSFUnitFilter</filter-name>
+      <url-pattern>/ArquillianServletRunner</url-pattern>
+    </filter-mapping>    
+
+
    <context-param>
       <param-name>javax.faces.PROJECT_STAGE</param-name>
       <param-value>Development</param-value>
