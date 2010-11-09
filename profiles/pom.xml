@@ -21,10 +21,10 @@
 
 		<!-- Versioning -->
 		<version.jboss_ee6_spec>1.0.0.Beta7</version.jboss_ee6_spec>
-		<version.arquillian>1.0.0.Alpha3</version.arquillian>
-		<version.jboss_60>6.0.0.20100721-M4</version.jboss_60>
+		<version.arquillian>1.0.0.Alpha4</version.arquillian>
+		<version.jboss_60>6.0.0.20100911-M5</version.jboss_60>
 		<version.org.apache.openejb_openejb.core>3.1.2</version.org.apache.openejb_openejb.core>
-		<version.weld_core>1.0.1-SP4</version.weld_core>
+		<version.weld_core>1.1.0.Beta1</version.weld_core>
 		<version.junit>4.8.1</version.junit>
 	</properties>
 
