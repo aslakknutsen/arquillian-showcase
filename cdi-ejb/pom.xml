@@ -132,8 +132,23 @@
             </dependency>
          </dependencies>
       </profile>
+
+      <profile>
+         <id>arq-glassfish-remote</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-glassfish-remote-3</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.glassfish.extras</groupId>
+               <artifactId>glassfish-embedded-all</artifactId>
+            </dependency>
+         </dependencies>
+      </profile>
+
    </profiles>
-   
+
 <!--
 vi:ts=3:sw=3:expandtab:
 -->
