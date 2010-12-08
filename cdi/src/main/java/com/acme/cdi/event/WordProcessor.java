@@ -1,6 +1,8 @@
 package com.acme.cdi.event;
 
 import javax.enterprise.event.Event;
+import javax.enterprise.inject.Default;
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Inject;
 
 public class WordProcessor
@@ -22,6 +24,11 @@ public class WordProcessor
    public void close()
    {
       document = null;
+   }
+   
+   public void printUnknownSize(Document document)
+   {
+      documentEvent.select(new AnnotationLiteral<Default>() {}).fire(document);
    }
    
    public void print()

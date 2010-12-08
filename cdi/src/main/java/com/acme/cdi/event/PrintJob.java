@@ -5,8 +5,9 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Qualifier;
 
-@Qualifier
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
+@Qualifier
 public @interface PrintJob
 {
    JobSize value();

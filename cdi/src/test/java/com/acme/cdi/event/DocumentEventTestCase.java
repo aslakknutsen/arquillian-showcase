@@ -33,6 +33,7 @@ public class DocumentEventTestCase
    {
       processor.create(5);
       processor.print();
+      assertEquals(1, spool.getNumDocumentsSent());
       assertNotNull(spool.getDocumentsProcessed());
       assertEquals(1, spool.getDocumentsProcessed().size());
       assertEquals(1, spool.getDocumentsProcessed(JobSize.MEDIUM).size());
@@ -40,8 +41,19 @@ public class DocumentEventTestCase
       
       processor.create(100);
       processor.print();
+      assertEquals(2, spool.getNumDocumentsSent());
       assertNotNull(spool.getDocumentsProcessed());
       assertEquals(2, spool.getDocumentsProcessed().size());
       assertEquals(1, spool.getDocumentsProcessed(JobSize.LARGE).size());
+      processor.close();
+      
+      try
+      {
+         processor.printUnknownSize(new Document(25));
+      }
+      catch (Exception e)
+      {
+         assertEquals(3, spool.getNumDocumentsSent());
+      }
    }
 }

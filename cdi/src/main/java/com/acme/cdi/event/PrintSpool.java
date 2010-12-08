@@ -8,15 +8,25 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Default;
 
 @RequestScoped
 public class PrintSpool
 {
    private Map<JobSize, List<Document>> documents;
    
+   private int numDocumentsSent = 0;
+   
    public void onPrint(@Observes Document document)
    {
+      numDocumentsSent++;
       System.out.println("A document is headed to the print spool!");
+   }
+   
+   public void onPrintUnknownSize(@Observes @Default Document document)
+   {
+      System.out.println("Can't accept a document of unknown size");
+      throw new IllegalArgumentException("Cannot print unknown document size");
    }
    
    public void onLargePrint(@Observes @PrintJob(JobSize.LARGE) Document document)
@@ -40,6 +50,11 @@ public class PrintSpool
    public List<Document> getDocumentsProcessed(JobSize withSize)
    {
       return documents.get(withSize);
+   }
+   
+   public int getNumDocumentsSent()
+   {
+      return numDocumentsSent;
    }
    
    public List<Document> getDocumentsProcessed()
