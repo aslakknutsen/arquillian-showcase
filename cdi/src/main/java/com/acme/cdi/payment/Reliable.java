@@ -16,15 +16,14 @@
  */
 package com.acme.cdi.payment;
 
-import javax.enterprise.context.RequestScoped;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@Synchronous
-@Reliable
-@RequestScoped
-public class SynchronousPaymentProcessor implements PaymentProcessor {
+import javax.inject.Qualifier;
 
-   public void process(double payment) 
-   {  
-	   
-   }
-}
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+public @interface Reliable {}
