@@ -30,7 +30,7 @@ public class PacketSendReceiveTest
    public static Archive<?> createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClasses(Packet.class, PacketSender.class, PacketReceiver.class)
+            .addClasses(Packet.class, PacketSender.class, PacketReceiver.class, Tracer.class)
             .addManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
@@ -43,9 +43,8 @@ public class PacketSendReceiveTest
       sender.send(packet);
       assertTrue(packet.isReceived());
       
-      // Assertions failing on Weld 1.0.1 SP4 (JBoss AS 6.0.0 M4)
-//      assertEquals(packet.getNumberTimesReceived(), 1);
-//      assertNull(packet.getReceiver());
+      assertEquals(1, packet.getNumberTimesReceived());
+      assertNull(packet.getReceiver());
    }
 
    @Test
@@ -57,8 +56,7 @@ public class PacketSendReceiveTest
       sender.sendTracer(packet);
       assertTrue(packet.isReceived());
       
-      // Assertions failing on Weld 1.0.1 SP4 (JBoss AS 6.0.0 M4)
-//      assertEquals(packet.getNumberTimesReceived(), 1);
-//      assertTrue(packet.getReceiver() instanceof PacketReceiver);
+      assertEquals(1, packet.getNumberTimesReceived());
+      assertTrue(packet.getReceiver() instanceof PacketReceiver);
    }
 }

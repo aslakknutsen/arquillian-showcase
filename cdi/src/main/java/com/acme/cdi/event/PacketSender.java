@@ -7,13 +7,13 @@ import javax.inject.Inject;
 public class PacketSender
 {
    @Inject @Default
-   private Event<Packet> packetEventSrc;
+   private Event<Packet> defaultPacketEventSrc;
    
    @Inject @Tracer
    private Event<Packet> tracerPacketEventSrc;
       
    public void send(Packet packet) {
-      packetEventSrc.fire(packet);
+      defaultPacketEventSrc.fire(packet);
    }
    
    public void sendTracer(Packet packet) {
