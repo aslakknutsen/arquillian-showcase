@@ -83,8 +83,8 @@ public class ConferenceCalendarUiTestCase
       assertEquals(1, conferences.size());
       Conference conference = conferences.get(0);
       assertEquals("Devoxx", conference.getTitle());
-      assertEquals(buildDate(2010, 11, 15).toString(), conference.getStartDate().toString());
-      assertEquals(buildDate(2010, 11, 19).toString(), conference.getEndDate().toString());
+      assertEquals(buildDate(2010, 11, 15).toString(), buildDate(conference.getStartDate()).toString());
+      assertEquals(buildDate(2010, 11, 19).toString(), buildDate(conference.getEndDate()).toString());
       assertEquals("Metropolis, Antwerp, Belgium", conference.getLocation());
       assertEquals("Java", conference.getTopic());
     
@@ -103,5 +103,12 @@ public class ConferenceCalendarUiTestCase
       Calendar cal = Calendar.getInstance();
       cal.set(year, month - 1, date, 0, 0, 0);
       return cal.getTime();
+   }
+
+   private Date buildDate(Date date)
+   {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(date);
+      return buildDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
    }
 }
