@@ -92,16 +92,4 @@ public class MessageDrivenBeanEchoTestCase
          }
       }
    }
-   
-//   private void flushDLQ(Session session)
-//   {
-//      try
-//      {
-//         MessageConsumer gc = session.createConsumer(dlq);
-//         while (gc.receiveNoWait() != null) {
-//            System.out.println("Found message on DLQ");
-//         }
-//      }
-//      catch (Exception e) {}
-//   }
 }
