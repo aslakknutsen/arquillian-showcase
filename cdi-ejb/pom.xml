@@ -63,9 +63,6 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
                   <version>2.6</version>
-						<configuration>
-                     <skipTests>true</skipTests>
-						</configuration>
 					</plugin>
 				</plugins>
             <testResources>
@@ -143,6 +140,62 @@
             <dependency>
                <groupId>org.glassfish.extras</groupId>
                <artifactId>glassfish-embedded-all</artifactId>
+            </dependency>
+         </dependencies>
+      </profile>
+
+      <profile>
+         <id>arq-glassfish-rest</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+               <version>1.0.0-SNAPSHOT</version>
+               <scope>test</scope>
+            </dependency>
+            <!-- temporary while linking against snapshot -->
+            <dependency>
+               <groupId>org.jboss.arquillian.protocol</groupId>
+               <artifactId>arquillian-protocol-servlet-3</artifactId>
+               <version>${version.arquillian}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.arquillian.testenricher</groupId>
+               <artifactId>arquillian-testenricher-cdi</artifactId>
+               <version>${version.arquillian}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.arquillian.testenricher</groupId>
+               <artifactId>arquillian-testenricher-ejb</artifactId>
+               <version>${version.arquillian}</version>
+               <scope>test</scope>
+            </dependency>
+            <!-- end temporary -->
+            <dependency>
+               <groupId>org.jboss.arquillian.testenricher</groupId>
+               <artifactId>arquillian-testenricher-resource</artifactId>
+               <version>${version.arquillian}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.spec</groupId>
+               <artifactId>jboss-javaee-6.0</artifactId>
+               <type>pom</type>
+               <scope>provided</scope>
+            </dependency>
+            <dependency>
+               <groupId>com.sun.jersey</groupId>
+               <artifactId>jersey-bundle</artifactId>
+               <version>1.5</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>com.sun.jersey.contribs</groupId>
+               <artifactId>jersey-multipart</artifactId>
+               <version>1.5</version>
+               <scope>test</scope>
             </dependency>
          </dependencies>
       </profile>

@@ -77,6 +77,12 @@
                <artifactId>jboss-ejb3-api</artifactId>
                <version>3.1.0</version>
             </dependency>
+            <!-- cdi api needed for arquillian to function -->
+            <dependency>
+               <groupId>javax.enterprise</groupId>
+               <artifactId>cdi-api</artifactId>
+               <version>1.0-SP4</version>
+            </dependency>
             <dependency>
                <groupId>org.jboss.jbossas</groupId>
                <artifactId>jboss-as-client</artifactId>

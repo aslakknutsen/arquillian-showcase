@@ -29,24 +29,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class GreeterTestCase
+public class GreeterManagedBeanTestCase
 {
-   // @formatter:off
    @Deployment
    public static Archive<?> createDeployment() {
-      return ShrinkWrap.create(JavaArchive.class).addClasses(Greeter.class)
+      return ShrinkWrap.create(JavaArchive.class).addClass(Greeter.class)
          .addManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
-   // @formatter:on
 
    @Inject
    Greeter greeter;
 
    @Test
-   public void shouldBeAbleGreetEarthlings() throws Exception
+   public void should_greet_earthlings() throws Exception
    {
-      String userName = "Earthlings";
-
-      Assert.assertEquals("Hello, " + userName, greeter.greet(userName));
+      String name = "Earthlings";
+      Assert.assertEquals("Hello, " + name, greeter.greet(name));
    }
 }
