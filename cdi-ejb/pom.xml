@@ -28,13 +28,6 @@
       <dependency>
          <groupId>org.hamcrest</groupId>
          <artifactId>hamcrest-core</artifactId>
-         <version>1.2</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-         <artifactId>shrinkwrap-descriptors-api</artifactId>
-         <version>1.0.0-alpha-1-SNAPSHOT</version>
       </dependency>
    </dependencies>
    
@@ -53,27 +46,10 @@
             </dependency>
             <dependency>
                <groupId>org.jboss.jbossas</groupId>
-               <artifactId>jboss-as-client</artifactId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
                <type>pom</type>
             </dependency>
          </dependencies>
-         <build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-                  <version>2.6</version>
-					</plugin>
-				</plugins>
-            <testResources>
-               <testResource>
-                  <directory>src/test/resources</directory>
-               </testResource>
-               <testResource>
-                  <directory>src/test/resources-jbossas</directory>
-               </testResource>
-            </testResources>
-         </build>
       </profile>
 
       <profile>
@@ -90,27 +66,14 @@
             </dependency>
             <dependency>
                <groupId>org.jboss.jbossas</groupId>
-               <artifactId>jboss-as-client</artifactId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
                <type>pom</type>
-               <scope>provided</scope>
             </dependency>
             <dependency>
                <groupId>org.jboss.jbossas</groupId>
                <artifactId>jboss-server-manager</artifactId>
-               <version>${version.jbossas_server_manager}</version>
-               <scope>test</scope>
             </dependency>
          </dependencies>
-         <build>
-            <testResources>
-               <testResource>
-                  <directory>src/test/resources</directory>
-               </testResource>
-               <testResource>
-                  <directory>src/test/resources-jbossas</directory>
-               </testResource>
-            </testResources>
-         </build>
       </profile>
 
       <profile>
@@ -121,7 +84,7 @@
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-embedded-3</artifactId>
+               <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
             </dependency>
             <dependency>
                <groupId>org.glassfish.extras</groupId>
@@ -135,73 +98,32 @@
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-remote-3</artifactId>
-            </dependency>
-            <dependency>
-               <groupId>org.glassfish.extras</groupId>
-               <artifactId>glassfish-embedded-all</artifactId>
-            </dependency>
-         </dependencies>
-      </profile>
-
-      <profile>
-         <id>arq-glassfish-rest</id>
-         <dependencies>
-            <dependency>
-               <groupId>org.jboss.arquillian.container</groupId>
                <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-               <version>1.0.0-SNAPSHOT</version>
-               <scope>test</scope>
-            </dependency>
-            <!-- temporary while linking against snapshot -->
-            <dependency>
-               <groupId>org.jboss.arquillian.protocol</groupId>
-               <artifactId>arquillian-protocol-servlet-3</artifactId>
-               <version>${version.arquillian}</version>
-               <scope>test</scope>
-            </dependency>
-            <dependency>
-               <groupId>org.jboss.arquillian.testenricher</groupId>
-               <artifactId>arquillian-testenricher-cdi</artifactId>
-               <version>${version.arquillian}</version>
-               <scope>test</scope>
-            </dependency>
-            <dependency>
-               <groupId>org.jboss.arquillian.testenricher</groupId>
-               <artifactId>arquillian-testenricher-ejb</artifactId>
-               <version>${version.arquillian}</version>
-               <scope>test</scope>
-            </dependency>
-            <!-- end temporary -->
-            <dependency>
-               <groupId>org.jboss.arquillian.testenricher</groupId>
-               <artifactId>arquillian-testenricher-resource</artifactId>
-               <version>${version.arquillian}</version>
-               <scope>test</scope>
             </dependency>
             <dependency>
                <groupId>org.jboss.spec</groupId>
                <artifactId>jboss-javaee-6.0</artifactId>
                <type>pom</type>
-               <scope>provided</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.weld</groupId>
+               <artifactId>weld-api</artifactId>
+               <version>1.1.Final</version>
+               <scope>test</scope>
             </dependency>
             <dependency>
                <groupId>com.sun.jersey</groupId>
                <artifactId>jersey-bundle</artifactId>
-               <version>1.5</version>
                <scope>test</scope>
             </dependency>
             <dependency>
                <groupId>com.sun.jersey.contribs</groupId>
                <artifactId>jersey-multipart</artifactId>
-               <version>1.5</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
       </profile>
-
    </profiles>
-
 <!--
 vi:ts=3:sw=3:expandtab:
 -->

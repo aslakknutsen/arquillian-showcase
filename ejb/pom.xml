@@ -51,9 +51,7 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
-                  <version>2.6</version>
 						<configuration>
 							<excludes>
 								<exclude>com/acme/ejb/TemperatureConverterTestCase.java</exclude>
@@ -73,9 +71,10 @@
                <artifactId>arquillian-jbossas-remote-6</artifactId>
             </dependency>
             <dependency>
-               <groupId>org.jboss.ejb3</groupId>
-               <artifactId>jboss-ejb3-api</artifactId>
-               <version>3.1.0</version>
+               <groupId>org.jboss.spec.javax.ejb</groupId>
+               <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+               <version>1.0.0.Final</version>
+               <scope>provided</scope>
             </dependency>
             <!-- cdi api needed for arquillian to function -->
             <dependency>
@@ -85,20 +84,10 @@
             </dependency>
             <dependency>
                <groupId>org.jboss.jbossas</groupId>
-               <artifactId>jboss-as-client</artifactId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
                <type>pom</type>
             </dependency>
          </dependencies>
-         <build>
-            <testResources>
-               <testResource>
-                  <directory>src/test/resources</directory>
-               </testResource>
-               <testResource>
-                  <directory>src/test/resources-jbossas</directory>
-               </testResource>
-            </testResources>
-         </build>
       </profile>
 
       <profile>
@@ -109,33 +98,21 @@
                <artifactId>arquillian-jbossas-managed-6</artifactId>
             </dependency>
             <dependency>
-               <groupId>org.jboss.ejb3</groupId>
-               <artifactId>jboss-ejb3-api</artifactId>
-               <version>3.1.0</version>
-            </dependency>
-            <dependency>
-               <groupId>org.jboss.jbossas</groupId>
-               <artifactId>jboss-as-client</artifactId>
-               <type>pom</type>
+               <groupId>org.jboss.spec.javax.ejb</groupId>
+               <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+               <version>1.0.0.Final</version>
                <scope>provided</scope>
             </dependency>
             <dependency>
                <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
+               <type>pom</type>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
                <artifactId>jboss-server-manager</artifactId>
-               <version>${version.jbossas_server_manager}</version>
-               <scope>test</scope>
             </dependency>
          </dependencies>
-         <build>
-            <testResources>
-               <testResource>
-                  <directory>src/test/resources</directory>
-               </testResource>
-               <testResource>
-                  <directory>src/test/resources-jbossas</directory>
-               </testResource>
-            </testResources>
-         </build>
       </profile>
 
       <profile>
@@ -143,7 +120,7 @@
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-embedded-3</artifactId>
+               <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
             </dependency>
             <dependency>
                <groupId>org.glassfish.extras</groupId>
@@ -157,11 +134,29 @@
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-remote-3</artifactId>
+               <artifactId>arquillian-glassfish-remote-3.1</artifactId>
             </dependency>
             <dependency>
-               <groupId>org.glassfish.extras</groupId>
-               <artifactId>glassfish-embedded-all</artifactId>
+               <groupId>org.jboss.spec.javax.ejb</groupId>
+               <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+               <version>1.0.0.Final</version>
+               <scope>provided</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.weld</groupId>
+               <artifactId>weld-api</artifactId>
+               <version>1.1.Final</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>com.sun.jersey</groupId>
+               <artifactId>jersey-bundle</artifactId>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>com.sun.jersey.contribs</groupId>
+               <artifactId>jersey-multipart</artifactId>
+               <scope>test</scope>
             </dependency>
          </dependencies>
       </profile>

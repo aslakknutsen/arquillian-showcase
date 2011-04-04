@@ -24,7 +24,6 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -35,9 +34,9 @@ import org.junit.runner.RunWith;
 public class BeanManagerTestCase
 {
    @Deployment
-   public static Archive<?> createTestArchive() {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar")
-         .addManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+   public static JavaArchive createTestArchive() {
+      return ShrinkWrap.create(JavaArchive.class, "test.jar") // archive name optional
+         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Inject
@@ -48,5 +47,11 @@ public class BeanManagerTestCase
    {
       assertNotNull(beanManager);
       assertFalse(beanManager.getBeans(BeanManager.class).isEmpty());
+      String impl = beanManager.getClass().getPackage().getImplementationTitle();
+      if (impl != null)
+      {
+         System.out.println("CDI implementation: " + impl.replaceFirst("^([^ ]+)( .*)?$", "$1"));
+      }
+      System.out.println("BeanManager implementation class: " + beanManager.getClass().getName());
    }
 }

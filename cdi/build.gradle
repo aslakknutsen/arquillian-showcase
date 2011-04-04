@@ -3,8 +3,8 @@ apply plugin: JavaPlugin
 buildDir = 'target/gradle-build'
 
 libraryVersions = [
-   junit: '4.8.1', arquillian: '1.0.0.Alpha4', jbossJavaeeSpec: '1.0.0.Beta7', weld: '1.0.1-Final',
-   slf4j: '1.5.8', log4j: '1.2.14', jbossas: '6.0.0.20100721-M4', glassfish: '3.0.1-b20', cdi: '1.0-SP1'
+   junit: '4.8.1', arquillian: '1.0.0.Alpha5', jbossJavaeeSpec: '1.0.0.Final', weld: '1.1.0.Final',
+   slf4j: '1.5.10', log4j: '1.2.14', jbossas: '6.0.0.Final', glassfish: '3.1', cdi: '1.0-SP4'
 ]
 
 repositories {
@@ -30,17 +30,17 @@ dependencies {
    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.2'
    testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: libraryVersions.arquillian
 
-   weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: '1.0.0.Alpha3'
+   weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: libraryVersions.arquillian
    weldEmbeddedTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
    weldEmbeddedTestRuntime group: 'org.jboss.weld', name: 'weld-core', version: libraryVersions.weld
    weldEmbeddedTestRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: libraryVersions.slf4j
    weldEmbeddedTestRuntime group: 'log4j', name: 'log4j', version: libraryVersions.log4j
 
    jbossasRemoteTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-jbossas-remote-6', version: libraryVersions.arquillian
-   jbossasRemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-server', classifier: 'client', version: libraryVersions.jbossas, transitive: false
-   jbossasRemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-profileservice', classifier: 'client', version: libraryVersions.jbossas
+   jbossasRemoteTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
+   jbossasRemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-profileservice-client', version: libraryVersions.jbossas
 
-   glassfishEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-glassfish-embedded-3', version: libraryVersions.arquillian
+   glassfishEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-glassfish-embedded-3.1', version: libraryVersions.arquillian
    glassfishEmbeddedTestRuntime group: 'org.glassfish.extras', name: 'glassfish-embedded-all', version: libraryVersions.glassfish
 }
 
@@ -73,6 +73,6 @@ test {
 }
 
 task generateWrapper(type: Wrapper) {
-   gradleVersion = '0.9-rc-1'
-   jarPath = 'gradle-wrapper'
+   gradleVersion = '0.9.2'
+   jarFile = 'gradle-wrapper/gradle-wrapper.jar'
 }

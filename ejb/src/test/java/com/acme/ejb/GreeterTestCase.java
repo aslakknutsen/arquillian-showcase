@@ -20,7 +20,6 @@ import javax.ejb.EJB;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -32,7 +31,7 @@ public class GreeterTestCase
 {
    // @formatter:off
    @Deployment
-   public static Archive<?> createDeployment() {
+   public static JavaArchive createDeployment() {
       return ShrinkWrap.create(JavaArchive.class)
             .addClasses(Greeter.class, GreeterBean.class);
    }

@@ -10,7 +10,6 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -18,7 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class PacketSendReceiveTest
+public class PacketSendReceiveTestCase
 {
    @Inject
    Instance<Packet> packetInstance;
@@ -27,11 +26,11 @@ public class PacketSendReceiveTest
    PacketSender sender;
 
    @Deployment
-   public static Archive<?> createDeployment()
+   public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClasses(Packet.class, PacketSender.class, PacketReceiver.class, Tracer.class)
-            .addManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Test

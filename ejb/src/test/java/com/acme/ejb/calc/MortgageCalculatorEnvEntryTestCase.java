@@ -1,13 +1,15 @@
 package com.acme.ejb.calc;
 
 import java.math.BigDecimal;
+
 import javax.ejb.EJB;
+
 import junit.framework.Assert;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,7 @@ public class MortgageCalculatorEnvEntryTestCase
       // we have to create a war because ejb-jar.xml must be put in WEB-INF
       return ShrinkWrap.create(WebArchive.class, "test.war")
          .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
-         .addWebResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
+         .addAsWebInfResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
 //      return ShrinkWrap.create(JavaArchive.class)
 //         .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
 //         .addManifestResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");

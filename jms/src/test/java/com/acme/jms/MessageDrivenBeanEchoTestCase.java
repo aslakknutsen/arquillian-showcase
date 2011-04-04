@@ -32,7 +32,6 @@ import javax.jms.TextMessage;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
@@ -42,10 +41,9 @@ import org.junit.runner.RunWith;
 public class MessageDrivenBeanEchoTestCase
 {
    @Deployment
-   public static Archive<?> createDeployment()
+   public static JavaArchive createDeployment()
    {
-      return ShrinkWrap.create(JavaArchive.class)
-            .addClasses(MessageEchoBean.class);
+      return ShrinkWrap.create(JavaArchive.class).addClass(MessageEchoBean.class);
    }
 
    private static final long QUALITY_OF_SERVICE_THRESHOLD_MS = 5 * 60 * 1000;

@@ -1,12 +1,12 @@
 package com.acme.cdi.event;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -17,11 +17,11 @@ import org.junit.runner.RunWith;
 public class DocumentEventTestCase
 {
    @Deployment
-   public static Archive<?> createDeployment()
+   public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-         .addClasses(Document.class, WordProcessor.class, PrintSpool.class)
-         .addManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+         .addClasses(Document.class, WordProcessor.class, PrintSpool.class, PrintJobLiteral.class, PrintJob.class, JobSize.class)
+         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
    
    @Inject WordProcessor processor;
@@ -47,13 +47,8 @@ public class DocumentEventTestCase
       assertEquals(1, spool.getDocumentsProcessed(JobSize.LARGE).size());
       processor.close();
       
-      try
-      {
-         processor.printUnknownSize(new Document(25));
-      }
-      catch (Exception e)
-      {
-         assertEquals(3, spool.getNumDocumentsSent());
-      }
+      processor.printUnknownSize(new Document(25));
+      assertEquals(3, spool.getNumDocumentsSent());
+      assertEquals(1, spool.getNumFailedDocuments());
    }
 }

@@ -25,10 +25,9 @@ import java.util.List;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.jsfunit.cdi.InitialPage;
 import org.jboss.jsfunit.jsfsession.JSFClientSession;
 import org.jboss.jsfunit.jsfsession.JSFServerSession;
-import org.jboss.jsfunit.jsfsession.JSFSession;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -38,26 +37,24 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ConferenceCalendarUiTestCase
 {
+   private static final boolean PRINT_RENDERED_OUTPUT = true;
+
    @Deployment
-   public static Archive<?> createDeployment()
+   public static WebArchive createDeployment()
    {
-      return ShrinkWrap.create(WebArchive.class, "test.war")
+      return ShrinkWrap.create(WebArchive.class, "confcal.war")
             .addClasses(Conference.class, ConferenceCalendar.class)
-            .addResource("confcal/submit.xhtml", "submit.xhtml")
-            .addResource("confcal/submission.xhtml", "submission.xhtml")
-            .addWebResource("common/faces-config.xml", "faces-config.xml")
-            .addWebResource(EmptyAsset.INSTANCE, "beans.xml")
+            .addAsWebResource("confcal/submit.xhtml", "submit.xhtml")
+            .addAsWebResource("confcal/submission.xhtml", "submission.xhtml")
+            .addAsWebInfResource("common/faces-config.xml", "faces-config.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             .setWebXML("common/jsf-web.xml");
    }
    
-   private static boolean printRenderedOutput = false;
-
    @Test
-   public void submittedConferenceShouldBeSaved() throws Exception
+   @InitialPage("/submit.jsf")
+   public void submittedConferenceShouldBeSaved(JSFClientSession client, JSFServerSession server) throws Exception
    {
-      JSFSession jsfSession = new JSFSession("/submit.jsf");
-      
-      JSFServerSession server = jsfSession.getJSFServerSession();
       assertEquals("/submit.xhtml", server.getCurrentViewID());
       
       assertEquals(null, server.getManagedBeanValue("#{conference.title}"));
@@ -66,10 +63,9 @@ public class ConferenceCalendarUiTestCase
       assertEquals(null, server.getManagedBeanValue("#{conference.location}"));
       assertEquals(null, server.getManagedBeanValue("#{conference.topic}"));
       
-      JSFClientSession client = jsfSession.getJSFClientSession();
-      if (printRenderedOutput)
+      if (PRINT_RENDERED_OUTPUT)
       {
-         System.out.println("GET /submit.jsf HTTP/1.1\n\n" + client.getPageAsText());
+         System.out.println("GET " + server.getFacesContext().getExternalContext().getRequestServletPath() + " HTTP/1.1\n\n" + client.getPageAsText());
       }
 
       client.setValue("conference:title", "Devoxx");
@@ -92,14 +88,14 @@ public class ConferenceCalendarUiTestCase
       assertEquals("Metropolis, Antwerp, Belgium", conference.getLocation());
       assertEquals("Java", conference.getTopic());
     
-      if (printRenderedOutput)
+      if (PRINT_RENDERED_OUTPUT)
       {
-         System.out.println("POST /submission.jsf HTTP/1.1\n\n" + client.getPageAsText());
+         System.out.println("POST " + server.getFacesContext().getExternalContext().getRequestServletPath() + " HTTP/1.1\n\n" + client.getPageAsText());
       }
 
-      // not sure why these are null
-      //assertEquals("Devoxx", server.getManagedBeanValue("#{conference.title}"));
-      //assertEquals("Devoxx", server.getComponentValue("title"));
+      assertEquals("Devoxx", client.getElement("title").getTextContent().trim());
+      
+      // request-scoped beans are gone at this point
    }
    
    private Date buildDate(int year, int month, int date)

@@ -22,9 +22,11 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -32,13 +34,27 @@ import org.junit.runner.RunWith;
 public class SynchronousPaymentProcessorTestCase
 {
    @Deployment
-   public static Archive<?> createDeployment()
+   public static JavaArchive createDeployment()
    {
+      BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+      
       return ShrinkWrap.create(JavaArchive.class)
-            .addPackage(Synchronous.class.getPackage())
-            .addManifestResource(SynchronousPaymentProcessorTestCase.class.getPackage(),
-                  "beans.xml", "beans.xml");
+            .addAsManifestResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()), beansXml.getDescriptorName())
+//            .addAsManifestResource(SynchronousPaymentProcessorTestCase.class.getPackage(), "beans.xml", "beans.xml")
+            .addPackage(Synchronous.class.getPackage());
    }
+   
+
+   // Use this deployment for GlassFish due to visibility issues
+/*   @Deployment
+   public static WebArchive createDeployment()
+   {
+      BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+      
+      return ShrinkWrap.create(WebArchive.class)
+            .addAsWebInfResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()), beansXml.getDescriptorName())
+            .addPackage(Synchronous.class.getPackage());
+   }*/
 
    @Inject @Synchronous
    PaymentProcessor syncProcessor;

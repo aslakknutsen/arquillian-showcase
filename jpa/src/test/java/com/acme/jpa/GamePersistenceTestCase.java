@@ -31,7 +31,6 @@ import javax.transaction.UserTransaction;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -49,12 +48,13 @@ public class GamePersistenceTestCase
    };
 
    @Deployment
-   public static Archive<?> createDeployment()
+   public static WebArchive createDeployment()
    {
       return ShrinkWrap.create(WebArchive.class, "test.war")
             .addPackage(Game.class.getPackage())
-            .addManifestResource("test-persistence.xml", "persistence.xml")
-            .addWebResource(EmptyAsset.INSTANCE, "beans.xml");
+            //.addManifestResource("test-persistence.xml", "persistence.xml")
+            .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }
    
    @PersistenceContext
@@ -62,7 +62,7 @@ public class GamePersistenceTestCase
    
    @Inject
    UserTransaction utx;
-
+   
    @Test
    public void testInsert() throws Exception
    {
@@ -119,5 +119,4 @@ public class GamePersistenceTestCase
       }
       utx.commit();
    }
-
 }

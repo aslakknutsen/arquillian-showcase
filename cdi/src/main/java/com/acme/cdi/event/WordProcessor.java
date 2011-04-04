@@ -1,13 +1,15 @@
 package com.acme.cdi.event;
 
 import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Default;
 import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Inject;
 
 public class WordProcessor
 {
-   @Inject
+   // @Any allows us to select a qualified event to fire
+   @Inject @Any
    private Event<Document> documentEvent;
    
    private Document document;

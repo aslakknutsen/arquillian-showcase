@@ -20,10 +20,10 @@ import javax.naming.InitialContext;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -34,29 +34,29 @@ import org.junit.runner.RunWith;
 public class MixedInterfaceEjbTestCase
 {
    @Deployment
-   public static Archive<?> createDeployment()
+   public static EnterpriseArchive createDeployment()
    {
       JavaArchive ejbClientJar = ShrinkWrap.create(JavaArchive.class, "client.jar")
-         .addManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
          .addClass(MixedInterfaceEjbTestCase.class)
          .addClass(GreeterRemote.class);
       
       JavaArchive ejbServiceJar = ShrinkWrap.create(JavaArchive.class, "service.jar")
-         .addManifestResource(new StringAsset("<ejb-jar xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+         .addAsManifestResource(new StringAsset("<ejb-jar xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
          		"      xmlns=\"http://java.sun.com/xml/ns/javaee\"\n" +
          		"      xmlns:ejb=\"http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\"\n" +
          		"      xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\"\n" +
          		"      version=\"3.0\">\n" +
          		"   <ejb-client-jar>client.jar</ejb-client-jar>\n" +
          		"</ejb-jar>"), "ejb-jar.xml")
-         .addManifestResource(new StringAsset("Manifest-Version: 1.0\nClass-Path: client.jar\n"), "MANIFEST.MF")
-         .add(ejbClientJar, "/")
-         .addManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+         .setManifest(new StringAsset("Manifest-Version: 1.0\nClass-Path: client.jar\n"))
+         .add(ejbClientJar, "/", ZipExporter.class)
+         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
          .addClasses(GreeterBean.class, GreeterDelegate.class);
       
       return ShrinkWrap.create(EnterpriseArchive.class, "test.ear")
-         .addModule(ejbClientJar)
-         .addModule(ejbServiceJar);
+         .addAsModule(ejbClientJar)
+         .addAsModule(ejbServiceJar);
    }
 
 //   @EJB

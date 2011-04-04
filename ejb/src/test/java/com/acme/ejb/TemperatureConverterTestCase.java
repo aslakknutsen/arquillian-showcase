@@ -23,7 +23,6 @@ import javax.ejb.EJB;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
@@ -33,7 +32,7 @@ import org.junit.runner.RunWith;
 public class TemperatureConverterTestCase
 {
    @Deployment
-   public static Archive<?> createDeployment()
+   public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class, "test.jar")
             .addClasses(TemperatureConverter.class, TemperatureConverterBean.class);
