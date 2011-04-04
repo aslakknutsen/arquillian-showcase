@@ -30,7 +30,11 @@ import org.jboss.jsfunit.jsfsession.JSFClientSession;
 import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.FacesProjectStage;
+import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,13 +46,14 @@ public class ConferenceCalendarUiTestCase
    @Deployment
    public static WebArchive createDeployment()
    {
+      WebAppDescriptor webXml = Descriptors.create(WebAppDescriptor.class);
       return ShrinkWrap.create(WebArchive.class, "confcal.war")
             .addClasses(Conference.class, ConferenceCalendar.class)
             .addAsWebResource("confcal/submit.xhtml", "submit.xhtml")
             .addAsWebResource("confcal/submission.xhtml", "submission.xhtml")
             .addAsWebInfResource("common/faces-config.xml", "faces-config.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .setWebXML("common/jsf-web.xml");
+            .setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
    }
    
    @Test
