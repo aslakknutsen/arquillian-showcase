@@ -108,7 +108,11 @@ public class GamePersistenceTestCase
 
       Root<Game> game = criteria.from(Game.class);
       criteria.select(game);
-      criteria.orderBy(builder.asc(game.get(Game_.id)));
+      // Toggle comment on first orderBy criteria below (and comment the subsequent line)
+      // if you want to try out type-safe criteria queries, a new feature in JPA 2.0
+      // requires that the metamodel generator is configured correctly
+      //criteria.orderBy(builder.asc(game.get(Game_.id)));
+      criteria.orderBy(builder.asc(game.get("id")));
       System.out.println("Selecting (using Criteria)...");
       games = em.createQuery(criteria).getResultList();
       System.out.println("Found " + games.size() + " games (using Criteria)");

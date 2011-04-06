@@ -72,9 +72,7 @@
       </dependency>
       <dependency>
          <groupId>org.slf4j</groupId>
-         <artifactId>slf4j-simple</artifactId>  <!-- choose different underlying implementation if you want -->
-         <version>1.5.10</version>
-         <scope>test</scope>
+         <artifactId>slf4j-simple</artifactId>
       </dependency>
    </dependencies>
 

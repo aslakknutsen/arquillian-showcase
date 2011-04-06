@@ -14,7 +14,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.acme.jaxrs.model.Customer;
-import com.acme.jaxrs.model.Customer_;
 
 /**
  * A REST service for retrieving Customer records
@@ -116,7 +115,11 @@ public class CustomerResource
       CriteriaBuilder cb = em.getCriteriaBuilder();
       CriteriaQuery<Customer> criteria = cb.createQuery(Customer.class);
       Root<Customer> customer = criteria.from(Customer.class);
-      criteria.select(customer).where(cb.equal(customer.get(Customer_.name), name));
+      // Toggle comment on first equal criteria below (and comment the subsequent line)
+      // if you want to try out type-safe criteria queries, a new feature in JPA 2.0
+      // requires that the metamodel generator is configured correctly
+      //criteria.select(customer).where(cb.equal(customer.get(Customer_.name), name));
+      criteria.select(customer).where(cb.equal(customer.get("name"), name));
       return (Customer) em.createQuery(criteria).setMaxResults(1).getSingleResult();
    }
 

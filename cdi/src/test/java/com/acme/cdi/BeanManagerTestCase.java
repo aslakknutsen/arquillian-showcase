@@ -47,6 +47,10 @@ public class BeanManagerTestCase
    {
       assertNotNull(beanManager);
       assertFalse(beanManager.getBeans(BeanManager.class).isEmpty());
+   }
+   
+   protected void printCdiImplementationInfo(BeanManager beanManager)
+   {
       String impl = beanManager.getClass().getPackage().getImplementationTitle();
       if (impl != null)
       {

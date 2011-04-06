@@ -24,9 +24,11 @@
       <version.jetty>8.0.0.M1</version.jetty>
       <version.jsfunit>2.0.0-SNAPSHOT</version.jsfunit>
       <version.junit>4.8.1</version.junit>
+      <version.log4j>1.2.14</version.log4j>
       <version.openejb>3.1.4</version.openejb>
       <version.openwebbeans>1.0.0</version.openwebbeans>
       <version.resteasy>2.0.1.GA</version.resteasy>
+      <version.slf4j>1.5.10</version.slf4j>
       <version.weld>1.1.0.Final</version.weld>
    </properties>
 
@@ -210,6 +212,30 @@
             <groupId>com.sun.jersey.contribs</groupId>
             <artifactId>jersey-multipart</artifactId>
             <version>${version.jersey}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${version.slf4j}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${version.slf4j}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${version.slf4j}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${version.log4j}</version>
             <scope>test</scope>
          </dependency>
          <dependency>
