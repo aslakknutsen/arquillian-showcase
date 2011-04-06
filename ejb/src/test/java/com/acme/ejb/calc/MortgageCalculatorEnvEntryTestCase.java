@@ -26,7 +26,7 @@ public class MortgageCalculatorEnvEntryTestCase
          .addAsWebInfResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
 //      return ShrinkWrap.create(JavaArchive.class)
 //         .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
-//         .addManifestResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
+//         .addAsManifestResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
    }
    
    @EJB
