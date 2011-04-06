@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<arquillian xmlns="http://jboss.com/arquillian"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:glassfish-remote="urn:arq:org.jboss.arquillian.container.glassfish.remote_3"
-   xmlns:jbossas-managed="urn:arq:org.jboss.arquillian.container.jbossas.managed_6">
+<arquillian xmlns="http://jboss.com/arquillian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian-1.0.xsd">
 
+   <!-- Uncomment to have test archives exported to the file system for inspection -->
+   <!--
    <engine>
-      <deploymentExportPath>target/</deploymentExportPath>
+       <property name="deploymentExportPath">target</property>
    </engine>
+   -->
 
-   <!-- Configuration shown for demonstration purposes -->
-   <glassfish-remote:container>
-      <glassfish-remote:deploymentUri>deployer:Sun:AppServer::localhost:4848</glassfish-remote:deploymentUri>
-      <glassfish-remote:remoteServerAddress>localhost</glassfish-remote:remoteServerAddress>
-      <glassfish-remote:remoteServerHttpPort>7070</glassfish-remote:remoteServerHttpPort>
-   </glassfish-remote:container>
-
-   <!-- logThreshold in HEAD
-   <jbossas-managed:container>
-      <jbossas-managed:logThreshold>ERROR</jbossas-managed:logThreshold>
-   </jbossas-managed:container>
+   <!-- logThreshold proposed -->
+   <!--
+   <container qualifier="jbossas-managed">
+      <property name="logThreshold">ERROR</property>
+   </container>
    -->
 
 </arquillian>
