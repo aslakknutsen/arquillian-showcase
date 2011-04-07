@@ -23,6 +23,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.ProjectStage;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.jsfunit.cdi.InitialPage;
@@ -53,7 +55,8 @@ public class ConferenceCalendarUiTestCase
             .addAsWebResource("confcal/submission.xhtml", "submission.xhtml")
             .addAsWebInfResource("common/faces-config.xml", "faces-config.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
+            .setWebXML(new StringAsset(webXml.contextParam(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development).exportAsString()));
+            //.setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
    }
    
    @Test

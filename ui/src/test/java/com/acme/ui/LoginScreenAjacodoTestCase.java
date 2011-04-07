@@ -42,7 +42,7 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @RunWith(Arquillian.class)
-public class AjocadoTestCase extends AbstractTestCase
+public class LoginScreenAjacodoTestCase extends AbstractTestCase
 {
    @Drone
    AjaxSelenium driver;

@@ -43,18 +43,6 @@ public class SynchronousPaymentProcessorTestCase
 //            .addAsManifestResource(SynchronousPaymentProcessorTestCase.class.getPackage(), "beans.xml", "beans.xml")
             .addPackage(Synchronous.class.getPackage());
    }
-   
-
-   // Use this deployment for GlassFish due to visibility issues
-/*   @Deployment
-   public static WebArchive createDeployment()
-   {
-      BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
-      
-      return ShrinkWrap.create(WebArchive.class)
-            .addAsWebInfResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()), beansXml.getDescriptorName())
-            .addPackage(Synchronous.class.getPackage());
-   }*/
 
    @Inject @Synchronous
    PaymentProcessor syncProcessor;
@@ -77,4 +65,15 @@ public class SynchronousPaymentProcessorTestCase
       assertEquals(2, MockPaymentProcessor.PAYMENTS.size());
       assertEquals(secondPayment, MockPaymentProcessor.PAYMENTS.get(1));
    }
+   
+   // Use this deployment for GlassFish due to visibility issues
+/*   @Deployment
+   public static WebArchive createDeployment()
+   {
+      BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+      
+      return ShrinkWrap.create(WebArchive.class)
+            .addAsWebInfResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()), beansXml.getDescriptorName())
+            .addPackage(Synchronous.class.getPackage());
+   }*/
 }
