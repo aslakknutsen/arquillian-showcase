@@ -40,7 +40,7 @@ public abstract class AbstractTestCase
    @Deployment(testable = false)
    public static WebArchive createDeployment()
    {
-      MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class);
+      MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml");
       
       return ShrinkWrap.create(WebArchive.class, "cdi-login.war")
             .addClasses(Credentials.class, LoggedIn.class, Login.class, User.class, UsersProducer.class)            

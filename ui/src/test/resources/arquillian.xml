@@ -6,7 +6,6 @@
     <configuration>
       <!-- maximize window of the browser -->
       <property name="seleniumMaximize">true</property>      
-      <property name="contextPath">cdi-login</property>      
     </configuration>
   </extension>
   
