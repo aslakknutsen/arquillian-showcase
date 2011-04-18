@@ -32,8 +32,9 @@ public class TextTranslatorServiceTestCase
 {
    @Deployment
    public static JavaArchive createDeployment() {
-      return ShrinkWrap.create(JavaArchive.class).addPackage(TextTranslatorService.class.getPackage())
-         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+      return ShrinkWrap.create(JavaArchive.class)
+          .addPackage(TextTranslatorService.class.getPackage())
+          .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Inject
