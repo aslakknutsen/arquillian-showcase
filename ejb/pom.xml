@@ -127,6 +127,23 @@
                <artifactId>glassfish-embedded-all</artifactId>
             </dependency>
          </dependencies>
+         <!--
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <configuration>
+                     <systemProperties>
+                        <property>
+                           <name>arquillian.launch</name>
+                           <value>glassfish-embedded</value>
+                        </property>
+                     </systemProperties>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+         -->
       </profile>
 
       <profile>
