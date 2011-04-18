@@ -34,8 +34,9 @@ public class JavaxInjectSingletonTestCase
 {
    @Deployment
    public static JavaArchive createDeployment() {
-      return ShrinkWrap.create(JavaArchive.class).addClass(OnlyOne.class)
-         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+      return ShrinkWrap.create(JavaArchive.class)
+          .addClass(OnlyOne.class)
+          .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Inject
