@@ -33,7 +33,7 @@
             <artifactId>infinispan-server-hotrod</artifactId>
             <version>4.2.1.FINAL</version>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

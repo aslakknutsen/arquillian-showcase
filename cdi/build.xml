@@ -1,276 +1,276 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="arquillian-showcase-cdi" default="package" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-   <!-- ====================================================================== -->
-   <!-- Build environment properties                                                                -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Build environment properties                                           -->
+    <!-- ====================================================================== -->
 
-   <property file="${user.home}/build.properties"/>
-   <property file="build.properties"/>
+    <property file="${user.home}/build.properties"/>
+    <property file="build.properties"/>
 
-   <property name="project.build.finalName" value="arquillian-showcase-cdi-1.0.0-SNAPSHOT"/>
-   <property name="project.build.directory" value="target"/>
-   <property name="project.build.outputDirectory" value="${project.build.directory}/classes"/>
-   <property name="project.source.directory" value="src/main/java"/>
-   <property name="project.resource.directory" value="src/main/resources"/>
-   <property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes"/>
-   <property name="project.testSource.directory" value="src/test/java"/>
-   <property name="project.testResource.directory" value="src/test/resources"/>
-   <property name="project.test.reportsOutputDirectory" value="${project.build.directory}/test-results"/>
-   <property name="project.test.useFile" value="true"/>
+    <property name="project.build.finalName" value="arquillian-showcase-cdi-1.0.0-SNAPSHOT"/>
+    <property name="project.build.directory" value="target"/>
+    <property name="project.build.outputDirectory" value="${project.build.directory}/classes"/>
+    <property name="project.source.directory" value="src/main/java"/>
+    <property name="project.resource.directory" value="src/main/resources"/>
+    <property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes"/>
+    <property name="project.testSource.directory" value="src/test/java"/>
+    <property name="project.testResource.directory" value="src/test/resources"/>
+    <property name="project.test.reportsOutputDirectory" value="${project.build.directory}/test-results"/>
+    <property name="project.test.useFile" value="true"/>
 
-   <property name="maven.repo.central" value="http://repo1.maven.org/maven2"/>
-   <property name="maven.repo.jboss-public" value="https://repository.jboss.org/nexus/content/groups/public"/>
-   <property name="maven.repo.local" value="${user.home}/.m2/repository"/>
-   <property name="maven.settings.offline" value="false"/>
-   <property name="maven.settings.interactiveMode" value="true"/>
+    <property name="maven.repo.central" value="http://repo1.maven.org/maven2"/>
+    <property name="maven.repo.jboss-public" value="https://repository.jboss.org/nexus/content/groups/public"/>
+    <property name="maven.repo.local" value="${user.home}/.m2/repository"/>
+    <property name="maven.settings.offline" value="false"/>
+    <property name="maven.settings.interactiveMode" value="true"/>
 
-   <property name="ivy.install.version" value="2.2.0-rc1"/>
-   <property name="ivy.jar.dir" value="${basedir}/.ivy"/>
-   <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+    <property name="ivy.install.version" value="2.2.0-rc1"/>
+    <property name="ivy.jar.dir" value="${basedir}/.ivy"/>
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
 
-   <!-- ====================================================================== -->
-   <!-- Ivy bootstrap targets                                                  -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Ivy bootstrap targets                                                  -->
+    <!-- ====================================================================== -->
 
-   <target name="init-ivy">
-      <available property="ivy.installed" value="true" file="${ivy.jar.file}" type="file"/>
-   </target>
+    <target name="init-ivy">
+        <available property="ivy.installed" value="true" file="${ivy.jar.file}" type="file"/>
+    </target>
 
-   <target name="download-ivy" depends="init-ivy" unless="ivy.installed">
-      <mkdir dir="${ivy.jar.dir}"/>
-      <echo message="Installing ivy..."/>
-      <get src="${maven.repo.central}/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
-          dest="${ivy.jar.file}"/>
-   </target>
+    <target name="download-ivy" depends="init-ivy" unless="ivy.installed">
+        <mkdir dir="${ivy.jar.dir}"/>
+        <echo message="Installing ivy..."/>
+        <get src="${maven.repo.central}/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+             dest="${ivy.jar.file}"/>
+    </target>
 
-   <target name="load-ivy" depends="init-ivy,download-ivy">
-      <path id="ivy.lib.path">
-         <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
-      </path>
-      <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
-      <ivy:settings file="${basedir}/ivysettings.xml"/>
-   </target>
+    <target name="load-ivy" depends="init-ivy,download-ivy">
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+        <ivy:settings file="${basedir}/ivysettings.xml"/>
+    </target>
 
-   <target name="clean-ivy" depends="load-ivy">
-      <ivy:cleancache/>
-   </target>
+    <target name="clean-ivy" depends="load-ivy">
+        <ivy:cleancache/>
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- Defining classpaths                                                    -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Defining classpaths                                                    -->
+    <!-- ====================================================================== -->
 
-   <target name="init" depends="load-ivy">
-   </target>
+    <target name="init" depends="load-ivy">
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- Cleaning up target                                                     -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Cleaning up target                                                     -->
+    <!-- ====================================================================== -->
 
-   <target name="clean" description="Clean the output directory">
-      <delete dir="${project.build.directory}"/>
-   </target>
+    <target name="clean" description="Clean the output directory">
+        <delete dir="${project.build.directory}"/>
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- Compilation target                                                     -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Compilation target                                                     -->
+    <!-- ====================================================================== -->
 
-   <target name="compile" depends="init" description="Compile the code">
-      <ivy:resolve conf="compile-only"/>
-      <ivy:cachepath pathid="build.classpath" conf="compile-only"/>
-      <mkdir dir="${project.build.outputDirectory}"/>
-      <javac destdir="${project.build.outputDirectory}"
-             nowarn="true"
-             debug="true"
-             optimize="true"
-             deprecation="false"
-             target="1.6"
-             verbose="false"
-             fork="true"
-             source="1.6">
-         <src>
-            <pathelement location="${project.source.directory}"/>
-         </src>
-         <classpath refid="build.classpath"/>
-      </javac>
-   </target>
+    <target name="compile" depends="init" description="Compile the code">
+        <ivy:resolve conf="compile-only"/>
+        <ivy:cachepath pathid="build.classpath" conf="compile-only"/>
+        <mkdir dir="${project.build.outputDirectory}"/>
+        <javac destdir="${project.build.outputDirectory}"
+                 nowarn="true"
+                 debug="true"
+                 optimize="true"
+                 deprecation="false"
+                 target="1.6"
+                 verbose="false"
+                 fork="true"
+                 source="1.6">
+            <src>
+                <pathelement location="${project.source.directory}"/>
+            </src>
+            <classpath refid="build.classpath"/>
+        </javac>
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- Test compilation target                                                -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Test compilation target                                                -->
+    <!-- ====================================================================== -->
 
-   <target name="compile-tests"
-           depends="compile"
-           description="Compile the test code"
-           unless="maven.test.skip">
-      <ivy:resolve conf="test"/>
-      <ivy:cachepath pathid="build.test.classpath" conf="test"/>
-      <mkdir dir="${project.build.testOutputDirectory}"/>
-      <javac destdir="${project.build.testOutputDirectory}"
-             nowarn="true"
-             debug="true"
-             optimize="true"
-             deprecation="false"
-             target="1.6"
-             verbose="false"
-             fork="true"
-             source="1.6">
-         <src>
-            <pathelement location="${project.testSource.directory}"/>
-         </src>
-         <classpath>
-            <path refid="build.classpath"/>
-            <path refid="build.test.classpath"/>
-            <pathelement location="${project.build.outputDirectory}"/>
-         </classpath>
-      </javac>
-      <copy todir="${project.build.testOutputDirectory}">
-         <fileset dir="${project.testResource.directory}"/>
-      </copy>
-   </target>
+    <target name="compile-tests"
+              depends="compile"
+              description="Compile the test code"
+              unless="maven.test.skip">
+        <ivy:resolve conf="test"/>
+        <ivy:cachepath pathid="build.test.classpath" conf="test"/>
+        <mkdir dir="${project.build.testOutputDirectory}"/>
+        <javac destdir="${project.build.testOutputDirectory}"
+                 nowarn="true"
+                 debug="true"
+                 optimize="true"
+                 deprecation="false"
+                 target="1.6"
+                 verbose="false"
+                 fork="true"
+                 source="1.6">
+            <src>
+                <pathelement location="${project.testSource.directory}"/>
+            </src>
+            <classpath>
+                <path refid="build.classpath"/>
+                <path refid="build.test.classpath"/>
+                <pathelement location="${project.build.outputDirectory}"/>
+            </classpath>
+        </javac>
+        <copy todir="${project.build.testOutputDirectory}">
+            <fileset dir="${project.testResource.directory}"/>
+        </copy>
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- Test targets                                                           -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Test targets                                                           -->
+    <!-- ====================================================================== -->
 
-   <target name="test"
-           depends="test-weld-embedded"
-           description="Run the test cases (default)"/>
+    <target name="test"
+              depends="test-weld-embedded"
+              description="Run the test cases (default)"/>
 
-   <target name="test-weld-embedded"
-           depends="compile-tests"
-           description="Run the test cases on Weld Embedded">
-      <mkdir dir="${project.test.reportsOutputDirectory}"/>
-      <ivy:resolve conf="test-weld-embedded"/>
-      <ivy:cachepath pathid="build.test.classpath.weld-embedded" conf="test-weld-embedded"/>
-      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
-         <sysproperty key="basedir" value="."/>
-         <formatter type="xml"/>
-         <formatter type="plain" usefile="${project.test.useFile}"/>
-         <classpath>
-            <path refid="build.test.classpath.weld-embedded"/>
-            <pathelement location="${project.build.outputDirectory}"/>
-            <pathelement location="${project.build.testOutputDirectory}"/>
-         </classpath>
-         <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
-            <fileset dir="${project.testSource.directory}">
-               <include name="**/Test*.java"/>
-               <include name="**/*Test.java"/>
-               <include name="**/*TestCase.java"/>
-               <exclude name="**/*Abstract*Test.java"/>
-            </fileset>
-         </batchtest>
-         <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
-            <fileset dir="${project.testSource.directory}">
-               <include name="**/${test}.java"/>
-               <exclude name="**/*Abstract*Test.java"/>
-            </fileset>
-         </batchtest>
-      </junit>
-   </target>
+    <target name="test-weld-embedded"
+              depends="compile-tests"
+              description="Run the test cases on Weld Embedded">
+        <mkdir dir="${project.test.reportsOutputDirectory}"/>
+        <ivy:resolve conf="test-weld-embedded"/>
+        <ivy:cachepath pathid="build.test.classpath.weld-embedded" conf="test-weld-embedded"/>
+        <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
+            <sysproperty key="basedir" value="."/>
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="${project.test.useFile}"/>
+            <classpath>
+                <path refid="build.test.classpath.weld-embedded"/>
+                <pathelement location="${project.build.outputDirectory}"/>
+                <pathelement location="${project.build.testOutputDirectory}"/>
+            </classpath>
+            <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/Test*.java"/>
+                    <include name="**/*Test.java"/>
+                    <include name="**/*TestCase.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/${test}.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 
-   <target name="test-jbossas-remote"
-           depends="compile-tests"
-           description="Run the test cases on a remote JBoss AS instance">
-      <mkdir dir="${project.test.reportsOutputDirectory}"/>
-      <ivy:resolve conf="test-jbossas-remote"/>
-      <ivy:cachepath pathid="build.test.classpath.jbossas-remote" conf="test-jbossas-remote"/>
-      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
-         <sysproperty key="basedir" value="."/>
-         <formatter type="xml"/>
-         <formatter type="plain" usefile="${project.test.useFile}"/>
-         <classpath>
-            <path refid="build.test.classpath.jbossas-remote"/>
-            <pathelement location="${project.build.outputDirectory}"/>
-            <pathelement location="${project.build.testOutputDirectory}"/>
-            <pathelement location="${basedir}/src/test/resources-jbossas"/>
-         </classpath>
-         <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
-            <fileset dir="${project.testSource.directory}">
-               <include name="**/Test*.java"/>
-               <include name="**/*Test.java"/>
-               <include name="**/*TestCase.java"/>
-               <exclude name="**/*Abstract*Test.java"/>
-            </fileset>
-         </batchtest>
-         <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
-            <fileset dir="${project.testSource.directory}">
-               <include name="**/${test}.java"/>
-               <exclude name="**/*Abstract*Test.java"/>
-            </fileset>
-         </batchtest>
-      </junit>
-   </target>
+    <target name="test-jbossas-remote"
+              depends="compile-tests"
+              description="Run the test cases on a remote JBoss AS instance">
+        <mkdir dir="${project.test.reportsOutputDirectory}"/>
+        <ivy:resolve conf="test-jbossas-remote"/>
+        <ivy:cachepath pathid="build.test.classpath.jbossas-remote" conf="test-jbossas-remote"/>
+        <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
+            <sysproperty key="basedir" value="."/>
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="${project.test.useFile}"/>
+            <classpath>
+                <path refid="build.test.classpath.jbossas-remote"/>
+                <pathelement location="${project.build.outputDirectory}"/>
+                <pathelement location="${project.build.testOutputDirectory}"/>
+                <pathelement location="${basedir}/src/test/resources-jbossas"/>
+            </classpath>
+            <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/Test*.java"/>
+                    <include name="**/*Test.java"/>
+                    <include name="**/*TestCase.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/${test}.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 
-   <target name="test-glassfish-embedded"
-           depends="compile-tests"
-           description="Run the test cases on Embedded GlassFish">
-      <mkdir dir="${project.test.reportsOutputDirectory}"/>
-      <ivy:resolve conf="test-glassfish-embedded"/>
-      <ivy:cachepath pathid="build.test.classpath.glassfish-embedded" conf="test-glassfish-embedded"/>
-      <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
-         <sysproperty key="basedir" value="."/>
-         <formatter type="xml"/>
-         <formatter type="plain" usefile="${project.test.useFile}"/>
-         <classpath>
-            <path refid="build.test.classpath.glassfish-embedded"/>
-            <pathelement location="${project.build.outputDirectory}"/>
-            <pathelement location="${project.build.testOutputDirectory}"/>
-         </classpath>
-         <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
-            <fileset dir="${project.testSource.directory}">
-               <include name="**/Test*.java"/>
-               <include name="**/*Test.java"/>
-               <include name="**/*TestCase.java"/>
-               <exclude name="**/*Abstract*Test.java"/>
-            </fileset>
-         </batchtest>
-         <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
-            <fileset dir="${project.testSource.directory}">
-               <include name="**/${test}.java"/>
-               <exclude name="**/*Abstract*Test.java"/>
-            </fileset>
-         </batchtest>
-      </junit>
-   </target>
+    <target name="test-glassfish-embedded"
+              depends="compile-tests"
+              description="Run the test cases on Embedded GlassFish">
+        <mkdir dir="${project.test.reportsOutputDirectory}"/>
+        <ivy:resolve conf="test-glassfish-embedded"/>
+        <ivy:cachepath pathid="build.test.classpath.glassfish-embedded" conf="test-glassfish-embedded"/>
+        <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
+            <sysproperty key="basedir" value="."/>
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="${project.test.useFile}"/>
+            <classpath>
+                <path refid="build.test.classpath.glassfish-embedded"/>
+                <pathelement location="${project.build.outputDirectory}"/>
+                <pathelement location="${project.build.testOutputDirectory}"/>
+            </classpath>
+            <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/Test*.java"/>
+                    <include name="**/*Test.java"/>
+                    <include name="**/*TestCase.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/${test}.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- Package target                                                         -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Package target                                                         -->
+    <!-- ====================================================================== -->
 
-   <target name="package" depends="compile,test" description="Package the application">
-      <jar jarfile="${project.build.directory}/${project.build.finalName}.jar"
-           compress="true"
-           index="false"
-           basedir="${project.build.outputDirectory}"
-           excludes="**/package.html"/>
-   </target>
+    <target name="package" depends="compile,test" description="Package the application">
+        <jar jarfile="${project.build.directory}/${project.build.finalName}.jar"
+              compress="true"
+              index="false"
+              basedir="${project.build.outputDirectory}"
+              excludes="**/package.html"/>
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- A convenience target for the artifact type created by this project     -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- A convenience target for the artifact type created by this project     -->
+    <!-- ====================================================================== -->
 
-   <target name="jar" depends="package" description="Builds the jar for the application"/>
+    <target name="jar" depends="package" description="Builds the jar for the application"/>
 
-   <!-- ====================================================================== -->
-   <!-- Dependency reports                                                     -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Dependency reports                                                     -->
+    <!-- ====================================================================== -->
 
-	<target name="dependency-report" depends="init">
-      <ivy:resolve conf="test-weld-embedded"/>
-		<ivy:report todir="${project.build.directory}/dependency-reports/test-weld-embedded" conf="test-weld-embedded"/>
-      <ivy:resolve conf="test-glassfish-embedded"/>
-		<ivy:report todir="${project.build.directory}/dependency-reports/test-glassfish-embedded" conf="test-glassfish-embedded"/>
-      <ivy:resolve conf="test-jbossas-remote"/>
-		<ivy:report todir="${project.build.directory}/dependency-reports/test-jbossas-remote" conf="test-jbossas-remote"/>
-	</target>
+    <target name="dependency-report" depends="init">
+        <ivy:resolve conf="test-weld-embedded"/>
+        <ivy:report todir="${project.build.directory}/dependency-reports/test-weld-embedded" conf="test-weld-embedded"/>
+        <ivy:resolve conf="test-glassfish-embedded"/>
+        <ivy:report todir="${project.build.directory}/dependency-reports/test-glassfish-embedded" conf="test-glassfish-embedded"/>
+        <ivy:resolve conf="test-jbossas-remote"/>
+        <ivy:report todir="${project.build.directory}/dependency-reports/test-jbossas-remote" conf="test-jbossas-remote"/>
+    </target>
 
-   <!-- ====================================================================== -->
-   <!-- Help target                                                            -->
-   <!-- ====================================================================== -->
+    <!-- ====================================================================== -->
+    <!-- Help target                                                            -->
+    <!-- ====================================================================== -->
 
-   <target name="help">
-      <echo message="Please run: $ant -projecthelp"/>
-   </target>
+    <target name="help">
+        <echo message="Please run: $ant -projecthelp"/>
+    </target>
 
 </project>

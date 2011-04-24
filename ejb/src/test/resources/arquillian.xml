@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<arquillian xmlns="http://jboss.com/arquillian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://jboss.org/schema/arquillian
-        http://jboss.org/schema/arquillian/arquillian-1.0.xsd">
+<arquillian xmlns="http://jboss.com/arquillian"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian-1.0.xsd">
 
-   <!-- Uncomment to have test archives exported to the file system for inspection.
-        This feature can also be controlled using the system property arquillian.deploymentExportPath -->
-   <!--
-   <engine>
-      <property name="deploymentExportPath">target</property>
-   </engine>
-   -->
+    <!-- Uncomment to have test archives exported to the file system for inspection.
+          This feature can also be controlled using the system property arquillian.deploymentExportPath -->
+    <!--
+    <engine>
+        <property name="deploymentExportPath">target</property>
+    </engine>
+    -->
 
-   <container qualifier="glassfish-embedded">
-      <configuration>
-         <property name="bindHttpPort">7171</property>
-      </configuration>
-   </container>
+    <container qualifier="glassfish-embedded">
+        <configuration>
+            <property name="bindHttpPort">7171</property>
+        </configuration>
+    </container>
 
-   <!-- logThreshold proposed -->
-   <!--
-   <container qualifier="jbossas-managed">
-      <configuration>
-         <property name="logThreshold">ERROR</property>
-      </configuration>
-   </container>
-   -->
+    <!-- logThreshold proposed -->
+    <!--
+    <container qualifier="jbossas-managed">
+        <configuration>
+            <property name="logThreshold">ERROR</property>
+        </configuration>
+    </container>
+    -->
 
 </arquillian>
