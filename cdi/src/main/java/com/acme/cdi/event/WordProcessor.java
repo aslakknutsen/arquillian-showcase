@@ -28,6 +28,7 @@ public class WordProcessor
       document = null;
    }
    
+   @SuppressWarnings("serial")
    public void printUnknownSize(Document document)
    {
       documentEvent.select(new AnnotationLiteral<Default>() {}).fire(document);

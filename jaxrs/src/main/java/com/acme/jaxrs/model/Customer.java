@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "customer", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Customer implements Serializable
 {
+   private static final long serialVersionUID = 1L;
    private Long id;
    private Set<Contact> contacts;
    private String name;

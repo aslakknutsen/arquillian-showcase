@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 @Table(name = "contact")
 public class Contact implements Serializable
 {
+   private static final long serialVersionUID = 1L;
    private Long id;
    private String address;
    private String city;

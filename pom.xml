@@ -23,6 +23,7 @@
       <module>jsf</module>
       <module>as7</module>
       <module>ui</module>
+      <module>multinode</module>
    </modules>
 
 <!--

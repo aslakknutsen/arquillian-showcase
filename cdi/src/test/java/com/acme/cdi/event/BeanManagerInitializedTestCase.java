@@ -20,7 +20,7 @@ public class BeanManagerInitializedTestCase
    public static Archive<?> createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClasses(ApplicationInitializer.class, BeanManagerInitializedExtension.class)
+            .addClasses(ApplicationInitializer.class, BeanManagerInitializedExtension.class, Initialized.class)
             .addAsServiceProvider(Extension.class, BeanManagerInitializedExtension.class)
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }

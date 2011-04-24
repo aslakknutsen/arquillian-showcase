@@ -131,7 +131,7 @@
       </profile>
 
       <profile>
-         <id>arq-jbossas-remote</id>
+         <id>arq-jbossas-remote-6</id>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
@@ -166,7 +166,7 @@
       </profile>
 
       <profile>
-         <id>arq-jbossas-managed</id>
+         <id>arq-jbossas-managed-6</id>
          <dependencies>
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
@@ -187,6 +187,67 @@
                <artifactId>jboss-server-manager</artifactId>
             </dependency>
          </dependencies>
+      </profile>
+
+      <profile>
+         <id>arq-jbossas-remote-7</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-remote-7</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.as</groupId>
+               <artifactId>jboss-as-controller-client</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.spec</groupId>
+               <artifactId>jboss-javaee-6.0</artifactId>
+               <type>pom</type>
+            </dependency>
+         </dependencies>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <configuration>
+                     <excludes>
+                        <exclude>com/acme/cdi/payment/SynchronousPaymentProcessorTestCase.java</exclude>
+                     </excludes>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+
+      <profile>
+         <id>arq-jbossas-managed-7</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-managed-7</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.spec</groupId>
+               <artifactId>jboss-javaee-6.0</artifactId>
+               <type>pom</type>
+            </dependency>
+         </dependencies>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <configuration>
+                     <systemProperties>
+                        <property>
+                           <name>jboss.home</name>
+                           <value>${user.home}/opt/jboss-as7</value>
+                        </property>
+                     </systemProperties>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
       </profile>
 
       <profile>

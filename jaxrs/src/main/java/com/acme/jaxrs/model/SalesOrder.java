@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 @Table(name = "sales_order")
 public class SalesOrder implements Serializable
 {
+   private static final long serialVersionUID = 1L;
    private Long id;
    private BigDecimal amount;
    private Date created;

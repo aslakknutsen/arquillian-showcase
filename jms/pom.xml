@@ -34,7 +34,7 @@
 
 	<profiles>
 		<profile>
-			<id>arq-jbossas-remote</id>
+			<id>arq-jbossas-remote-6</id>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
@@ -48,7 +48,7 @@
 			</dependencies>
 		</profile>
       <profile>
-         <id>arq-jbossas-managed</id>
+         <id>arq-jbossas-managed-6</id>
          <activation>
             <activeByDefault>true</activeByDefault>
          </activation>
@@ -65,6 +65,24 @@
             <dependency>
                <groupId>org.jboss.jbossas</groupId>
                <artifactId>jboss-server-manager</artifactId>
+            </dependency>
+         </dependencies>
+      </profile>
+      <profile>
+         <id>arq-jbossas-remote-7</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-remote-7</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.as</groupId>
+               <artifactId>jboss-as-controller-client</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.spec</groupId>
+               <artifactId>jboss-javaee-6.0</artifactId>
+               <type>pom</type>
             </dependency>
          </dependencies>
       </profile>

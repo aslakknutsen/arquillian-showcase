@@ -18,7 +18,8 @@
       <version.glassfish>3.1</version.glassfish>
       <version.hamcrest>1.2</version.hamcrest>
       <version.jboss_javaee6_spec>1.0.0.Final</version.jboss_javaee6_spec>
-      <version.jbossas_60>6.0.0.Final</version.jbossas_60>
+      <version.jboss_as6>6.0.0.Final</version.jboss_as6>
+      <version.jboss_as7>7.0.0.Beta2</version.jboss_as7>
       <version.jbossas_server_manager>1.0.3.GA</version.jbossas_server_manager>
       <version.jersey>1.6</version.jersey>
       <version.jetty>8.0.0.M1</version.jetty>
@@ -107,7 +108,19 @@
          </dependency>
          <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-jbossas-remote-5.1</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-jbossas-remote-6</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-jbossas-embedded-6</artifactId>
             <version>${version.arquillian}</version>
             <scope>test</scope>
          </dependency>
@@ -119,14 +132,14 @@
          </dependency>
          <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-jbossas-remote-5.1</artifactId>
-            <version>${version.arquillian}</version>
+            <artifactId>arquillian-jbossas-remote-7</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
          </dependency>
          <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-jbossas-embedded-6</artifactId>
-            <version>${version.arquillian}</version>
+            <artifactId>arquillian-jbossas-managed-7</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
          </dependency>
          <dependency>
@@ -150,20 +163,20 @@
          <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-depchain</artifactId>
-            <version>${version.jbossas_60}</version>
+            <version>${version.jboss_as6}</version>
             <type>pom</type>
          </dependency>
          <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-client</artifactId>
-            <version>${version.jbossas_60}</version>
+            <version>${version.jboss_as6}</version>
             <type>pom</type>
             <scope>test</scope>
          </dependency>
          <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-profileservice-client</artifactId>
-            <version>${version.jbossas_60}</version>
+            <version>${version.jboss_as6}</version>
             <type>pom</type>
             <scope>test</scope>
          </dependency>
@@ -176,7 +189,19 @@
          <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-distribution</artifactId>
-            <version>${version.jbossas_60}</version>
+            <version>${version.jboss_as6}</version>
+            <type>zip</type>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-controller-client</artifactId>
+            <version>${version.jboss_as7}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-build</artifactId>
+            <version>${version.jboss_as7}</version>
             <type>zip</type>
          </dependency>
          <dependency>
@@ -261,6 +286,11 @@
 
    <build>
       <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.7</version>
+         </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-eclipse-plugin</artifactId>

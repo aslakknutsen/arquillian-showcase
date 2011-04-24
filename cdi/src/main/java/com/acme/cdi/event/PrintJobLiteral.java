@@ -4,6 +4,8 @@ import javax.enterprise.util.AnnotationLiteral;
 
 public class PrintJobLiteral extends AnnotationLiteral<PrintJob> implements PrintJob
 {
+   private static final long serialVersionUID = 1L;
+
    private JobSize size;
    
    public PrintJobLiteral(JobSize size)
