@@ -183,6 +183,7 @@
             <path refid="build.test.classpath.jbossas-remote"/>
             <pathelement location="${project.build.outputDirectory}"/>
             <pathelement location="${project.build.testOutputDirectory}"/>
+            <pathelement location="${basedir}/src/test/resources-jbossas"/>
          </classpath>
          <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
             <fileset dir="${project.testSource.directory}">
@@ -250,6 +251,19 @@
    <!-- ====================================================================== -->
 
    <target name="jar" depends="package" description="Builds the jar for the application"/>
+
+   <!-- ====================================================================== -->
+   <!-- Dependency reports                                                     -->
+   <!-- ====================================================================== -->
+
+	<target name="dependency-report" depends="init">
+      <ivy:resolve conf="test-weld-embedded"/>
+		<ivy:report todir="${project.build.directory}/dependency-reports/test-weld-embedded" conf="test-weld-embedded"/>
+      <ivy:resolve conf="test-glassfish-embedded"/>
+		<ivy:report todir="${project.build.directory}/dependency-reports/test-glassfish-embedded" conf="test-glassfish-embedded"/>
+      <ivy:resolve conf="test-jbossas-remote"/>
+		<ivy:report todir="${project.build.directory}/dependency-reports/test-jbossas-remote" conf="test-jbossas-remote"/>
+	</target>
 
    <!-- ====================================================================== -->
    <!-- Help target                                                            -->

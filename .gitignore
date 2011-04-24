@@ -1,3 +1,4 @@
+.apt_generated/
 .classpath
 .gradle/
 .ivy/
@@ -5,3 +6,5 @@
 .settings/
 target/
 transaction.log
+derby.log
+WORKLOG

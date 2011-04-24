@@ -16,6 +16,8 @@
  */
 package com.acme.ejb;
 
+import javax.annotation.Resource;
+import javax.ejb.EJBContext;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
@@ -23,6 +25,9 @@ import javax.ejb.Stateless;
 @Local(TemperatureConverter.class)
 public class TemperatureConverterBean implements TemperatureConverter 
 {
+   @Resource
+   private EJBContext ctx;
+   
    public double convertToCelsius(double f) 
    {
       return ((f - 32) * 5 / 9);
@@ -31,5 +36,23 @@ public class TemperatureConverterBean implements TemperatureConverter
    public double convertToFarenheit(double c) 
    {
       return ((c * 9 / 5) + 32);
+   }
+   
+   public boolean isTransactionActive()
+   {
+      if (ctx == null)
+      {
+         return false;
+      }
+      
+      try
+      {
+         ctx.getRollbackOnly();
+         return true;
+      }
+      catch (IllegalStateException e)
+      {
+         return false;
+      }
    }
 }

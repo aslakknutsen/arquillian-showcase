@@ -3,191 +3,130 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.jboss.arquillian.sandbox.showcase</groupId>
-		<artifactId>arquillian-sandbox-showcase-profiles</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../profiles/pom.xml</relativePath>
-	</parent>
+   <parent>
+      <groupId>org.jboss.arquillian.showcase</groupId>
+      <artifactId>arquillian-showcase-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../parent/pom.xml</relativePath>
+   </parent>
 
-   <artifactId>arquillian-sandbox-showcase-jaxrs</artifactId>
-   <packaging>war</packaging>
-   <name>Arquillian Showcase - JAX-RS</name>
-   <description>An application which tracks customers and orders.</description>
-
-   <properties>
-      <!--
-         Explicitly declaring the source encoding eliminates the following message:
-         [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-      -->
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <!--
-         Timestamp format for the maven.build.timestamp property; you can reference property in pom.xml or filtered resources (must enable third-party plugin if using Maven < 2.1)
-      -->
-      <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
-      <!--
-         To set the jboss.home environment variable the Maven way, set the jboss.home property in an active profile in
-         the Maven 2 settings.xml file
-      -->
-      <jboss.home>${env.JBOSS_HOME}</jboss.home>
-      <jboss.domain>default</jboss.domain>
-      <!-- The version of Weld extensions in use -->
-      <jboss-javaee6-spec.version>1.0.0.Beta7</jboss-javaee6-spec.version>
-      <arquillian.version>1.0.0.Alpha3</arquillian.version>
-      <weld.version>1.0.1-SP4</weld.version>
-      <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
-   </properties>
+   <artifactId>arquillian-showcase-jaxrs</artifactId>
+   <packaging>jar</packaging>
+   <name>Arquillian Showcase: JAX-RS</name>
+   <description>Examples that demonstrate how to test JAX-RS endpoints backed by JPA using Arquillian</description>
 
    <dependencies>
       <dependency>
          <groupId>org.jboss.spec</groupId>
          <artifactId>jboss-javaee-6.0</artifactId>
-         <version>${jboss-javaee6-spec.version}</version>
          <type>pom</type>
-         <scope>provided</scope>
-         <exclusions>
-            <!-- causing problems with embedded glassfish -->
-            <exclusion>
-              <groupId>org.jboss.spec.javax.security.auth.message</groupId>
-              <artifactId>jboss-jaspi-api_1.0_spec</artifactId>
-            </exclusion><!--
-            <exclusion>
-            	<artifactId>jsf-api</artifactId>
-            	<groupId>javax.faces</groupId>
-            </exclusion>
-         --></exclusions>
       </dependency>
 
-      <!-- Bean Validation Implementation -->
-      <!-- Provides portable constraints such as @NotEmpty, @Email and @Url -->
-      <!-- Hibernate Validator is the only JSR-303 implementation at the moment, so we can assume it's provided -->
       <dependency>
          <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-validator</artifactId>
-         <version>4.0.0.GA</version>
-         <scope>provided</scope>
-      </dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-cdi</artifactId>
-			<version>2.0.1.GA</version>
-		</dependency>
-	  <dependency>
-         <groupId>org.hibernate</groupId>
          <artifactId>hibernate-jpamodelgen</artifactId>
-         <version>1.0.0.Final</version>
+         <version>1.1.1.Final</version>
          <scope>provided</scope>
       </dependency>
 
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <scope>test</scope>
       </dependency>
 
       <dependency>
          <groupId>org.jboss.arquillian</groupId>
          <artifactId>arquillian-junit</artifactId>
-         <scope>test</scope>
       </dependency>
 
       <dependency>
          <groupId>org.jboss.resteasy</groupId>
          <artifactId>resteasy-jaxrs</artifactId>
-         <version>2.0.1.GA</version>
+         <version>${version.resteasy}</version>
          <scope>test</scope>
       </dependency>
 
    </dependencies>
+
    <build>
       <plugins>
-
-         <!-- Eclipse plugin can force download of source and JavaDoc jars -->
+         <!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation processors -->
+         <!-- FIXME not generating correctly from the commandline -->
          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-eclipse-plugin</artifactId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.3.1</version>
             <configuration>
-               <wtpversion>2.0</wtpversion>
-               <!--
-               <downloadSources>true</downloadSources>
-               <downloadJavadocs>true</downloadJavadocs>
-               -->
+               <source>1.6</source>
+               <target>1.6</target>
             </configuration>
          </plugin>
-
-         <!-- Uncomment if using Maven < 2.1 to set maven.build.timestamp property -->
       </plugins>
    </build>
 
    <profiles>
-		<profile>
-			<id>embedded</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>integration</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-client</artifactId>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-			<build>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources</directory>
-					</testResource>
-					<testResource>
-						<directory>src/test/resources-jbossas</directory>
-					</testResource>
-				</testResources>
-			</build>
-		</profile>
-        <profile>
-            <id>glassfish-embedded-3</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-embedded-3</artifactId>
-                    <version>${arquillian.version}</version>
-                   <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.extras</groupId>
-                    <artifactId>glassfish-embedded-all</artifactId>
-                    <version>3.0.1-b02</version>
-                   <scope>test</scope>
-                </dependency>
-                <dependency>
-                   <!-- likely being introduced by jboss specs -->
-                   <groupId>org.jboss</groupId>
-                   <artifactId>jboss-common-core</artifactId>
-                   <version>2.2.17.GA</version>
-                   <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
+      <profile>
+         <id>default</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <configuration>
+                     <skipTests>true</skipTests>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+      <profile>
+         <id>arq-glassfish-embedded</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+            </dependency>
+            <!-- This imports the Java EE 6 runtime provided by GlassFish Embedded -->
+            <dependency>
+               <groupId>org.glassfish.extras</groupId>
+               <artifactId>glassfish-embedded-all</artifactId>
+            </dependency>
+         </dependencies>
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-glassfish-embedded</directory>
+               </testResource>
+            </testResources>
+         </build>
+      </profile>
+      <profile>
+         <id>arq-jbossas-remote</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-remote-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
+               <type>pom</type>
+            </dependency>
+         </dependencies>
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-jbossas</directory>
+               </testResource>
+            </testResources>
+         </build>
+      </profile>
    </profiles>
 </project>
-

@@ -19,10 +19,11 @@ package com.acme.cdi.payment;
 import javax.enterprise.context.RequestScoped;
 
 @Synchronous
+//@Reliable
 @RequestScoped
 public class SynchronousPaymentProcessor implements PaymentProcessor {
 
-   public void process(String payment) 
+   public void process(double payment) 
    {  
 	   
    }

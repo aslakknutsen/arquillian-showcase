@@ -16,13 +16,15 @@
  */
 package com.acme.ejb;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import javax.ejb.EJB;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -30,28 +32,33 @@ import org.junit.runner.RunWith;
 public class TemperatureConverterTestCase
 {
    @Deployment
-   public static JavaArchive createTestArchive()
+   public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class, "test.jar")
-                  .addClasses(
-                        TemperatureConverter.class,
-                        TemperatureConverterBean.class);
+            .addClasses(TemperatureConverter.class, TemperatureConverterBean.class);
    }
 
    @EJB
-   private TemperatureConverter converter;
+   TemperatureConverter converter;
 
    @Test
    public void testConvertToCelsius()
    {
-      Assert.assertEquals(converter.convertToCelsius(32d), 0d, 0d);
-      Assert.assertEquals(converter.convertToCelsius(212d), 100d, 0d);
+      assertEquals(converter.convertToCelsius(32d), 0d, 0d);
+      assertEquals(converter.convertToCelsius(212d), 100d, 0d);
+      converter.isTransactionActive();
    }
 
    @Test
    public void testConvertToFarenheit()
    {
-      Assert.assertEquals(converter.convertToFarenheit(0d), 32d, 0d);
-      Assert.assertEquals(converter.convertToFarenheit(100d), 212d, 0d);
+      assertEquals(converter.convertToFarenheit(0d), 32d, 0d);
+      assertEquals(converter.convertToFarenheit(100d), 212d, 0d);
+   }
+   
+   @Test
+   public void testTransactionActive()
+   {
+      assertTrue(converter.isTransactionActive());
    }
 }

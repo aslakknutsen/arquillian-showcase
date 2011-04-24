@@ -1,149 +1,206 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!--
-  vi:ts=2:sw=2:expandtab:
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<!-- Model Information -->
-	<modelVersion>4.0.0</modelVersion>
+   <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.jboss.arquillian.sandbox.showcase</groupId>
-		<artifactId>arquillian-sandbox-showcase-profiles</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../profiles/pom.xml</relativePath>
-	</parent>
+   <parent>
+      <groupId>org.jboss.arquillian.showcase</groupId>
+      <artifactId>arquillian-showcase-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../parent/pom.xml</relativePath>
+   </parent>
 
-	<!-- Artifact Information  -->
-	<artifactId>arquillian-sandbox-showcase-jsf</artifactId>
-	<packaging>jar</packaging>
-	<name>Arquillian Showcase - JSF</name>
-	<url>http://www.jboss.org</url>
-	<description>Arquillian Showcase - JSF</description>
+   <artifactId>arquillian-showcase-jsf</artifactId>
+   <packaging>jar</packaging>
+   <name>Arquillian Showcase: JSF</name>
+   <description>Examples that demonstrate how to test JSF pages using Arquillian and JSFUnit</description>
 
-	<properties>
-		<version.jboss_60>6.0.0.20100721-M4</version.jboss_60>
-	</properties>
+   <dependencies>
+      <dependency>
+         <groupId>org.jboss.spec</groupId>
+         <artifactId>jboss-javaee-6.0</artifactId>
+         <type>pom</type>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.arquillian</groupId>
+         <artifactId>arquillian-junit</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.jsfunit</groupId>
+         <artifactId>jsfunit-arquillian</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+      </dependency>
+   </dependencies>
 
-	<profiles>
-		<profile>
-			<id>embedded</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-embedded-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-depchain</artifactId>
-					<version>${version.jboss_60}</version>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>org.jboss.jbossas</groupId>
-						<artifactId>jboss-as-depchain</artifactId>
-						<version>${version.jboss_60}</version>
-						<type>pom</type>
-						<scope>import</scope>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<additionalClasspathElements>
-								<additionalClasspathElement>${project.build.directory}/jboss-${version.jboss_60}/client/jbossws-native-client.jar</additionalClasspathElement>
-								<!--
-									Because jbossweb.sar contains shared web.xml, which must be
-									visible from same CL as TomcatDeployer.class.getClassLoader
-								-->
-								<additionalClasspathElement>${project.build.directory}/jboss-${version.jboss_60}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
-							</additionalClasspathElements>
+   <profiles>
+      <profile>
+         <id>arq-jbossas-managed</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-managed-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
+               <type>pom</type>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-server-manager</artifactId>
+            </dependency>
+         </dependencies>
+         <!--
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-web-profile</directory>
+               </testResource>
+            </testResources>
+         </build>
+         -->
+      </profile>
 
-							<redirectTestOutputToFile>true</redirectTestOutputToFile>
-							<trimStackTrace>false</trimStackTrace>
-							<printSummary>true</printSummary>
-							<forkMode>once</forkMode>
+      <profile>
+         <id>arq-jbossas-remote</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-remote-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
+               <type>pom</type>
+            </dependency>
+         </dependencies>
+         <!--
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-web-profile</directory>
+               </testResource>
+            </testResources>
+         </build>
+         -->
+      </profile>
 
-							<!--
-								MaxPermSize Required to bump the space for relective data like
-								classes, methods, etc. EMB-41. Endorsed required for things like
-								WS support (EMB-61)
-							-->
-							<argLine>-Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djava.endorsed.dirs=${project.build.directory}/jboss-${version.jboss_60}/lib/endorsed -Djboss.home=${project.build.directory}/jboss-${version.jboss_60} -Djboss.boot.server.log.dir=${project.build.directory}/jboss-${version.jboss_60} -Dorg.jboss.reflect.spi.TypeInfoFactory=org.jboss.reflect.plugins.introspection.IntrospectionTypeInfoFactory</argLine>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>unpack</id>
-								<phase>process-test-classes</phase> <!-- So run before testing -->
-								<goals>
-									<goal>unpack</goal>
-								</goals>
-								<configuration>
-									<artifactItems>
-										<artifactItem>
-											<groupId>org.jboss.jbossas</groupId>
-											<artifactId>jboss-as-distribution</artifactId>
-											<version>${version.jboss_60}</version>
-											<type>zip</type>
-											<overWrite>false</overWrite>
-											<outputDirectory>${project.build.directory}</outputDirectory>
-										</artifactItem>
-									</artifactItems>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>integration</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-client</artifactId>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
+      <profile>
+         <id>arq-glassfish-remote</id>
+         <!--
+         Requires additions to test archive:
 
-	<dependencies>
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian</groupId>
-			<artifactId>arquillian-junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.framework</groupId>
-			<artifactId>arquillian-framework-jsfunit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>		
-	</dependencies>
+         MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class);
+         ...
+         .addAsLibraries(resolver.artifacts(
+               "commons-logging:commons-logging:1.1.1",
+               "org.apache.james:apache-mime4j:0.6.1",
+               "xerces:xercesImpl:2.9.1",
+               "commons-collections:commons-collections:3.2.1",
+               "xalan:xalan:2.7.1").resolveAsFiles())
+         -->
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>com.sun.jersey</groupId>
+               <artifactId>jersey-bundle</artifactId>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>com.sun.jersey.contribs</groupId>
+               <artifactId>jersey-multipart</artifactId>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+         <!--
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-web-profile</directory>
+               </testResource>
+            </testResources>
+         </build>
+         -->
+      </profile>
 
+      <!-- NOT WORKING: Requires weld-servlet to be setup for Jetty -->
+      <profile>
+         <id>arq-jetty-embedded</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jetty-embedded-7</artifactId>
+               <version>${version.arquillian}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.eclipse.jetty</groupId>
+               <artifactId>jetty-webapp</artifactId>
+            </dependency>
+            <!-- FIXME shouldn't be required if we aren't using @Resource -->
+            <dependency>
+               <groupId>org.eclipse.jetty</groupId>
+               <artifactId>jetty-plus</artifactId>
+            </dependency>
+            <!-- TODO make a myfaces profile
+            <dependency>
+               <groupId>org.apache.myfaces.core</groupId>
+               <artifactId>myfaces-impl</artifactId>
+               <version>2.0.2</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.apache.myfaces.core</groupId>
+               <artifactId>myfaces-api</artifactId>
+               <version>2.0.2</version>
+               <scope>test</scope>
+            </dependency>
+            -->
+            <dependency>
+               <groupId>com.sun.faces</groupId>
+               <artifactId>jsf-impl</artifactId>
+               <version>2.0.3</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.glassfish.web</groupId>
+               <artifactId>el-impl</artifactId>
+               <version>2.2</version>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-jetty</directory>
+               </testResource>
+            </testResources>
+         </build>
+      </profile>
+   </profiles>
+<!--
+vi:ts=3:sw=3:expandtab:
+-->
 </project>

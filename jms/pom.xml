@@ -1,130 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!--
-  vi:ts=2:sw=2:expandtab:
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<!-- Model Information -->
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.jboss.arquillian.sandbox.showcase</groupId>
-		<artifactId>arquillian-sandbox-showcase-profiles</artifactId>
+		<groupId>org.jboss.arquillian.showcase</groupId>
+		<artifactId>arquillian-showcase-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../profiles/pom.xml</relativePath>
+		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
-	<!-- Artifact Information  -->
-	<artifactId>arquillian-sandbox-showcase-jms</artifactId>
+	<artifactId>arquillian-showcase-jms</artifactId>
 	<packaging>jar</packaging>
-	<name>Arquillian Showcase - JMS</name>
-	<url>http://www.jboss.org</url>
-	<description>Arquillian Showcase - JMS</description>
-
-	<properties>
-		<version.jboss_60>6.0.0.20100721-M4</version.jboss_60>
-	</properties>
-
-	<profiles>
-		<profile>
-			<id>embedded</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-embedded-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-depchain</artifactId>
-					<version>${version.jboss_60}</version>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>org.jboss.jbossas</groupId>
-						<artifactId>jboss-as-depchain</artifactId>
-						<version>${version.jboss_60}</version>
-						<type>pom</type>
-						<scope>import</scope>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<additionalClasspathElements>
-								<additionalClasspathElement>${project.build.directory}/jboss-${version.jboss_60}/client/jbossws-native-client.jar</additionalClasspathElement>
-								<!--
-									Because jbossweb.sar contains shared web.xml, which must be
-									visible from same CL as TomcatDeployer.class.getClassLoader
-								-->
-								<additionalClasspathElement>${project.build.directory}/jboss-${version.jboss_60}/server/default/deploy/jbossweb.sar</additionalClasspathElement>
-							</additionalClasspathElements>
-
-							<redirectTestOutputToFile>true</redirectTestOutputToFile>
-							<trimStackTrace>false</trimStackTrace>
-							<printSummary>true</printSummary>
-							<forkMode>once</forkMode>
-
-							<!--
-								MaxPermSize Required to bump the space for relective data like
-								classes, methods, etc. EMB-41. Endorsed required for things like
-								WS support (EMB-61)
-							-->
-							<argLine>-Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djava.endorsed.dirs=${project.build.directory}/jboss-${version.jboss_60}/lib/endorsed -Djboss.home=${project.build.directory}/jboss-${version.jboss_60} -Djboss.boot.server.log.dir=${project.build.directory}/jboss-${version.jboss_60} -Dorg.jboss.reflect.spi.TypeInfoFactory=org.jboss.reflect.plugins.introspection.IntrospectionTypeInfoFactory</argLine>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>unpack</id>
-								<phase>process-test-classes</phase> <!-- So run before testing -->
-								<goals>
-									<goal>unpack</goal>
-								</goals>
-								<configuration>
-									<artifactItems>
-										<artifactItem>
-											<groupId>org.jboss.jbossas</groupId>
-											<artifactId>jboss-as-distribution</artifactId>
-											<version>${version.jboss_60}</version>
-											<type>zip</type>
-											<overWrite>false</overWrite>
-											<outputDirectory>${project.build.directory}</outputDirectory>
-										</artifactItem>
-									</artifactItems>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>integration</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.arquillian.container</groupId>
-					<artifactId>arquillian-jbossas-remote-6</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.jbossas</groupId>
-					<artifactId>jboss-as-client</artifactId>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
+	<name>Arquillian Showcase: JMS</name>
+	<description>Examples that demonstrate how to test JMS destinations using Arquillian</description>
 
 	<dependencies>
 		<dependency>
@@ -142,4 +32,44 @@
 		</dependency>		
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>arq-jbossas-remote</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-jbossas-remote-6</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.jbossas</groupId>
+					<artifactId>jboss-as-profileservice-client</artifactId>
+					<type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+      <profile>
+         <id>arq-jbossas-managed</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-managed-6</artifactId>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-profileservice-client</artifactId>
+               <type>pom</type>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-server-manager</artifactId>
+            </dependency>
+         </dependencies>
+      </profile>
+	</profiles>
+<!--
+vi:ts=3:sw=3:expandtab:
+-->
 </project>

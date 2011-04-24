@@ -16,38 +16,64 @@
  */
 package com.acme.cdi.payment;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class SynchronousPaymentProcessorTestCase {
+public class SynchronousPaymentProcessorTestCase
+{
+   @Deployment
+   public static JavaArchive createDeployment()
+   {
+      BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+      
+      return ShrinkWrap.create(JavaArchive.class)
+            .addAsManifestResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()), beansXml.getDescriptorName())
+//            .addAsManifestResource(SynchronousPaymentProcessorTestCase.class.getPackage(), "beans.xml", "beans.xml")
+            .addPackage(Synchronous.class.getPackage());
+   }
 
-	@Deployment
-	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class, "test.jar")
-				.addPackage(
-						Synchronous.class.getPackage()
-				)
-				.addManifestResource(
-						"com/acme/cdi/payment/beans.xml",
-						ArchivePaths.create("beans.xml"));
-	}
-	
-	@Inject @Synchronous 
-	private PaymentProcessor processor;
-	
-	@Test
-	public void shouldBeReplacedByAMock() throws Exception
-	{
-       processor.process("");
-	   Assert.assertTrue(MockPaymentProcessor.HAS_BEEN_CALLED);
-	}
+   @Inject @Synchronous
+   PaymentProcessor syncProcessor;
+
+   @Test
+   public void shouldBeReplacedByAMock() throws Exception
+   {
+      Double firstPayment = new Double(25);
+      Double secondPayment = new Double(50);
+      
+      MockPaymentProcessor.PAYMENTS.clear();
+      
+      syncProcessor.process(firstPayment);
+      
+      assertEquals(1, MockPaymentProcessor.PAYMENTS.size());
+      assertEquals(firstPayment, MockPaymentProcessor.PAYMENTS.get(0));
+      
+      syncProcessor.process(secondPayment);
+      
+      assertEquals(2, MockPaymentProcessor.PAYMENTS.size());
+      assertEquals(secondPayment, MockPaymentProcessor.PAYMENTS.get(1));
+   }
+   
+   // Use this deployment for GlassFish due to visibility issues
+/*   @Deployment
+   public static WebArchive createDeployment()
+   {
+      BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+      
+      return ShrinkWrap.create(WebArchive.class)
+            .addAsWebInfResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()), beansXml.getDescriptorName())
+            .addPackage(Synchronous.class.getPackage());
+   }*/
 }

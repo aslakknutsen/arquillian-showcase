@@ -1,56 +1,78 @@
-apply plugin: 'java'
+apply plugin: JavaPlugin
 
-setBuildDir('target')
+buildDir = 'target/gradle-build'
 
-library_versions = [
-   junit: '4.8.1', arquillian: '1.0.0.Alpha3', jbossJavaeeSpec: '1.0.0.Beta7', weld: '1.0.1-Final',
-   slf4j: '1.5.8', log4j: '1.2.14', jbossas: '6.0.0.20100721-M4', glassfish: '3.0.1-b20'
+libraryVersions = [
+   junit: '4.8.1', arquillian: '1.0.0.Alpha5', jbossJavaeeSpec: '1.0.0.Final', weld: '1.1.0.Final',
+   slf4j: '1.5.10', log4j: '1.2.14', jbossas: '6.0.0.Final', glassfish: '3.1', cdi: '1.0-SP4'
 ]
 
 repositories {
    mavenCentral()
-   mavenRepo urls: 'http://repository.jboss.org/nexus/content/groups/public/'
-   mavenRepo urls: 'http://repository.jboss.org/maven2/'
+   // enable if you want to use snapshots published locally
+   //mavenRepo urls: 'file://' + System.getProperty('user.home') + '/.m2/repository'
+   mavenRepo urls: 'http://repository.jboss.org/nexus/content/groups/public'
+   mavenRepo urls: 'http://repository.jboss.org/nexus/content/repositories/deprecated'
 }
 
 configurations {
-   jbossasRemoteTestCompile { extendsFrom compile }
-   jbossasRemoteTestRuntime { extendsFrom jbossasRemoteTestCompile, runtime }
-   glassfishEmbeddedTestCompile { extendsFrom compile }
-   glassfishEmbeddedTestRuntime { extendsFrom glassfishEmbeddedTestCompile, runtime }
+   compileOnly
+   weldEmbeddedTestRuntime { extendsFrom testRuntime }
+   jbossasRemoteTestRuntime { extendsFrom testRuntime, compileOnly }
+   glassfishEmbeddedTestRuntime { extendsFrom testRuntime }
 }
 
 dependencies {
-   compile group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: library_versions.jbossJavaeeSpec
-   testCompile group: 'junit', name: 'junit', version: library_versions.junit
-   testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: library_versions.arquillian
-   testRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: library_versions.arquillian
-   testRuntime group: 'org.jboss.weld', name: 'weld-core', version: library_versions.weld
-   testRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: library_versions.slf4j
-   testRuntime group: 'log4j', name: 'log4j', version: library_versions.log4j
-   jbossasRemoteTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-jbossas-remote-6', version: library_versions.arquillian
-   jbossasRemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-client', version: library_versions.jbossas
-   glassfishEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-glassfish-embedded-3', version: library_versions.arquillian
-   glassfishEmbeddedTestRuntime group: 'org.glassfish.extras', name: 'glassfish-embedded-all', version: library_versions.glassfish
+   // replace javax.enterprise:cdi-api with group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec to compile against full Java EE API
+   compileOnly group: 'javax.enterprise', name: 'cdi-api', version: libraryVersions.cdi
+
+   testCompile group: 'junit', name: 'junit', version: libraryVersions.junit
+   testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.2'
+   testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: libraryVersions.arquillian
+
+   weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: libraryVersions.arquillian
+   weldEmbeddedTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
+   weldEmbeddedTestRuntime group: 'org.jboss.weld', name: 'weld-core', version: libraryVersions.weld
+   weldEmbeddedTestRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: libraryVersions.slf4j
+   weldEmbeddedTestRuntime group: 'log4j', name: 'log4j', version: libraryVersions.log4j
+
+   jbossasRemoteTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-jbossas-remote-6', version: libraryVersions.arquillian
+   jbossasRemoteTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
+   jbossasRemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-profileservice-client', version: libraryVersions.jbossas
+
+   glassfishEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-glassfish-embedded-3.1', version: libraryVersions.arquillian
+   glassfishEmbeddedTestRuntime group: 'org.glassfish.extras', name: 'glassfish-embedded-all', version: libraryVersions.glassfish
 }
 
 sourceSets {
-   jbossasRemoteTest {
-      compileClasspath = sourceSets.main.classes + configurations.jbossasRemoteTestCompile
-      runtimeClasspath = classes + sourceSets.main.classes + configurations.jbossasRemoteTestRuntime
+   main {
+      compileClasspath = configurations.compile + configurations.compileOnly
    }
-   glassfishEmbeddedTest {
-      compileClasspath = sourceSets.main.classes + configurations.glassfishEmbeddedTestCompile
-      runtimeClasspath = classes + sourceSets.main.classes + configurations.glassfishEmbeddedTestRuntime
+   test {
+      compileClasspath = compileClasspath + configurations.compileOnly
    }
 }
 
-task jbossasRemoteTest(type: Test) {
-   testClassesDir = sourceSets.jbossasRemoteTest.classesDir
-   classpath = sourceSets.jbossasRemoteTest.runtimeClasspath
+task weldEmbeddedTest(type: Test)
+
+task jbossasRemoteTest(type: Test)
+
+task glassfishEmbeddedTest(type: Test)
+
+tasks.withType(Test).matching({ t-> t.name.endsWith('Test') } as Spec).each { t ->
+   t.testClassesDir = sourceSets.test.classesDir
+   t.classpath = sourceSets.test.classes + sourceSets.main.classes + configurations[t.name + 'Runtime']
+   if (t.name.startsWith('jbossas')) {
+     t.classpath += files('src/test/resources-jbossas')
+   }
 }
 
-task glassfishEmbeddedTest(type: Test) {
-   testClassesDir = sourceSets.glassfishEmbeddedTest.classesDir
-   classpath = sourceSets.glassfishEmbeddedTest.runtimeClasspath
+test {
+  dependsOn { weldEmbeddedTest }
+  setEnabled(false)
+}
+
+task generateWrapper(type: Wrapper) {
+   gradleVersion = '0.9.2'
+   jarFile = 'gradle-wrapper/gradle-wrapper.jar'
 }
