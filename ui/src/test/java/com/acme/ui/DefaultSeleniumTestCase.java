@@ -35,44 +35,42 @@ import com.thoughtworks.selenium.DefaultSelenium;
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @RunWith(Arquillian.class)
-public class DefaultSeleniumTestCase extends AbstractTestCase
-{
-   @Drone
-   DefaultSelenium driver;   
-   
-   @ArquillianResource
-   URL deploymentUrl;
-   
-   private static final String USERNAME = "demo";
-   private static final String PASSWORD = "demo";
+public class DefaultSeleniumTestCase extends AbstractTestCase {
+    @Drone
+    DefaultSelenium driver;
 
-   private static final String LOGGED_IN = "xpath=//li[contains(text(),'Welcome')]";
-   private static final String LOGGED_OUT = "xpath=//li[contains(text(),'Goodbye')]";
+    @ArquillianResource
+    URL deploymentUrl;
 
-   private static final String USERNAME_FIELD = "id=loginForm:username";
-   private static final String PASSWORD_FIELD = "id=loginForm:password";
+    private static final String USERNAME = "demo";
+    private static final String PASSWORD = "demo";
 
-   private static final String LOGIN_BUTTON = "id=loginForm:login";
-   private static final String LOGOUT_BUTTON = "id=loginForm:logout";;
+    private static final String LOGGED_IN = "xpath=//li[contains(text(),'Welcome')]";
+    private static final String LOGGED_OUT = "xpath=//li[contains(text(),'Goodbye')]";
 
-   private static final String TIMEOUT = "15000";
+    private static final String USERNAME_FIELD = "id=loginForm:username";
+    private static final String PASSWORD_FIELD = "id=loginForm:password";
 
-   @Test
-   public void testLoginAndLogout()
-   {
-      Assert.assertNotNull("Path is not null", deploymentUrl);
-      
-      driver.open(deploymentUrl + "/home.jsf");
+    private static final String LOGIN_BUTTON = "id=loginForm:login";
+    private static final String LOGOUT_BUTTON = "id=loginForm:logout";;
 
-      driver.type(USERNAME_FIELD, USERNAME);
-      driver.type(PASSWORD_FIELD, PASSWORD);
-      driver.click(LOGIN_BUTTON);
-      driver.waitForPageToLoad(TIMEOUT);
+    private static final String TIMEOUT = "15000";
 
-      Assert.assertTrue("User should be logged in!", driver.isElementPresent(LOGGED_IN));
+    @Test
+    public void testLoginAndLogout() {
+        Assert.assertNotNull("Path is not null", deploymentUrl);
 
-      driver.click(LOGOUT_BUTTON);
-      driver.waitForPageToLoad(TIMEOUT);
-      Assert.assertTrue("User should not be logged in!", driver.isElementPresent(LOGGED_OUT));
-   }
+        driver.open(deploymentUrl + "/home.jsf");
+
+        driver.type(USERNAME_FIELD, USERNAME);
+        driver.type(PASSWORD_FIELD, PASSWORD);
+        driver.click(LOGIN_BUTTON);
+        driver.waitForPageToLoad(TIMEOUT);
+
+        Assert.assertTrue("User should be logged in!", driver.isElementPresent(LOGGED_IN));
+
+        driver.click(LOGOUT_BUTTON);
+        driver.waitForPageToLoad(TIMEOUT);
+        Assert.assertTrue("User should not be logged in!", driver.isElementPresent(LOGGED_OUT));
+    }
 }

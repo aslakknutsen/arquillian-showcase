@@ -7,7 +7,8 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-public @interface Tracer {}
+public @interface Tracer {
+}

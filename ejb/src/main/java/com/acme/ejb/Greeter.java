@@ -16,7 +16,6 @@
  */
 package com.acme.ejb;
 
-public interface Greeter
-{
-   String greet(String userName);
+public interface Greeter {
+    String greet(String userName);
 }

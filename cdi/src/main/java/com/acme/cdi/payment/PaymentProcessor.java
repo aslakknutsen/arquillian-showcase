@@ -18,6 +18,6 @@ package com.acme.cdi.payment;
 
 public interface PaymentProcessor {
 
-	void process(double payment);
-	
+    void process(double payment);
+
 }

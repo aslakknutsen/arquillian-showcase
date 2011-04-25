@@ -16,10 +16,8 @@
  */
 package com.acme.cdi;
 
-public class Greeter
-{
-   public String greet(String userName)
-   {
-      return "Hello, " + userName;
-   }
+public class Greeter {
+    public String greet(String userName) {
+        return "Hello, " + userName;
+    }
 }

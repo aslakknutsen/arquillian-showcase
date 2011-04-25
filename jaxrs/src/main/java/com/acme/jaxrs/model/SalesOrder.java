@@ -15,67 +15,56 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "sales_order")
-public class SalesOrder implements Serializable
-{
-   private static final long serialVersionUID = 1L;
-   private Long id;
-   private BigDecimal amount;
-   private Date created;
-   private Customer customer;
-   private Set<LineItem> lineItems;
+public class SalesOrder implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private Long id;
+    private BigDecimal amount;
+    private Date created;
+    private Customer customer;
+    private Set<LineItem> lineItems;
 
-   @Id
-   @GeneratedValue
-   public Long getId()
-   {
-      return id;
-   }
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
 
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   public BigDecimal getAmount()
-   {
-      return amount;
-   }
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-   public void setAmount(BigDecimal amount)
-   {
-      this.amount = amount;
-   }
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-   @Temporal(TemporalType.DATE)
-   public Date getCreated()
-   {
-      return created;
-   }
+    @Temporal(TemporalType.DATE)
+    public Date getCreated() {
+        return created;
+    }
 
-   public void setCreated(Date created)
-   {
-      this.created = created;
-   }
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-   @ManyToOne
-   public Customer getCustomer()
-   {
-      return customer;
-   }
+    @ManyToOne
+    public Customer getCustomer() {
+        return customer;
+    }
 
-   public void setCustomer(Customer customer)
-   {
-      this.customer = customer;
-   }
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
-   @OneToMany(mappedBy = "order")
-   public Set<LineItem> getLineItems()
-   {
-      return lineItems;
-   }
+    @OneToMany(mappedBy = "order")
+    public Set<LineItem> getLineItems() {
+        return lineItems;
+    }
 
-   public void setLineItems(Set<LineItem> lineItems)
-   {
-      this.lineItems = lineItems;
-   }
+    public void setLineItems(Set<LineItem> lineItems) {
+        this.lineItems = lineItems;
+    }
 }

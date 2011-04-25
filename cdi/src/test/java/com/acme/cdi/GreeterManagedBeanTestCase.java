@@ -28,21 +28,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class GreeterManagedBeanTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment() {
-      return ShrinkWrap.create(JavaArchive.class).addClass(Greeter.class)
-         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+public class GreeterManagedBeanTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addClass(Greeter.class)
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @Inject
-   Greeter greeter;
+    @Inject
+    Greeter greeter;
 
-   @Test
-   public void should_greet_earthlings() throws Exception
-   {
-      String name = "Earthlings";
-      Assert.assertEquals("Hello, " + name, greeter.greet(name));
-   }
+    @Test
+    public void should_greet_earthlings() throws Exception {
+        String name = "Earthlings";
+        Assert.assertEquals("Hello, " + name, greeter.greet(name));
+    }
 }

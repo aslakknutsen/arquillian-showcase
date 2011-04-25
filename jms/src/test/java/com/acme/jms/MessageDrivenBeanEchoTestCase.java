@@ -38,56 +38,49 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class MessageDrivenBeanEchoTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      return ShrinkWrap.create(JavaArchive.class).addClass(MessageEchoBean.class);
-   }
+public class MessageDrivenBeanEchoTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class).addClass(MessageEchoBean.class);
+    }
 
-   private static final long QUALITY_OF_SERVICE_THRESHOLD_MS = 5 * 60 * 1000;
-   
-   @Resource(mappedName = "/queue/DLQ")
-   Queue dlq;
+    private static final long QUALITY_OF_SERVICE_THRESHOLD_MS = 5 * 60 * 1000;
 
-   @Resource(mappedName = "/ConnectionFactory")
-   ConnectionFactory factory;
+    @Resource(mappedName = "/queue/DLQ")
+    Queue dlq;
 
-   @Test
-   public void shouldBeAbleToSendMessage() throws Exception
-   {
-      String messageBody = "ping";
+    @Resource(mappedName = "/ConnectionFactory")
+    ConnectionFactory factory;
 
-      Connection connection = null;
-      Session session = null;
-      try
-      {
-         connection = factory.createConnection();
-         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-         
-         TemporaryQueue tempQueue = session.createTemporaryQueue();
-         MessageProducer producer = session.createProducer(dlq);
-         MessageConsumer consumer = session.createConsumer(tempQueue);
+    @Test
+    public void shouldBeAbleToSendMessage() throws Exception {
+        String messageBody = "ping";
 
-         connection.start();
-         
-         Message request = session.createTextMessage(messageBody);
-         request.setJMSReplyTo(tempQueue);
+        Connection connection = null;
+        Session session = null;
+        try {
+            connection = factory.createConnection();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-         producer.send(request);
-         Message response = consumer.receive(QUALITY_OF_SERVICE_THRESHOLD_MS);
-         assertNotNull(response);
-         String responseBody = ((TextMessage) response).getText();
+            TemporaryQueue tempQueue = session.createTemporaryQueue();
+            MessageProducer producer = session.createProducer(dlq);
+            MessageConsumer consumer = session.createConsumer(tempQueue);
 
-         assertEquals("Should have responded with same message", messageBody, responseBody);
-      }
-      finally
-      {
-         if (connection != null)
-         {
-            connection.close();
-         }
-      }
-   }
+            connection.start();
+
+            Message request = session.createTextMessage(messageBody);
+            request.setJMSReplyTo(tempQueue);
+
+            producer.send(request);
+            Message response = consumer.receive(QUALITY_OF_SERVICE_THRESHOLD_MS);
+            assertNotNull(response);
+            String responseBody = ((TextMessage) response).getText();
+
+            assertEquals("Should have responded with same message", messageBody, responseBody);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
 }

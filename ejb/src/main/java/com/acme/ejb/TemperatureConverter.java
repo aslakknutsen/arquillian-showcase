@@ -16,11 +16,10 @@
  */
 package com.acme.ejb;
 
-public interface TemperatureConverter
-{
-   double convertToCelsius(double f);
+public interface TemperatureConverter {
+    double convertToCelsius(double f);
 
-   double convertToFarenheit(double c);
-   
-   boolean isTransactionActive();
+    double convertToFarenheit(double c);
+
+    boolean isTransactionActive();
 }

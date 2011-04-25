@@ -42,36 +42,34 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @RunWith(Arquillian.class)
-public class LoginScreenAjacodoTestCase extends AbstractTestCase
-{
-   @Drone
-   AjaxSelenium driver;
+public class LoginScreenAjacodoTestCase extends AbstractTestCase {
+    @Drone
+    AjaxSelenium driver;
 
-   @ArquillianResource
-   URL deploymentUrl;
-   
-   protected XpathLocator LOGGED_IN = xp("//li[contains(text(),'Welcome')]");
-   protected XpathLocator LOGGED_OUT = xp("//li[contains(text(),'Goodbye')]");
+    @ArquillianResource
+    URL deploymentUrl;
 
-   protected IdLocator USERNAME_FIELD = id("loginForm:username");
-   protected IdLocator PASSWORD_FIELD = id("loginForm:password");
+    protected XpathLocator LOGGED_IN = xp("//li[contains(text(),'Welcome')]");
+    protected XpathLocator LOGGED_OUT = xp("//li[contains(text(),'Goodbye')]");
 
-   protected IdLocator LOGIN_BUTTON = id("loginForm:login");
-   protected IdLocator LOGOUT_BUTTON = id("loginForm:logout");
+    protected IdLocator USERNAME_FIELD = id("loginForm:username");
+    protected IdLocator PASSWORD_FIELD = id("loginForm:password");
 
-   @Test
-   public void testLoginAndLogout()
-   {
-      driver.open(deploymentUrl);
-      waitModel.until(elementPresent.locator(USERNAME_FIELD));      
-      Assert.assertFalse("User should not be logged in!", driver.isElementPresent(LOGOUT_BUTTON));
-      driver.type(USERNAME_FIELD, "demo");
-      driver.type(PASSWORD_FIELD, "demo");
-      
-      waitHttp(driver).click(LOGIN_BUTTON);
-      Assert.assertTrue("User should be logged in!", driver.isElementPresent(LOGGED_IN));
-      
-      waitHttp(driver).click(LOGOUT_BUTTON);
-      Assert.assertTrue("User should not be logged in!", driver.isElementPresent(LOGGED_OUT));
-   }
+    protected IdLocator LOGIN_BUTTON = id("loginForm:login");
+    protected IdLocator LOGOUT_BUTTON = id("loginForm:logout");
+
+    @Test
+    public void testLoginAndLogout() {
+        driver.open(deploymentUrl);
+        waitModel.until(elementPresent.locator(USERNAME_FIELD));
+        Assert.assertFalse("User should not be logged in!", driver.isElementPresent(LOGOUT_BUTTON));
+        driver.type(USERNAME_FIELD, "demo");
+        driver.type(PASSWORD_FIELD, "demo");
+
+        waitHttp(driver).click(LOGIN_BUTTON);
+        Assert.assertTrue("User should be logged in!", driver.isElementPresent(LOGGED_IN));
+
+        waitHttp(driver).click(LOGOUT_BUTTON);
+        Assert.assertTrue("User should not be logged in!", driver.isElementPresent(LOGGED_OUT));
+    }
 }

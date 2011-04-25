@@ -33,24 +33,22 @@ import org.junit.runner.RunWith;
  * @version $Revision: $
  */
 @RunWith(Arquillian.class)
-public class RandomTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      return ShrinkWrap.create(JavaArchive.class)
-            .addPackage(Random.class.getPackage())
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+public class RandomTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackage(Random.class.getPackage())
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @Inject @Random
-   int randomNumber;
+    @Inject
+    @Random
+    int randomNumber;
 
-   @Test
-   public void shouldGenerateRandomNumber() throws Exception
-   {
-      System.out.println("Generated " + randomNumber);
-      assertTrue(randomNumber >= 0);
-      assertTrue(randomNumber <= 100);
-   }
+    @Test
+    public void shouldGenerateRandomNumber() throws Exception {
+        System.out.println("Generated " + randomNumber);
+        assertTrue(randomNumber >= 0);
+        assertTrue(randomNumber <= 100);
+    }
 }

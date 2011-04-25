@@ -11,13 +11,15 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class AmbiguousDependencyTestCase {
-    @Deployment @ShouldThrowException(Exception.class)
+    @Deployment
+    @ShouldThrowException(Exception.class)
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-            .addPackage(Service.class.getPackage())
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addPackage(Service.class.getPackage())
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
+
     @Test
-    public void shouldFailDeployment() {}
+    public void shouldFailDeployment() {
+    }
 }

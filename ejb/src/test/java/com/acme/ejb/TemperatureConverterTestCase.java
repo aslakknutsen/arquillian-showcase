@@ -29,36 +29,31 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class TemperatureConverterTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar")
-            .addClasses(TemperatureConverter.class, TemperatureConverterBean.class);
-   }
+public class TemperatureConverterTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "test.jar")
+                .addClasses(TemperatureConverter.class, TemperatureConverterBean.class);
+    }
 
-   @EJB
-   TemperatureConverter converter;
+    @EJB
+    TemperatureConverter converter;
 
-   @Test
-   public void testConvertToCelsius()
-   {
-      assertEquals(converter.convertToCelsius(32d), 0d, 0d);
-      assertEquals(converter.convertToCelsius(212d), 100d, 0d);
-      converter.isTransactionActive();
-   }
+    @Test
+    public void testConvertToCelsius() {
+        assertEquals(converter.convertToCelsius(32d), 0d, 0d);
+        assertEquals(converter.convertToCelsius(212d), 100d, 0d);
+        converter.isTransactionActive();
+    }
 
-   @Test
-   public void testConvertToFarenheit()
-   {
-      assertEquals(converter.convertToFarenheit(0d), 32d, 0d);
-      assertEquals(converter.convertToFarenheit(100d), 212d, 0d);
-   }
-   
-   @Test
-   public void testTransactionActive()
-   {
-      assertTrue(converter.isTransactionActive());
-   }
+    @Test
+    public void testConvertToFarenheit() {
+        assertEquals(converter.convertToFarenheit(0d), 32d, 0d);
+        assertEquals(converter.convertToFarenheit(100d), 212d, 0d);
+    }
+
+    @Test
+    public void testTransactionActive() {
+        assertTrue(converter.isTransactionActive());
+    }
 }

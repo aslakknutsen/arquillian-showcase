@@ -30,54 +30,47 @@ import javax.persistence.PersistenceContext;
 
 import org.jboss.logging.Logger;
 
-
 @SessionScoped
 @Named
-public class Login implements Serializable
-{
-   private static final long serialVersionUID = 7965455427888195913L;
+public class Login implements Serializable {
+    private static final long serialVersionUID = 7965455427888195913L;
 
-   @Inject
-   private Logger logger;
-   
-   @Inject
-   private Credentials credentials;
-   
-   @PersistenceContext
-   private EntityManager userDatabase;
+    @Inject
+    private Logger logger;
 
-   private User currentUser;
+    @Inject
+    private Credentials credentials;
 
-   public void login()
-   {
-      List<User> results = userDatabase.createQuery("select u from User u where u.username = :username and u.password = :password", User.class)
-          .setParameter("username", credentials.getUsername())
-          .setParameter("password", credentials.getPassword())
-          .getResultList();
+    @PersistenceContext
+    private EntityManager userDatabase;
 
-      if (!results.isEmpty())
-      {
-         currentUser = results.get(0);
-         logger.info(currentUser.getName() + " has successfully signed in.");
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Welcome, " + currentUser.getName()));
-      }
-   }
+    private User currentUser;
 
-   public void logout()
-   {
-      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Goodbye, " + currentUser.getName()));
-      currentUser = null;
-   }
+    public void login() {
+        List<User> results = userDatabase
+                .createQuery("select u from User u where u.username = :username and u.password = :password", User.class)
+                .setParameter("username", credentials.getUsername()).setParameter("password", credentials.getPassword())
+                .getResultList();
 
-   public boolean isLoggedIn()
-   {
-      return currentUser != null;
-   }
+        if (!results.isEmpty()) {
+            currentUser = results.get(0);
+            logger.info(currentUser.getName() + " has successfully signed in.");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Welcome, " + currentUser.getName()));
+        }
+    }
 
-   @Produces
-   @LoggedIn
-   public User getCurrentUser()
-   {
-      return currentUser;
-   }
+    public void logout() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Goodbye, " + currentUser.getName()));
+        currentUser = null;
+    }
+
+    public boolean isLoggedIn() {
+        return currentUser != null;
+    }
+
+    @Produces
+    @LoggedIn
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }

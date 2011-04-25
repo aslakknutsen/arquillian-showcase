@@ -9,27 +9,23 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 @Local(Games.class)
-public class GamesBean implements Games
-{
-   @PersistenceContext
-   private EntityManager em;
-   
-   @Override
-   public void clear()
-   {
-      em.createQuery("delete from Game").executeUpdate();
-   }
+public class GamesBean implements Games {
+    @PersistenceContext
+    private EntityManager em;
 
-   @Override
-   public void add(Game game)
-   {
-      em.persist(game);
-   }
+    @Override
+    public void clear() {
+        em.createQuery("delete from Game").executeUpdate();
+    }
 
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<Game> selectAllUsingJpql()
-   {
-      return em.createQuery("select g from Game g order by g.id").getResultList();
-   }
+    @Override
+    public void add(Game game) {
+        em.persist(game);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Game> selectAllUsingJpql() {
+        return em.createQuery("select g from Game g order by g.id").getResultList();
+    }
 }

@@ -31,31 +31,27 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class BeanManagerTestCase
-{
-   @Deployment
-   public static JavaArchive createTestArchive() {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar") // archive name optional
-         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+public class BeanManagerTestCase {
+    @Deployment
+    public static JavaArchive createTestArchive() {
+        return ShrinkWrap.create(JavaArchive.class, "test.jar") // archive name optional
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @Inject
-   BeanManager beanManager;
+    @Inject
+    BeanManager beanManager;
 
-   @Test
-   public void testCdiBootstrap()
-   {
-      assertNotNull(beanManager);
-      assertFalse(beanManager.getBeans(BeanManager.class).isEmpty());
-   }
-   
-   protected void printCdiImplementationInfo(BeanManager beanManager)
-   {
-      String impl = beanManager.getClass().getPackage().getImplementationTitle();
-      if (impl != null)
-      {
-         System.out.println("CDI implementation: " + impl.replaceFirst("^([^ ]+)( .*)?$", "$1"));
-      }
-      System.out.println("BeanManager implementation class: " + beanManager.getClass().getName());
-   }
+    @Test
+    public void testCdiBootstrap() {
+        assertNotNull(beanManager);
+        assertFalse(beanManager.getBeans(BeanManager.class).isEmpty());
+    }
+
+    protected void printCdiImplementationInfo(BeanManager beanManager) {
+        String impl = beanManager.getClass().getPackage().getImplementationTitle();
+        if (impl != null) {
+            System.out.println("CDI implementation: " + impl.replaceFirst("^([^ ]+)( .*)?$", "$1"));
+        }
+        System.out.println("BeanManager implementation class: " + beanManager.getClass().getName());
+    }
 }

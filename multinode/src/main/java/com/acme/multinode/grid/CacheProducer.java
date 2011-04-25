@@ -29,29 +29,27 @@ import org.infinispan.manager.EmbeddedCacheManager;
 /**
  * @author Galder Zamarreño
  */
-public class CacheProducer
-{
-   //@Resource(name = "name")
-   private String configName = "infinispan.xml";
-   
-   @Produces @ApplicationScoped
-   public EmbeddedCacheManager createCacheManager() throws IOException 
-   {
-      return new DefaultCacheManager(configName);
-   }
-   
-   public void distroyCacheManager(@Disposes EmbeddedCacheManager manager)
-   {
-      manager.stop();
-   }
+public class CacheProducer {
+    // @Resource(name = "name")
+    private String configName = "infinispan.xml";
 
-   @Produces @ApplicationScoped
-   public Cache<String, Integer> createCache(EmbeddedCacheManager cacheManager) 
-   {
-      return cacheManager.getCache();
-   }
-   
-   public void distroyCache(@Disposes Cache<String, Integer> cache) {
-      cache.stop();
-   }
+    @Produces
+    @ApplicationScoped
+    public EmbeddedCacheManager createCacheManager() throws IOException {
+        return new DefaultCacheManager(configName);
+    }
+
+    public void distroyCacheManager(@Disposes EmbeddedCacheManager manager) {
+        manager.stop();
+    }
+
+    @Produces
+    @ApplicationScoped
+    public Cache<String, Integer> createCache(EmbeddedCacheManager cacheManager) {
+        return cacheManager.getCache();
+    }
+
+    public void distroyCache(@Disposes Cache<String, Integer> cache) {
+        cache.stop();
+    }
 }

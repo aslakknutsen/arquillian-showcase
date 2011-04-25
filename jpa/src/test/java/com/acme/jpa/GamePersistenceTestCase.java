@@ -38,89 +38,80 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class GamePersistenceTestCase
-{
-   private static final String[] GAME_TITLES =
-   {
-      "Super Mario Brothers",
-      "Mario Kart",
-      "F-Zero"
-   };
+public class GamePersistenceTestCase {
+    private static final String[] GAME_TITLES = { "Super Mario Brothers", "Mario Kart", "F-Zero" };
 
-   @Deployment
-   public static WebArchive createDeployment()
-   {
-      return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addPackage(Game.class.getPackage())
-            //.addManifestResource("test-persistence.xml", "persistence.xml")
-            .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
-   
-   @PersistenceContext
-   EntityManager em;
-   
-   @Inject
-   UserTransaction utx;
-   
-   @Test
-   public void testInsert() throws Exception
-   {
-      assertNotNull(utx);
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                .addPackage(Game.class.getPackage())
+                // .addManifestResource("test-persistence.xml", "persistence.xml")
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-      // flushing database
-      utx.begin();
-      em.joinTransaction();
-      em.createQuery("delete from Game").executeUpdate();
-      utx.commit();
+    @PersistenceContext
+    EntityManager em;
 
-      // insert records
-      utx.begin();
-      em.joinTransaction();
-      System.out.println("Inserting records...");
-      for (String title : GAME_TITLES)
-      {
-         Game game = new Game(title);
-         em.persist(game);
-      }
-      utx.commit();
+    @Inject
+    UserTransaction utx;
 
-      List<Game> games;
+    @Test
+    public void testInsert() throws Exception {
+        assertNotNull(utx);
 
-      // query with JPQL
-      utx.begin();
-      em.joinTransaction();
-      System.out.println("Selecting (using JPQL)...");
-      games = em.createQuery("select g from Game g order by g.id", Game.class).getResultList();
-      System.out.println("Found " + games.size() + " games (using JPQL)");
-      assertEquals(GAME_TITLES.length, games.size());
-      for (int i = 0; i < GAME_TITLES.length; i++) {
-         assertEquals(GAME_TITLES[i], games.get(i).getTitle());
-         System.out.println(games.get(i));
-      }
-      utx.commit();
+        // flushing database
+        utx.begin();
+        em.joinTransaction();
+        em.createQuery("delete from Game").executeUpdate();
+        utx.commit();
 
-      // query with Criteria
-      utx.begin();
-      em.joinTransaction();
-      CriteriaBuilder builder = em.getCriteriaBuilder();
-      CriteriaQuery<Game> criteria = builder.createQuery(Game.class);
+        // insert records
+        utx.begin();
+        em.joinTransaction();
+        System.out.println("Inserting records...");
+        for (String title : GAME_TITLES) {
+            Game game = new Game(title);
+            em.persist(game);
+        }
+        utx.commit();
 
-      Root<Game> game = criteria.from(Game.class);
-      criteria.select(game);
-      // Toggle comment on first orderBy criteria below (and comment the subsequent line)
-      // if you want to try out type-safe criteria queries, a new feature in JPA 2.0
-      // requires that the metamodel generator is configured correctly
-      //criteria.orderBy(builder.asc(game.get(Game_.id)));
-      criteria.orderBy(builder.asc(game.get("id")));
-      System.out.println("Selecting (using Criteria)...");
-      games = em.createQuery(criteria).getResultList();
-      System.out.println("Found " + games.size() + " games (using Criteria)");
-      assertEquals(GAME_TITLES.length, games.size());
-      for (int i = 0; i < GAME_TITLES.length; i++) {
-         assertEquals(GAME_TITLES[i], games.get(i).getTitle());
-         System.out.println(games.get(i));
-      }
-      utx.commit();
-   }
+        List<Game> games;
+
+        // query with JPQL
+        utx.begin();
+        em.joinTransaction();
+        System.out.println("Selecting (using JPQL)...");
+        games = em.createQuery("select g from Game g order by g.id", Game.class).getResultList();
+        System.out.println("Found " + games.size() + " games (using JPQL)");
+        assertEquals(GAME_TITLES.length, games.size());
+        for (int i = 0; i < GAME_TITLES.length; i++) {
+            assertEquals(GAME_TITLES[i], games.get(i).getTitle());
+            System.out.println(games.get(i));
+        }
+        utx.commit();
+
+        // query with Criteria
+        utx.begin();
+        em.joinTransaction();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Game> criteria = builder.createQuery(Game.class);
+
+        Root<Game> game = criteria.from(Game.class);
+        criteria.select(game);
+        // Toggle comment on first orderBy criteria below (and comment the subsequent line)
+        // if you want to try out type-safe criteria queries, a new feature in JPA 2.0
+        // requires that the metamodel generator is configured correctly
+        // criteria.orderBy(builder.asc(game.get(Game_.id)));
+        criteria.orderBy(builder.asc(game.get("id")));
+        System.out.println("Selecting (using Criteria)...");
+        games = em.createQuery(criteria).getResultList();
+        System.out.println("Found " + games.size() + " games (using Criteria)");
+        assertEquals(GAME_TITLES.length, games.size());
+        for (int i = 0; i < GAME_TITLES.length; i++) {
+            assertEquals(GAME_TITLES[i], games.get(i).getTitle());
+            System.out.println(games.get(i));
+        }
+        utx.commit();
+    }
 }

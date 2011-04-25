@@ -20,15 +20,13 @@ import javax.ejb.Stateless;
 
 /**
  * NoInterfaceEJB
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
 @Stateless
-public class NoInterfaceEJB
-{
-   public String ping() 
-   {
-      return "pong";
-   }
+public class NoInterfaceEJB {
+    public String ping() {
+        return "pong";
+    }
 }

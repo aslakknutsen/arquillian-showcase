@@ -31,28 +31,24 @@ import org.infinispan.Cache;
 
 /**
  * TestServlet
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-@WebServlet(urlPatterns = {"/*"}, loadOnStartup = 1)
-public class CacheServlet extends HttpServlet
-{
-   private static final long serialVersionUID = 1L;
+@WebServlet(urlPatterns = { "/*" }, loadOnStartup = 1)
+public class CacheServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-   @Inject
-   private Cache<String, Integer> cache;
+    @Inject
+    private Cache<String, Integer> cache;
 
-   @Override
-   public void init() throws ServletException
-   {
-      cache.getVersion();
-   }
-   
-   @Override
-   protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-   {
-      response.getWriter().append(
-            String.valueOf(incrementCache(cache)));
-   }
+    @Override
+    public void init() throws ServletException {
+        cache.getVersion();
+    }
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.getWriter().append(String.valueOf(incrementCache(cache)));
+    }
 }

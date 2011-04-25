@@ -28,47 +28,33 @@ import javax.jms.Session;
 
 /**
  * MessageEchoBean
- *
+ * 
  * @author <a href="mailto:aslak@conduct.no">Aslak Knutsen</a>
  * @version $Revision: $
  */
 @MessageDriven(activationConfig = {
-      @ActivationConfigProperty( propertyName = "destination", propertyValue = "queue/DLQ"),
-      @ActivationConfigProperty( propertyName = "destinationType", propertyValue = "javax.jms.Queue")
-})
-public class MessageEchoBean implements MessageListener
-{
-   @Resource(mappedName = "/ConnectionFactory")
-   private ConnectionFactory factory;
-   
-   public void onMessage(Message message)
-   {
-      Connection connection = null;
-      try 
-      {
-         connection = factory.createConnection();
-         connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
-               .createProducer(message.getJMSReplyTo())
-               .send(message);
-      }
-      catch (InvalidDestinationException e) 
-      {
-         System.out.println("Dropping invalid message" + e.getMessage());
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException("Could not reply to message", e);
-      }
-      finally
-      {
-         if (connection != null)
-         {
-            try
-            {
-               connection.close();
+        @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/DLQ"),
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
+public class MessageEchoBean implements MessageListener {
+    @Resource(mappedName = "/ConnectionFactory")
+    private ConnectionFactory factory;
+
+    public void onMessage(Message message) {
+        Connection connection = null;
+        try {
+            connection = factory.createConnection();
+            connection.createSession(false, Session.AUTO_ACKNOWLEDGE).createProducer(message.getJMSReplyTo()).send(message);
+        } catch (InvalidDestinationException e) {
+            System.out.println("Dropping invalid message" + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("Could not reply to message", e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                }
             }
-            catch (Exception e) {}
-         }
-      }
-   }
+        }
+    }
 }

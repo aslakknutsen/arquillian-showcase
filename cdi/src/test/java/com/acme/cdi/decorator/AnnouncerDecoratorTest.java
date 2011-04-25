@@ -20,23 +20,22 @@ import com.acme.cdi.decorate.AnnouncerBean;
 import com.acme.cdi.decorate.AnnouncerDecorator;
 
 @RunWith(Arquillian.class)
-public class AnnouncerDecoratorTest
-{
-   @Deployment
-   public static Archive<?> createArchive()
-   {
-      BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
-      return ShrinkWrap.create(JavaArchive.class)
-         .addPackage(Announcer.class.getPackage())
-         .addAsManifestResource(new StringAsset(
-               beansXml.decorator(AnnouncerDecorator.class).exportAsString()), beansXml.getDescriptorName());
-   }
-   
-   @Inject AnnouncerBean bean;
-   
-   @Test
-   public void shouldDecorateAnnouncement()
-   {
-      Assert.assertEquals("May I have your attention! School is out!", bean.makeAnnouncement("School is out!"));
-   }
+public class AnnouncerDecoratorTest {
+    @Deployment
+    public static Archive<?> createArchive() {
+        BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackage(Announcer.class.getPackage())
+                .addAsManifestResource(
+                        new StringAsset(beansXml.decorator(AnnouncerDecorator.class).exportAsString()),
+                        beansXml.getDescriptorName());
+    }
+
+    @Inject
+    AnnouncerBean bean;
+
+    @Test
+    public void shouldDecorateAnnouncement() {
+        Assert.assertEquals("May I have your attention! School is out!", bean.makeAnnouncement("School is out!"));
+    }
 }

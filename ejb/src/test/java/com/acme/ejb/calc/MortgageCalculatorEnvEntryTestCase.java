@@ -15,33 +15,30 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class MortgageCalculatorEnvEntryTestCase
-{
-   @Deployment
-   public static Archive<?> createDeployment()
-   {
-      // we have to create a war because ejb-jar.xml must be put in WEB-INF
-      return ShrinkWrap.create(WebArchive.class, "test.war")
-         .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
-         .addAsWebInfResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
-//      return ShrinkWrap.create(JavaArchive.class)
-//         .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
-//         .addAsManifestResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
-   }
-   
-   @EJB
-   MortgageCalculator calculator;
+public class MortgageCalculatorEnvEntryTestCase {
+    @Deployment
+    public static Archive<?> createDeployment() {
+        // we have to create a war because ejb-jar.xml must be put in WEB-INF
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
+                .addAsWebInfResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
+        // return ShrinkWrap.create(JavaArchive.class)
+        // .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
+        // .addAsManifestResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
+    }
 
-   @Test
-   public void shouldCalculateMonthlyPaymentAccuratelyWithBuiltInRate()
-   {
-      Assert.assertEquals("Interest rate should be set by ejb-jar.xml", 5.5, calculator.getCurrentInterestRate());
+    @EJB
+    MortgageCalculator calculator;
 
-      double principal = 750000;
-      int term = 30;
-      BigDecimal expected = new BigDecimal(Double.toString(4258.42));
+    @Test
+    public void shouldCalculateMonthlyPaymentAccuratelyWithBuiltInRate() {
+        Assert.assertEquals("Interest rate should be set by ejb-jar.xml", 5.5, calculator.getCurrentInterestRate());
 
-      BigDecimal actual = calculator.calculateMonthlyPayment(principal, term);
-      Assert.assertEquals("A banking error has been detected!", expected, actual);
-   }
+        double principal = 750000;
+        int term = 30;
+        BigDecimal expected = new BigDecimal(Double.toString(4258.42));
+
+        BigDecimal actual = calculator.calculateMonthlyPayment(principal, term);
+        Assert.assertEquals("A banking error has been detected!", expected, actual);
+    }
 }

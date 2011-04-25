@@ -23,4 +23,5 @@ import javax.inject.Qualifier;
 
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LoggedIn {}
+public @interface LoggedIn {
+}

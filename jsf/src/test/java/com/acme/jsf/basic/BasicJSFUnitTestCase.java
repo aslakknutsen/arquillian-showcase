@@ -32,57 +32,53 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.FacesProjectStage;
 import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class BasicJSFUnitTestCase
-{
-   private static final boolean PRINT_RENDERED_OUTPUT = true;
-   
-   @Deployment
-   public static WebArchive createDeployment()
-   {
-      WebAppDescriptor webXml = Descriptors.create(WebAppDescriptor.class);
-      return ShrinkWrap.create(WebArchive.class, "basic.war")
-            .addClass(HitchhikersGuide.class)
-            .addAsWebResource("basic/index.xhtml", "index.xhtml")
-            .addAsWebInfResource("common/faces-config.xml", "faces-config.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .setWebXML(new StringAsset(webXml.contextParam(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development).exportAsString()));
-            //.setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
-   }
-   
-   @Test
-   @InitialPage("/index.jsf")
-   public void shouldExecutePage(JSFClientSession client, JSFServerSession server) throws Exception
-   {
-      validateManagedBeanValueOnIndexPage(client, server);
-   }
+public class BasicJSFUnitTestCase {
+    private static final boolean PRINT_RENDERED_OUTPUT = true;
 
-   @Test
-   @InitialPage("/index.jsf")
-   public void shouldExecutePageAgain(JSFClientSession client, JSFServerSession server) throws Exception
-   {
-      validateManagedBeanValueOnIndexPage(client, server);
-   }
+    @Deployment
+    public static WebArchive createDeployment() {
+        WebAppDescriptor webXml = Descriptors.create(WebAppDescriptor.class);
+        return ShrinkWrap.create(WebArchive.class, "basic.war")
+                .addClass(HitchhikersGuide.class)
+                .addAsWebResource("basic/index.xhtml", "index.xhtml")
+                .addAsWebInfResource("common/faces-config.xml", "faces-config.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .setWebXML(
+                        new StringAsset(webXml.contextParam(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development)
+                                .exportAsString()));
+        // .setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
+    }
 
-   protected void validateManagedBeanValueOnIndexPage(JSFClientSession client, JSFServerSession server) throws Exception
-   {
-      if (PRINT_RENDERED_OUTPUT)
-      {
-         System.out.println("GET " + server.getFacesContext().getExternalContext().getRequestServletPath() + " HTTP/1.1\n\n" + client.getPageAsText());
-      }
-      
-      assertTrue(Environment.is12Compatible());
-      assertTrue(Environment.is20Compatible());
-      assertEquals(2, Environment.getJSFMajorVersion());
-      assertEquals(0, Environment.getJSFMinorVersion());
+    @Test
+    @InitialPage("/index.jsf")
+    public void shouldExecutePage(JSFClientSession client, JSFServerSession server) throws Exception {
+        validateManagedBeanValueOnIndexPage(client, server);
+    }
 
-      assertEquals("42", server.getManagedBeanValue("#{hitchhikersGuide.ultimateAnswer}"));
-      assertEquals(ProjectStage.Development, server.getManagedBeanValue("#{hitchhikersGuide.journeyStage}"));
-      assertEquals(ProjectStage.Development, server.getFacesContext().getApplication().getProjectStage());
-   }
+    @Test
+    @InitialPage("/index.jsf")
+    public void shouldExecutePageAgain(JSFClientSession client, JSFServerSession server) throws Exception {
+        validateManagedBeanValueOnIndexPage(client, server);
+    }
+
+    protected void validateManagedBeanValueOnIndexPage(JSFClientSession client, JSFServerSession server) throws Exception {
+        if (PRINT_RENDERED_OUTPUT) {
+            System.out.println("GET " + server.getFacesContext().getExternalContext().getRequestServletPath() +
+                    " HTTP/1.1\n\n" + client.getPageAsText());
+        }
+
+        assertTrue(Environment.is12Compatible());
+        assertTrue(Environment.is20Compatible());
+        assertEquals(2, Environment.getJSFMajorVersion());
+        assertEquals(0, Environment.getJSFMinorVersion());
+
+        assertEquals("42", server.getManagedBeanValue("#{hitchhikersGuide.ultimateAnswer}"));
+        assertEquals(ProjectStage.Development, server.getManagedBeanValue("#{hitchhikersGuide.journeyStage}"));
+        assertEquals(ProjectStage.Development, server.getFacesContext().getApplication().getProjectStage());
+    }
 }

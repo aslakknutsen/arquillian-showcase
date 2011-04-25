@@ -31,52 +31,43 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class GamePersistenceTestCase
-{
-   private static final String[] GAME_TITLES =
-   {
-      "Super Mario Brothers",
-      "Mario Kart",
-      "F-Zero"
-   };
+public class GamePersistenceTestCase {
+    private static final String[] GAME_TITLES = { "Super Mario Brothers", "Mario Kart", "F-Zero" };
 
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      return ShrinkWrap.create(JavaArchive.class)
-            .addPackage(Game.class.getPackage())
-            .addAsManifestResource("test-persistence.xml", "persistence.xml");
-   }
-   
-   @EJB
-   Games games;
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackage(Game.class.getPackage())
+                .addAsManifestResource("test-persistence.xml", "persistence.xml");
+    }
 
-   @Test
-   public void testInsert() throws Exception
-   {
-      // flushing database
-      System.out.println("Clearing records...");
-      games.clear();
+    @EJB
+    Games games;
 
-      // insert records
-      System.out.println("Inserting records...");
-      for (String title : GAME_TITLES)
-      {
-         Game game = new Game(title);
-         games.add(game);
-      }
+    @Test
+    public void testInsert() throws Exception {
+        // flushing database
+        System.out.println("Clearing records...");
+        games.clear();
 
-      List<Game> results;
+        // insert records
+        System.out.println("Inserting records...");
+        for (String title : GAME_TITLES) {
+            Game game = new Game(title);
+            games.add(game);
+        }
 
-      // query with JPQL
-      System.out.println("Selecting (using JPQL)...");
-      results = games.selectAllUsingJpql();
-      System.out.println("Found " + results.size() + " games (using JPQL)");
-      assertEquals(GAME_TITLES.length, results.size());
-      for (int i = 0; i < GAME_TITLES.length; i++) {
-         assertEquals(GAME_TITLES[i], results.get(i).getTitle());
-         System.out.println(results.get(i));
-      }
-   }
+        List<Game> results;
+
+        // query with JPQL
+        System.out.println("Selecting (using JPQL)...");
+        results = games.selectAllUsingJpql();
+        System.out.println("Found " + results.size() + " games (using JPQL)");
+        assertEquals(GAME_TITLES.length, results.size());
+        for (int i = 0; i < GAME_TITLES.length; i++) {
+            assertEquals(GAME_TITLES[i], results.get(i).getTitle());
+            System.out.println(results.get(i));
+        }
+    }
 
 }

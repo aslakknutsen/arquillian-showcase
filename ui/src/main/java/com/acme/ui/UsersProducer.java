@@ -24,15 +24,15 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class UsersProducer
-{
-   @PersistenceContext
-   private EntityManager userDatabase;
-   
-   @Produces @Named @RequestScoped
-   public List<User> getUsers()
-   {
-      return userDatabase.createQuery("select u from User u", User.class).getResultList();
-   }
+public class UsersProducer {
+    @PersistenceContext
+    private EntityManager userDatabase;
+
+    @Produces
+    @Named
+    @RequestScoped
+    public List<User> getUsers() {
+        return userDatabase.createQuery("select u from User u", User.class).getResultList();
+    }
 
 }

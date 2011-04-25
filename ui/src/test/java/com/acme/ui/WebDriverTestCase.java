@@ -32,55 +32,52 @@ import org.openqa.selenium.WebDriver;
 /**
  * Tests Arquillian Selenium extension against CDI login example.
  * 
- * Uses standard settings of Selenium 2.0, that is HtmlUnitDriver by default,
- * but allows user to pass another driver specified as a System property or in the Arquillian configuration.
+ * Uses standard settings of Selenium 2.0, that is HtmlUnitDriver by default, but allows user to pass another driver specified
+ * as a System property or in the Arquillian configuration.
  * 
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  * 
  * @see WebDriverFactory
  */
 @RunWith(Arquillian.class)
-public class WebDriverTestCase extends AbstractTestCase
-{
-   private static final String USERNAME = "demo";
-   private static final String PASSWORD = "demo";
+public class WebDriverTestCase extends AbstractTestCase {
+    private static final String USERNAME = "demo";
+    private static final String PASSWORD = "demo";
 
-   private static final By LOGGED_IN = By.xpath("//li[contains(text(),'Welcome')]");
-   private static final By LOGGED_OUT = By.xpath("//li[contains(text(),'Goodbye')]");
+    private static final By LOGGED_IN = By.xpath("//li[contains(text(),'Welcome')]");
+    private static final By LOGGED_OUT = By.xpath("//li[contains(text(),'Goodbye')]");
 
-   private static final By USERNAME_FIELD = By.id("loginForm:username");
-   private static final By PASSWORD_FIELD = By.id("loginForm:password");
+    private static final By USERNAME_FIELD = By.id("loginForm:username");
+    private static final By PASSWORD_FIELD = By.id("loginForm:password");
 
-   private static final By LOGIN_BUTTON = By.id("loginForm:login");
-   private static final By LOGOUT_BUTTON = By.id("loginForm:logout");
+    private static final By LOGIN_BUTTON = By.id("loginForm:login");
+    private static final By LOGOUT_BUTTON = By.id("loginForm:logout");
 
-   @ArquillianResource
-   URL deploymentUrl;
-   
-   @Test
-   public void testLoginAndLogout(@Drone WebDriver driver)
-   {
-      driver.get(deploymentUrl + "/home.jsf");
+    @ArquillianResource
+    URL deploymentUrl;
+    
+    @Drone
+    WebDriver driver;
 
-      driver.findElement(USERNAME_FIELD).sendKeys(USERNAME);
-      driver.findElement(PASSWORD_FIELD).sendKeys(PASSWORD);
-      driver.findElement(LOGIN_BUTTON).click();
-      checkElementPresence(driver, LOGGED_IN, "User should be logged in!");
+    @Test
+    public void testLoginAndLogout() {
+        driver.get(deploymentUrl + "/home.jsf");
 
-      driver.findElement(LOGOUT_BUTTON).click();
-      checkElementPresence(driver, LOGGED_OUT, "User should not be logged in!");
-   }
+        driver.findElement(USERNAME_FIELD).sendKeys(USERNAME);
+        driver.findElement(PASSWORD_FIELD).sendKeys(PASSWORD);
+        driver.findElement(LOGIN_BUTTON).click();
+        checkElementPresence(driver, LOGGED_IN, "User should be logged in!");
 
-   // check is element is presence on page, fails otherwise
-   private void checkElementPresence(WebDriver driver, By by, String errorMsg)
-   {
-      try
-      {
-         Assert.assertTrue(errorMsg, driver.findElement(by) != null);
-      }
-      catch (NoSuchElementException e)
-      {
-         Assert.fail(errorMsg);
-      }
-   }
+        driver.findElement(LOGOUT_BUTTON).click();
+        checkElementPresence(driver, LOGGED_OUT, "User should not be logged in!");
+    }
+
+    // check is element is presence on page, fails otherwise
+    private void checkElementPresence(WebDriver driver, By by, String errorMsg) {
+        try {
+            Assert.assertTrue(errorMsg, driver.findElement(by) != null);
+        } catch (NoSuchElementException e) {
+            Assert.fail(errorMsg);
+        }
+    }
 }

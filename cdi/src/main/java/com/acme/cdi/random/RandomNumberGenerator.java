@@ -20,14 +20,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
 @ApplicationScoped
-public class RandomNumberGenerator
-{
-   private java.util.Random random = new java.util.Random(System.currentTimeMillis());
+public class RandomNumberGenerator {
+    private java.util.Random random = new java.util.Random(System.currentTimeMillis());
 
-   @Produces
-   @Random
-   int getRandomNumber()
-   {
-      return random.nextInt(100);
-   }
+    @Produces
+    @Random
+    int getRandomNumber() {
+        return random.nextInt(100);
+    }
 }

@@ -11,53 +11,45 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "LINE_ITEM")
-public class LineItem implements Serializable
-{
-   private Long id;
-   private BigDecimal amount;
-   private Record record;
+public class LineItem implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private Long id;
+    private BigDecimal amount;
+    private Record record;
 
-   public LineItem()
-   {
-   }
+    public LineItem() {
+    }
 
-   public LineItem(BigDecimal amount)
-   {
-      super();
-      this.amount = amount;
-   }
+    public LineItem(BigDecimal amount) {
+        super();
+        this.amount = amount;
+    }
 
-   @Id
-   @GeneratedValue
-   public Long getId()
-   {
-      return id;
-   }
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
 
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   public BigDecimal getAmount()
-   {
-      return amount;
-   }
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-   public void setAmount(BigDecimal amount)
-   {
-      this.amount = amount;
-   }
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-   @ManyToOne
-   public Record getRecord()
-   {
-      return record;
-   }
+    @ManyToOne
+    public Record getRecord() {
+        return record;
+    }
 
-   public void setRecord(Record record)
-   {
-      this.record = record;
-   }
-   
+    public void setRecord(Record record) {
+        this.record = record;
+    }
+
 }

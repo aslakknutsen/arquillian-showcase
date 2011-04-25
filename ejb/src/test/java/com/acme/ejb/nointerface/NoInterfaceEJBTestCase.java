@@ -30,33 +30,25 @@ import org.junit.runner.RunWith;
 
 /**
  * NoInterfaceEJBTestCase
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
 @RunWith(Arquillian.class)
-public class NoInterfaceEJBTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      return ShrinkWrap.create(JavaArchive.class).addClass(NoInterfaceEJB.class);
-   }
-   
-   @EJB
-   NoInterfaceEJB ejb;
-   
-   // NOTE fails on OpenEJB
-   @Test
-   public void shouldBeAbleToResolveAndInvokeNoInterfaceEJB() throws Exception
-   {
-      assertNotNull(
-            "Verify that the ejb was injected",
-            ejb);
-      
-      assertEquals(
-            "Verify that the ejb returns correct value", 
-            "pong", 
-            ejb.ping());
-   }
+public class NoInterfaceEJBTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class).addClass(NoInterfaceEJB.class);
+    }
+
+    @EJB
+    NoInterfaceEJB ejb;
+
+    // NOTE fails on OpenEJB
+    @Test
+    public void shouldBeAbleToResolveAndInvokeNoInterfaceEJB() throws Exception {
+        assertNotNull("Verify that the ejb was injected", ejb);
+
+        assertEquals("Verify that the ejb returns correct value", "pong", ejb.ping());
+    }
 }

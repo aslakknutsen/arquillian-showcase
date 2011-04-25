@@ -17,45 +17,41 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class PacketSendReceiveTestCase
-{
-   @Inject
-   Instance<Packet> packetInstance;
+public class PacketSendReceiveTestCase {
+    @Inject
+    Instance<Packet> packetInstance;
 
-   @Inject
-   PacketSender sender;
+    @Inject
+    PacketSender sender;
 
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      return ShrinkWrap.create(JavaArchive.class)
-            .addClasses(Packet.class, PacketSender.class, PacketReceiver.class, Tracer.class)
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addClasses(Packet.class, PacketSender.class, PacketReceiver.class, Tracer.class)
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @Test
-   public void testReceivePacket()
-   {
-      Packet packet = packetInstance.get();
-      assertFalse(packet.isReceived());
-      assertNull(packet.getReceiver());
-      sender.send(packet);
-      assertTrue(packet.isReceived());
-      
-      assertEquals(1, packet.getNumberTimesReceived());
-      assertNull(packet.getReceiver());
-   }
+    @Test
+    public void testReceivePacket() {
+        Packet packet = packetInstance.get();
+        assertFalse(packet.isReceived());
+        assertNull(packet.getReceiver());
+        sender.send(packet);
+        assertTrue(packet.isReceived());
 
-   @Test
-   public void testReceiveTracerPacket()
-   {
-      Packet packet = packetInstance.get();
-      assertFalse(packet.isReceived());
-      assertNull(packet.getReceiver());
-      sender.sendTracer(packet);
-      assertTrue(packet.isReceived());
-      
-      assertEquals(1, packet.getNumberTimesReceived());
-      assertTrue(packet.getReceiver() instanceof PacketReceiver);
-   }
+        assertEquals(1, packet.getNumberTimesReceived());
+        assertNull(packet.getReceiver());
+    }
+
+    @Test
+    public void testReceiveTracerPacket() {
+        Packet packet = packetInstance.get();
+        assertFalse(packet.isReceived());
+        assertNull(packet.getReceiver());
+        sender.sendTracer(packet);
+        assertTrue(packet.isReceived());
+
+        assertEquals(1, packet.getNumberTimesReceived());
+        assertTrue(packet.getReceiver() instanceof PacketReceiver);
+    }
 }

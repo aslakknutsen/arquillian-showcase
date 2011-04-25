@@ -29,9 +29,9 @@ import javax.enterprise.inject.Alternative;
 @RequestScoped
 public class MockPaymentProcessor implements PaymentProcessor {
 
-   public static List<Double> PAYMENTS = Collections.synchronizedList(new ArrayList<Double>());
-   
-	public void process(double payment) {
-		PAYMENTS.add(payment);
-	}
+    public static List<Double> PAYMENTS = Collections.synchronizedList(new ArrayList<Double>());
+
+    public void process(double payment) {
+        PAYMENTS.add(payment);
+    }
 }

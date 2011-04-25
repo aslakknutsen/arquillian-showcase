@@ -30,36 +30,30 @@ import javax.faces.bean.ManagedProperty;
 
 @RequestScoped
 @ManagedBean(name = "hitchhikersGuide")
-public class HitchhikersGuide
-{
-   private String ultimateAnswer;
-   
-   @ManagedProperty(value = "#{facesContext.application.projectStage}")
-   private ProjectStage journeyStage;
+public class HitchhikersGuide {
+    private String ultimateAnswer;
 
-   public String getUltimateAnswer()
-   {
-      return ultimateAnswer;
-   }
+    @ManagedProperty(value = "#{facesContext.application.projectStage}")
+    private ProjectStage journeyStage;
 
-   public void setUltimateAnswer(String ultimateAnswer)
-   {
-      this.ultimateAnswer = ultimateAnswer;
-   }
-   
-   public ProjectStage getJourneyStage()
-   {
-      return journeyStage;
-   }
+    public String getUltimateAnswer() {
+        return ultimateAnswer;
+    }
 
-   public void setJourneyStage(ProjectStage journeyStage)
-   {
-      this.journeyStage = journeyStage;
-   }
+    public void setUltimateAnswer(String ultimateAnswer) {
+        this.ultimateAnswer = ultimateAnswer;
+    }
 
-   @PostConstruct
-   public void findUltimateAnswerToUltimateQuestion()
-   {
-      ultimateAnswer = "42";
-   }
+    public ProjectStage getJourneyStage() {
+        return journeyStage;
+    }
+
+    public void setJourneyStage(ProjectStage journeyStage) {
+        this.journeyStage = journeyStage;
+    }
+
+    @PostConstruct
+    public void findUltimateAnswerToUltimateQuestion() {
+        ultimateAnswer = "42";
+    }
 }

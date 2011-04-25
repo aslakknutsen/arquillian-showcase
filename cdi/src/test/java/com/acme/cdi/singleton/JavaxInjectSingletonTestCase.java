@@ -30,23 +30,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class JavaxInjectSingletonTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment() {
-      return ShrinkWrap.create(JavaArchive.class)
-          .addClass(OnlyOne.class)
-          .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+public class JavaxInjectSingletonTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addClass(OnlyOne.class)
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @Inject
-   Instance<OnlyOne> singleton;
+    @Inject
+    Instance<OnlyOne> singleton;
 
-   @Test
-   public void should_be_only_one() throws Exception
-   {
-      long firstId = singleton.get().getId();
-      long secondId = singleton.get().getId();
-      Assert.assertEquals(firstId, secondId);
-   }
+    @Test
+    public void should_be_only_one() throws Exception {
+        long firstId = singleton.get().getId();
+        long secondId = singleton.get().getId();
+        Assert.assertEquals(firstId, secondId);
+    }
 }

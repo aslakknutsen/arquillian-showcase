@@ -29,44 +29,38 @@ import com.acme.jaxrs.rs.JaxRsActivator;
 
 @RunWith(Arquillian.class)
 @RunAsClient
-public class CustomerResourceRESTEasyClientTest
-{
-   private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
+public class CustomerResourceRESTEasyClientTest {
+    private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value()
+            .substring(1);
 
-   @Deployment
-   public static WebArchive createDeployment()
-   {
-      return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addPackage(Customer.class.getPackage())
-            .addClasses(EntityManagerProducer.class, CustomerResource.class)
-            //.addAsManifestResource("test-persistence.xml", "persistence.xml")
-            .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-            .addAsResource("import.sql")
-            .addClass(JaxRsActivator.class)
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Customer.class.getPackage())
+                .addClasses(EntityManagerProducer.class, CustomerResource.class)
+                // .addAsManifestResource("test-persistence.xml", "persistence.xml")
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsResource("import.sql")
+                .addClass(JaxRsActivator.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @ArquillianResource
-   URL deploymentUrl;
+    @ArquillianResource
+    URL deploymentUrl;
 
-   @BeforeClass
-   public static void initResteasyClient()
-   {
-      RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
-   }
+    @BeforeClass
+    public static void initResteasyClient() {
+        RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
+    }
 
-   @Test
-   public void testGetCustomerByIdUsingClientProxy() throws Exception
-   {
-      CustomerClient client = ProxyFactory.create(CustomerClient.class, deploymentUrl.toString() + RESOURCE_PREFIX);
-      // GET http://localhost:8080/test/rest/customer/1
-      String response = client.getCustomerById(1);
+    @Test
+    public void testGetCustomerByIdUsingClientProxy() throws Exception {
+        CustomerClient client = ProxyFactory.create(CustomerClient.class, deploymentUrl.toString() + RESOURCE_PREFIX);
+        // GET http://localhost:8080/test/rest/customer/1
+        String response = client.getCustomerById(1);
 
-      assertNotNull(response);
+        assertNotNull(response);
 
-      System.out.println("GET /customer/1 HTTP/1.1\n\n" + response);
+        System.out.println("GET /customer/1 HTTP/1.1\n\n" + response);
 
-      response = response.replaceAll("<\\?xml.*\\?>", "").trim();
-      assertEquals("<customer><id>1</id><name>Acme Corporation</name></customer>", response);
-   }
+        response = response.replaceAll("<\\?xml.*\\?>", "").trim();
+        assertEquals("<customer><id>1</id><name>Acme Corporation</name></customer>", response);
+    }
 }

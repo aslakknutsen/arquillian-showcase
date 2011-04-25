@@ -21,10 +21,8 @@ import javax.ejb.Stateless;
 
 @Local(Greeter.class)
 @Stateless
-public class GreeterBean implements Greeter
-{
-   public String greet(String userName)
-   {
-      return "Hello, " + userName;
-   }
+public class GreeterBean implements Greeter {
+    public String greet(String userName) {
+        return "Hello, " + userName;
+    }
 }

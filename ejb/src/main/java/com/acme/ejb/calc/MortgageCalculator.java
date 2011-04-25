@@ -4,11 +4,10 @@ import java.math.BigDecimal;
 import javax.ejb.Local;
 
 @Local
-public interface MortgageCalculator
-{
-   BigDecimal calculateMonthlyPayment(double principal, double interestRate, int termYears);
+public interface MortgageCalculator {
+    BigDecimal calculateMonthlyPayment(double principal, double interestRate, int termYears);
 
-   BigDecimal calculateMonthlyPayment(double principal, int termYears);
+    BigDecimal calculateMonthlyPayment(double principal, int termYears);
 
-   double getCurrentInterestRate();
+    double getCurrentInterestRate();
 }

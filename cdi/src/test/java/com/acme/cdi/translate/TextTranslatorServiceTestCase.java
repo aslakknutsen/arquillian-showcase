@@ -28,22 +28,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class TextTranslatorServiceTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment() {
-      return ShrinkWrap.create(JavaArchive.class)
-          .addPackage(TextTranslatorService.class.getPackage())
-          .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+public class TextTranslatorServiceTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackage(TextTranslatorService.class.getPackage())
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @Inject
-   TextTranslatorService service;
+    @Inject
+    TextTranslatorService service;
 
-   @Test
-   public void should_spin_text() throws Exception
-   {
-      Assert.assertEquals("There's been a proposed surge of troops.",
-            service.translate("There's been a proposed escalation of troops."));
-   }
+    @Test
+    public void should_spin_text() throws Exception {
+        Assert.assertEquals("There's been a proposed surge of troops.",
+                service.translate("There's been a proposed escalation of troops."));
+    }
 }

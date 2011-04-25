@@ -19,68 +19,57 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @XmlRootElement
 @Table(name = "customer", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
-public class Customer implements Serializable
-{
-   private static final long serialVersionUID = 1L;
-   private Long id;
-   private Set<Contact> contacts;
-   private String name;
-   private Set<SalesOrder> orders;
+public class Customer implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private Long id;
+    private Set<Contact> contacts;
+    private String name;
+    private Set<SalesOrder> orders;
 
-   public Customer()
-   {
-   }
+    public Customer() {
+    }
 
-   public Customer(String name)
-   {
-      this.name = name;
-   }
+    public Customer(String name) {
+        this.name = name;
+    }
 
-   @Id
-   @GeneratedValue
-   public Long getId()
-   {
-      return id;
-   }
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
 
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   @XmlTransient
-   @OneToMany(mappedBy = "customer")
-   public Set<Contact> getContacts()
-   {
-      return contacts;
-   }
+    @XmlTransient
+    @OneToMany(mappedBy = "customer")
+    public Set<Contact> getContacts() {
+        return contacts;
+    }
 
-   public void setContacts(Set<Contact> contacts)
-   {
-      this.contacts = contacts;
-   }
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
+    }
 
-   @NotNull
-   @Size(min = 3, max = 50)
-   public String getName()
-   {
-      return name;
-   }
+    @NotNull
+    @Size(min = 3, max = 50)
+    public String getName() {
+        return name;
+    }
 
-   public void setName(String name)
-   {
-      this.name = name;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   @XmlTransient
-   @OneToMany(mappedBy = "customer")
-   public Set<SalesOrder> getOrders()
-   {
-      return orders;
-   }
+    @XmlTransient
+    @OneToMany(mappedBy = "customer")
+    public Set<SalesOrder> getOrders() {
+        return orders;
+    }
 
-   public void setOrders(Set<SalesOrder> orders)
-   {
-      this.orders = orders;
-   }
+    public void setOrders(Set<SalesOrder> orders) {
+        this.orders = orders;
+    }
 }

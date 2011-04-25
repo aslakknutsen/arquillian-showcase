@@ -21,28 +21,24 @@ import org.infinispan.Cache;
 
 /**
  * Utils
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-public final class Utils
-{
-   private Utils() { }
-   
-   public static Integer incrementCache(Cache<String, Integer> cache)
-   {
-      String key = "counter";
-      Integer counter = cache.get(key);
-      Integer newCounter;
-      if (counter != null)
-      {
-         newCounter = counter.intValue() + 1;
-      }
-      else
-      {
-         newCounter = 1;
-      }
-      cache.put(key, newCounter);
-      return newCounter;
-   }
+public final class Utils {
+    private Utils() {
+    }
+
+    public static Integer incrementCache(Cache<String, Integer> cache) {
+        String key = "counter";
+        Integer counter = cache.get(key);
+        Integer newCounter;
+        if (counter != null) {
+            newCounter = counter.intValue() + 1;
+        } else {
+            newCounter = 1;
+        }
+        cache.put(key, newCounter);
+        return newCounter;
+    }
 }
