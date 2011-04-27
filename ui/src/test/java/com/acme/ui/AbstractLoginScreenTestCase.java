@@ -30,7 +30,9 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
  * 
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
-public abstract class AbstractTestCase {
+public abstract class AbstractLoginScreenTestCase {
+    public static final String WEBAPP_SRC = "src/main/webapp";
+    
     /**
      * Creates a WAR of a CDI-based application using ShrinkWrap
      * 
@@ -42,14 +44,16 @@ public abstract class AbstractTestCase {
 
         return ShrinkWrap.create(WebArchive.class, "cdi-login.war")
                 .addClasses(Credentials.class, LoggedIn.class, Login.class, User.class, UsersProducer.class)
-                .addAsResource("import.sql").addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-                .addAsWebResource(new File("src/main/webapp/index.html"))
-                .addAsWebResource(new File("src/main/webapp/home.xhtml"))
-                .addAsWebResource(new File("src/main/webapp/users.xhtml"))
-                .addAsWebResource(new File("src/main/webapp/template.xhtml"))
+                .addAsResource("import.sql")
+                // .addAsManifestResource("test-persistence.xml", "persistence.xml")
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+                .addAsWebResource(new File(WEBAPP_SRC, "index.html"))
+                .addAsWebResource(new File(WEBAPP_SRC, "home.xhtml"))
+                .addAsWebResource(new File(WEBAPP_SRC, "users.xhtml"))
+                .addAsWebResource(new File(WEBAPP_SRC, "template.xhtml"))
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/faces-config.xml"))
+                .addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/faces-config.xml"))
                 .addAsLibraries(resolver.artifact("org.jboss.seam.solder:seam-solder:3.0.0.Final").resolveAsFiles())
-                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
+                .setWebXML(new File(WEBAPP_SRC, "WEB-INF/web.xml"));
     }
 }

@@ -35,7 +35,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @RunWith(Arquillian.class)
-public class DefaultSeleniumTestCase extends AbstractTestCase {
+public class LoginScreenDefaultSeleniumTestCase extends AbstractLoginScreenTestCase {
     @Drone
     DefaultSelenium driver;
 

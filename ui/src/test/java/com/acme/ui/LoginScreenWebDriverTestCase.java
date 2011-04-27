@@ -40,7 +40,7 @@ import org.openqa.selenium.WebDriver;
  * @see WebDriverFactory
  */
 @RunWith(Arquillian.class)
-public class WebDriverTestCase extends AbstractTestCase {
+public class LoginScreenWebDriverTestCase extends AbstractLoginScreenTestCase {
     private static final String USERNAME = "demo";
     private static final String PASSWORD = "demo";
 
@@ -56,6 +56,7 @@ public class WebDriverTestCase extends AbstractTestCase {
     @ArquillianResource
     URL deploymentUrl;
     
+    // NOTE cannot use test method argument injection w/ WebDriver due to bug in cleanup phase
     @Drone
     WebDriver driver;
 
