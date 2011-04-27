@@ -55,7 +55,7 @@ public class ConferenceCalendarUiTestCase {
                 .setWebXML(
                         new StringAsset(webXml.contextParam(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development)
                                 .exportAsString()));
-        // .setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
+                // .setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
     }
 
     @Test
