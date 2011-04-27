@@ -30,16 +30,16 @@ import com.acme.jaxrs.rs.JaxRsActivator;
 @RunWith(Arquillian.class)
 @RunAsClient
 public class CustomerResourceRESTEasyClientTest {
-    private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value()
-            .substring(1);
+    private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
 
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Customer.class.getPackage())
-                .addClasses(EntityManagerProducer.class, CustomerResource.class)
+                .addClasses(EntityManagerProducer.class, CustomerResource.class, JaxRsActivator.class)
                 // .addAsManifestResource("test-persistence.xml", "persistence.xml")
-                .addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsResource("import.sql")
-                .addClass(JaxRsActivator.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+                .addAsResource("import.sql")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @ArquillianResource
