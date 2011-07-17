@@ -319,6 +319,12 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>resin-javaee16</artifactId>
+                <version>${version.resin}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.openejb</groupId>
                 <artifactId>openejb-core</artifactId>
                 <version>${version.openejb}</version>
