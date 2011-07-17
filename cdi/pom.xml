@@ -186,6 +186,7 @@
             </dependencies>
         </profile>
 
+        <!-- resin-embedded cannot run tests sequentially (only one per run) -->
         <profile>
             <id>arq-resin-embedded</id>
             <dependencies>
