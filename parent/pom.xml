@@ -241,13 +241,13 @@
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                <version>${version.arquillian}-SNAPSHOT</version>
+                <version>${version.arquillian}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                <version>${version.arquillian}-SNAPSHOT</version>
+                <version>${version.arquillian}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
