@@ -20,7 +20,7 @@ import com.acme.cdi.decorate.AnnouncerBean;
 import com.acme.cdi.decorate.AnnouncerDecorator;
 
 @RunWith(Arquillian.class)
-public class AnnouncerDecoratorTest {
+public class AnnouncerDecoratorTestCase {
     @Deployment
     public static Archive<?> createArchive() {
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
