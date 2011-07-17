@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -34,7 +34,7 @@ public class FireAndForgetTestCase {
 
     // use on GlassFish because of a visibility bug
     @Deployment
-    public static WebArchive createDeploymentCompat() {
+    public static WebArchive createDeploymentForGlassFish() {
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
 
         return ShrinkWrap.create(WebArchive.class)
@@ -50,8 +50,7 @@ public class FireAndForgetTestCase {
     @Test
     public void shouldInvokeAsynchronously() throws Exception {
         // use latch barrier or something to verify code is executing asynchronously
-        System.out.println("Current thread [id=" + Thread.currentThread().getId() +
-                "; name=" + Thread.currentThread().getName() + "]");
+        System.out.println("Current thread [id=" + Thread.currentThread().getId() + "; name=" + Thread.currentThread().getName() + "]");
         asyncBean.fire(1000);
         System.out.println("Async operation fired");
         assertTrue(BlockingFireAndForgetBean.LATCH.await(30, TimeUnit.SECONDS));

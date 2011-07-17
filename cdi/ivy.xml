@@ -13,31 +13,40 @@
         <conf name="runtime" visibility="public" description="this scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath." extends="compile"/>
         <conf name="test" visibility="public" description="this scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath." extends="runtime"/>
         <conf name="test-weld-embedded" visibility="private" description="This scope is for executing Arquillian tests in Weld Embedded" extends="test"/>
-        <conf name="test-jbossas-remote" visibility="private" description="This scope is for executing Arquillian tests on a remote JBoss AS instance" extends="test"/>
+        <conf name="test-jbossas6-remote" visibility="private" description="This scope is for executing Arquillian tests on a remote JBoss AS 6 instance" extends="test"/>
+        <conf name="test-jbossas7-managed" visibility="private" description="This scope is for executing Arquillian tests on a managed JBoss AS 7 instance" extends="test"/>
+        <conf name="test-jbossas7-remote" visibility="private" description="This scope is for executing Arquillian tests on a remote JBoss AS 7 instance" extends="test"/>
         <conf name="test-glassfish-embedded" visibility="private" description="This scope is for executing Arquillian tests in Embedded GlassFish" extends="test"/>
     </configurations>
     <dependencies>
-        <dependency org="org.jboss.spec" name="jboss-javaee-6.0" rev="1.0.0.Final" conf="compile-only->compile(*)">
+        <dependency org="org.jboss.spec" name="jboss-javaee-6.0" rev="${version.jboss_javaee6_spec}" conf="compile-only->compile(*)">
             <artifact name="jboss-javaee-6.0" type="pom" ext="pom" conf=""/>
         </dependency>
 
-        <dependency org="org.jboss.arquillian" name="arquillian-junit" rev="1.0.0.Alpha5" conf="test->default(*)"/>
-        <dependency org="junit" name="junit" rev="4.8.1" conf="test->default(*)"/>
+        <dependency org="org.jboss.arquillian.junit" name="arquillian-junit-container" rev="${version.arquillian}" conf="test->default(*)"/>
+        <dependency org="junit" name="junit" rev="${version.junit}" conf="test->default(*)"/>
+        <dependency org="org.hamcrest" name="hamcrest-core" rev="${version.hamcrest}" conf="test->default(*)"/>
 
-        <dependency org="org.jboss.arquillian.container" name="arquillian-weld-ee-embedded-1.1" rev="1.0.0.Alpha5" conf="test-weld-embedded->default(*)"/>
-        <dependency org="org.jboss.spec" name="jboss-javaee-6.0" rev="1.0.0.Final" conf="test-weld-embedded->compile(*)">
+        <dependency org="org.jboss.arquillian.container" name="arquillian-weld-ee-embedded-1.1" rev="${version.arquillian}" conf="test-weld-embedded->default(*)"/>
+        <dependency org="org.jboss.spec" name="jboss-javaee-6.0" rev="${version.jboss_javaee6_spec}" conf="test-weld-embedded->compile(*)">
             <artifact name="jboss-javaee-6.0" type="pom" ext="pom" conf=""/>
         </dependency>
-        <dependency org="org.jboss.weld" name="weld-core" rev="1.1.0.Final" conf="test-weld-embedded->default(*)"/>
-        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.5.10" conf="test-weld-embedded->default(*)"/>
-        <dependency org="log4j" name="log4j" rev="1.2.14" conf="test-weld-embedded->default(*)"/>
+        <dependency org="org.jboss.weld" name="weld-core" rev="${version.weld_core}" conf="test-weld-embedded->default(*)"/>
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="${version.slf4j}" conf="test-weld-embedded->default(*)"/>
+        <dependency org="log4j" name="log4j" rev="${version.log4j}" conf="test-weld-embedded->default(*)"/>
 
-        <dependency org="org.jboss.arquillian.container" name="arquillian-jbossas-remote-6" rev="1.0.0.Alpha5" conf="test-jbossas-remote->default(*)"/>
-        <dependency org="javax.enterprise" name="cdi-api" rev="1.0-SP4" conf="test-jbossas-remote->default(*)"/>
-        <dependency org="org.jboss.jbossas" name="jboss-as-server" m:classifier="client" rev="6.0.0.Final" conf="test-jbossas-remote->default(*)" transitive="false"/>
-        <dependency org="org.jboss.jbossas" name="jboss-as-profileservice" m:classifier="client" rev="6.0.0.Final" conf="test-jbossas-remote->default(*)"/>
+        <dependency org="org.jboss.arquillian.container" name="arquillian-jbossas-remote-6" rev="${version.arquillian}" conf="test-jbossas6-remote->default(*)"/>
+        <dependency org="javax.enterprise" name="cdi-api" rev="${version.cdi_spec}" conf="test-jbossas6-remote->default(*)"/>
+        <dependency org="org.jboss.jbossas" name="jboss-as-server" m:classifier="client" rev="${version.jbossas_6}" conf="test-jbossas6-remote->default(*)" transitive="false"/>
+        <dependency org="org.jboss.jbossas" name="jboss-as-profileservice" m:classifier="client" rev="${version.jbossas_6}" conf="test-jbossas6-remote->default(*)"/>
 
-        <dependency org="org.jboss.arquillian.container" name="arquillian-glassfish-embedded-3" rev="1.0.0.Alpha5" conf="test-glassfish-embedded->default(*)"/>
-        <dependency org="org.glassfish.extras" name="glassfish-embedded-all" rev="3.1" conf="test-glassfish-embedded->default(*)"/>
+        <dependency org="org.jboss.as" name="jboss-as-arquillian-container-managed" rev="${version.jbossas_7}" conf="test-jbossas7-managed->default(*)"/>
+        <dependency org="javax.enterprise" name="cdi-api" rev="${version.cdi_spec}" conf="test-jbossas7-managed->default(*)"/>
+
+        <dependency org="org.jboss.as" name="jboss-as-arquillian-container-remote" rev="${version.jbossas_7}" conf="test-jbossas7-remote->default(*)"/>
+        <dependency org="javax.enterprise" name="cdi-api" rev="${version.cdi_spec}" conf="test-jbossas7-remote->default(*)"/>
+
+        <dependency org="org.jboss.arquillian.container" name="arquillian-glassfish-embedded-3" rev="${version.arquillian}" conf="test-glassfish-embedded->default(*)"/>
+        <dependency org="org.glassfish.extras" name="glassfish-embedded-all" rev="${version.glassfish}" conf="test-glassfish-embedded->default(*)"/>
     </dependencies>
 </ivy-module>

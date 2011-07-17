@@ -13,34 +13,27 @@
 
     <artifactId>arquillian-showcase-multinode</artifactId>
     <packaging>jar</packaging>
-    <name>Arquillian Showcase: Multi Node</name>
+    <name>Arquillian Showcase: Multinode</name>
     <description>Examples that demonstrate how to test across multiple nodes using Arquillian</description>
 
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
+            <artifactId>jboss-javaee-web-6.0</artifactId>
             <type>pom</type>
         </dependency>
-
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
             <version>4.2.1.FINAL</version>
         </dependency>
         <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-server-hotrod</artifactId>
-            <version>4.2.1.FINAL</version>
-        </dependency>
-
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian</groupId>
-            <artifactId>arquillian-junit</artifactId>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
         </dependency>
     </dependencies>
 
@@ -66,26 +59,10 @@
             <id>arq-jbossas-remote-7</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-jbossas-remote-7</artifactId>
-                </dependency>
-                <dependency>
                     <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
+                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <forkMode>never</forkMode>
-                            <skipTests>false</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>

@@ -169,21 +169,84 @@
         </junit>
     </target>
 
-    <target name="test-jbossas-remote"
+    <target name="test-jbossas6-remote"
               depends="compile-tests"
-              description="Run the test cases on a remote JBoss AS instance">
+              description="Run the test cases on a remote JBoss AS 6 instance">
         <mkdir dir="${project.test.reportsOutputDirectory}"/>
-        <ivy:resolve conf="test-jbossas-remote"/>
-        <ivy:cachepath pathid="build.test.classpath.jbossas-remote" conf="test-jbossas-remote"/>
+        <ivy:resolve conf="test-jbossas6-remote"/>
+        <ivy:cachepath pathid="build.test.classpath.jbossas6-remote" conf="test-jbossas6-remote"/>
         <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
             <sysproperty key="basedir" value="."/>
             <formatter type="xml"/>
             <formatter type="plain" usefile="${project.test.useFile}"/>
             <classpath>
-                <path refid="build.test.classpath.jbossas-remote"/>
+                <path refid="build.test.classpath.jbossas6-remote"/>
                 <pathelement location="${project.build.outputDirectory}"/>
                 <pathelement location="${project.build.testOutputDirectory}"/>
-                <pathelement location="${basedir}/src/test/resources-jbossas"/>
+            </classpath>
+            <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/Test*.java"/>
+                    <include name="**/*Test.java"/>
+                    <include name="**/*TestCase.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/${test}.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="test-jbossas7-managed"
+              depends="compile-tests"
+              description="Run the test cases on a managed JBoss AS 7 instance">
+        <mkdir dir="${project.test.reportsOutputDirectory}"/>
+        <ivy:resolve conf="test-jbossas7-managed"/>
+        <ivy:cachepath pathid="build.test.classpath.jbossas7-managed" conf="test-jbossas7-managed"/>
+        <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
+            <sysproperty key="basedir" value="."/>
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="${project.test.useFile}"/>
+            <classpath>
+                <path refid="build.test.classpath.jbossas7-managed"/>
+                <pathelement location="${project.build.outputDirectory}"/>
+                <pathelement location="${project.build.testOutputDirectory}"/>
+            </classpath>
+            <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/Test*.java"/>
+                    <include name="**/*Test.java"/>
+                    <include name="**/*TestCase.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${project.test.reportsOutputDirectory}" if="test">
+                <fileset dir="${project.testSource.directory}">
+                    <include name="**/${test}.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="test-jbossas7-remote"
+              depends="compile-tests"
+              description="Run the test cases on a remote JBoss AS 7 instance">
+        <mkdir dir="${project.test.reportsOutputDirectory}"/>
+        <ivy:resolve conf="test-jbossas7-remote"/>
+        <ivy:cachepath pathid="build.test.classpath.jbossas7-remote" conf="test-jbossas7-remote"/>
+        <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" forkmode="perBatch" dir=".">
+            <sysproperty key="basedir" value="."/>
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="${project.test.useFile}"/>
+            <classpath>
+                <path refid="build.test.classpath.jbossas7-remote"/>
+                <pathelement location="${project.build.outputDirectory}"/>
+                <pathelement location="${project.build.testOutputDirectory}"/>
             </classpath>
             <batchtest todir="${project.test.reportsOutputDirectory}" unless="test">
                 <fileset dir="${project.testSource.directory}">
@@ -259,10 +322,14 @@
     <target name="dependency-report" depends="init">
         <ivy:resolve conf="test-weld-embedded"/>
         <ivy:report todir="${project.build.directory}/dependency-reports/test-weld-embedded" conf="test-weld-embedded"/>
+        <ivy:resolve conf="test-jbossas6-remote"/>
+        <ivy:report todir="${project.build.directory}/dependency-reports/test-jbossas6-remote" conf="test-jbossas6-remote"/>
+        <ivy:resolve conf="test-jbossas7-managed"/>
+        <ivy:report todir="${project.build.directory}/dependency-reports/test-jbossas7-managed" conf="test-jbossas7-managed"/>
+        <ivy:resolve conf="test-jbossas7-remote"/>
+        <ivy:report todir="${project.build.directory}/dependency-reports/test-jbossas7-remote" conf="test-jbossas7-remote"/>
         <ivy:resolve conf="test-glassfish-embedded"/>
         <ivy:report todir="${project.build.directory}/dependency-reports/test-glassfish-embedded" conf="test-glassfish-embedded"/>
-        <ivy:resolve conf="test-jbossas-remote"/>
-        <ivy:report todir="${project.build.directory}/dependency-reports/test-jbossas-remote" conf="test-jbossas-remote"/>
     </target>
 
     <!-- ====================================================================== -->

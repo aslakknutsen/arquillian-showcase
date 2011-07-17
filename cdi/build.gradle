@@ -3,8 +3,9 @@ apply plugin: JavaPlugin
 buildDir = 'target/gradle-build'
 
 libraryVersions = [
-    junit: '4.8.1', arquillian: '1.0.0.Alpha5', jbossJavaeeSpec: '1.0.0.Final', weld: '1.1.0.Final',
-    slf4j: '1.5.10', log4j: '1.2.14', jbossas: '6.0.0.Final', glassfish: '3.1', cdi: '1.0-SP4'
+    junit: '4.8.1', arquillian: '1.0.0.CR1', jbossJavaeeSpec: '1.0.0.Final', weld: '1.1.1.Final',
+    slf4j: '1.5.10', log4j: '1.2.14', jbossas: '6.0.0.Final', glassfish: '3.1', cdi: '1.0-SP4',
+    hamcrest: '1.2', jbossAS7: '7.0.0.CR1'
 ]
 
 repositories {
@@ -18,7 +19,9 @@ repositories {
 configurations {
     compileOnly
     weldEmbeddedTestRuntime { extendsFrom testRuntime }
-    jbossasRemoteTestRuntime { extendsFrom testRuntime, compileOnly }
+    jbossAS6RemoteTestRuntime { extendsFrom testRuntime, compileOnly }
+    jbossAS7ManagedTestRuntime { extendsFrom testRuntime, compileOnly }
+    jbossAS7RemoteTestRuntime { extendsFrom testRuntime, compileOnly }
     glassfishEmbeddedTestRuntime { extendsFrom testRuntime }
 }
 
@@ -27,8 +30,8 @@ dependencies {
     compileOnly group: 'javax.enterprise', name: 'cdi-api', version: libraryVersions.cdi
 
     testCompile group: 'junit', name: 'junit', version: libraryVersions.junit
-    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.2'
-    testCompile group: 'org.jboss.arquillian', name: 'arquillian-junit', version: libraryVersions.arquillian
+    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: libraryVersions.hamcrest
+    testCompile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-container', version: libraryVersions.arquillian
 
     weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: libraryVersions.arquillian
     weldEmbeddedTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
@@ -36,11 +39,17 @@ dependencies {
     weldEmbeddedTestRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: libraryVersions.slf4j
     weldEmbeddedTestRuntime group: 'log4j', name: 'log4j', version: libraryVersions.log4j
 
-    jbossasRemoteTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-jbossas-remote-6', version: libraryVersions.arquillian
-    jbossasRemoteTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
-    jbossasRemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-profileservice-client', version: libraryVersions.jbossas
+    jbossAS6RemoteTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-jbossas-remote-6', version: libraryVersions.arquillian
+    jbossAS6RemoteTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
+    jbossAS6RemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-profileservice-client', version: libraryVersions.jbossas
 
-    glassfishEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-glassfish-embedded-3.1', version: libraryVersions.arquillian
+    jbossAS7ManagedTestRuntime group: 'org.jboss.as', name: 'jboss-as-arquillian-container-managed', version: libraryVersions.jbossAS7
+    jbossAS7ManagedTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
+
+    jbossAS7RemoteTestRuntime group: 'org.jboss.as', name: 'jboss-as-arquillian-container-remote', version: libraryVersions.jbossAS7
+    jbossAS7RemoteTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
+
+    glassfishEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-glassfish-embedded-3.1', version: '1.0.0.CR1-SNAPSHOT'
     glassfishEmbeddedTestRuntime group: 'org.glassfish.extras', name: 'glassfish-embedded-all', version: libraryVersions.glassfish
 }
 
@@ -55,7 +64,11 @@ sourceSets {
 
 task weldEmbeddedTest(type: Test)
 
-task jbossasRemoteTest(type: Test)
+task jbossAS6RemoteTest(type: Test)
+
+task jbossAS7ManagedTest(type: Test)
+
+task jbossAS7RemoteTest(type: Test)
 
 task glassfishEmbeddedTest(type: Test)
 
@@ -69,10 +82,10 @@ tasks.withType(Test).matching({ t-> t.name.endsWith('Test') } as Spec).each { t 
 
 test {
   dependsOn { weldEmbeddedTest }
-  setEnabled(false)
+  setEnabled(false) // FIXME: why is this disabled?
 }
 
 task generateWrapper(type: Wrapper) {
-    gradleVersion = '0.9.2'
+    gradleVersion = '1.0-milestone-3'
     jarFile = 'gradle-wrapper/gradle-wrapper.jar'
 }

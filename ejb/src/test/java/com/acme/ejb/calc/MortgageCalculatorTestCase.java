@@ -3,7 +3,7 @@ package com.acme.ejb.calc;
 import java.math.BigDecimal;
 import javax.ejb.EJB;
 import junit.framework.Assert;
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -14,7 +14,8 @@ import org.junit.runner.RunWith;
 public class MortgageCalculatorTestCase {
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
+        // explicit archive name required until ARQ-77 is resolved
+        return ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class);
     }
 

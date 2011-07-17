@@ -33,7 +33,7 @@ import javax.jms.Session;
  * @version $Revision: $
  */
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/DLQ"),
+        @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/test"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
 public class MessageEchoBean implements MessageListener {
     @Resource(mappedName = "/ConnectionFactory")

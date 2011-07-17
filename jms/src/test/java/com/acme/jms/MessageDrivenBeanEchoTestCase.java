@@ -30,7 +30,7 @@ import javax.jms.Session;
 import javax.jms.TemporaryQueue;
 import javax.jms.TextMessage;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -46,8 +46,8 @@ public class MessageDrivenBeanEchoTestCase {
 
     private static final long QUALITY_OF_SERVICE_THRESHOLD_MS = 5 * 60 * 1000;
 
-    @Resource(mappedName = "/queue/DLQ")
-    Queue dlq;
+    @Resource(mappedName = "/queue/test")
+    Queue testQueue;
 
     @Resource(mappedName = "/ConnectionFactory")
     ConnectionFactory factory;
@@ -63,7 +63,7 @@ public class MessageDrivenBeanEchoTestCase {
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             TemporaryQueue tempQueue = session.createTemporaryQueue();
-            MessageProducer producer = session.createProducer(dlq);
+            MessageProducer producer = session.createProducer(testQueue);
             MessageConsumer consumer = session.createConsumer(tempQueue);
 
             connection.start();

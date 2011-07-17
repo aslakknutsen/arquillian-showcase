@@ -17,22 +17,22 @@
  */
 package com.acme.multinode.grid;
 
-import java.net.URL;
 import static com.acme.multinode.grid.TestUtils.readInt;
 import static com.acme.multinode.grid.Utils.incrementCache;
 
+import java.net.URL;
+
 import javax.inject.Inject;
 
-import junit.framework.Assert;
-
 import org.infinispan.Cache;
-import org.jboss.arquillian.api.ArquillianResource;
-import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.api.OperateOnDeployment;
-import org.jboss.arquillian.api.RunAsClient;
-import org.jboss.arquillian.api.TargetsContainer;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.OperateOnDeployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.container.test.api.TargetsContainer;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -49,19 +49,19 @@ public class ClusteredCacheTestCase {
     @Deployment(name = "dep.active-1")
     @TargetsContainer("container.active-1")
     public static WebArchive createTestDeployment() {
-        return Deployments.createActiveClient();
+        return Deployments.createActiveClient("test-1.war");
     }
 
     @Deployment(name = "dep.active-2")
     @TargetsContainer("container.active-2")
     public static WebArchive createTestDeployment2() {
-        return Deployments.createActiveClient();
+        return Deployments.createActiveClient("test-2.war");
     }
 
     @Deployment(name = "dep.active-3")
     @TargetsContainer("container.active-3")
     public static WebArchive createTestDeployment3() {
-        return Deployments.createActiveClient();
+        return Deployments.createActiveClient("test-3.war");
     }
 
     @Inject
@@ -111,6 +111,8 @@ public class ClusteredCacheTestCase {
     @RunAsClient
     @OperateOnDeployment("dep.active-2")
     public void callActive6(@ArquillianResource URL baseURL) throws Exception {
+        // @see AS7-1152
+        baseURL = new URL("http://localhost:8180/test-1/");
         int count = readInt(baseURL.openStream());
         System.out.println("Cache incremented, current count: " + count);
         Assert.assertEquals(6, count);

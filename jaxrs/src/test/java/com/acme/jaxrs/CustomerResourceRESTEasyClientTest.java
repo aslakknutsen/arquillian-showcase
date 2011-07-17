@@ -7,10 +7,10 @@ import java.net.URL;
 
 import javax.ws.rs.ApplicationPath;
 
-import org.jboss.arquillian.api.ArquillianResource;
-import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.api.RunAsClient;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
@@ -32,7 +32,7 @@ import com.acme.jaxrs.rs.JaxRsActivator;
 public class CustomerResourceRESTEasyClientTest {
     private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Customer.class.getPackage())
                 .addClasses(EntityManagerProducer.class, CustomerResource.class, JaxRsActivator.class)

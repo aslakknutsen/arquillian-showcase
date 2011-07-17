@@ -29,7 +29,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -53,6 +53,7 @@ public class GamePersistenceTestCase {
     @PersistenceContext
     EntityManager em;
 
+    // not being injected on GlassFish
     @Inject
     UserTransaction utx;
 

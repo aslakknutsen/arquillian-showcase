@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import javax.ejb.EJB;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -32,6 +32,7 @@ import org.junit.runner.RunWith;
 public class TemperatureConverterTestCase {
     @Deployment
     public static JavaArchive createDeployment() {
+        // explicit archive name required until ARQ-77 is resolved
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addClasses(TemperatureConverter.class, TemperatureConverterBean.class);
     }

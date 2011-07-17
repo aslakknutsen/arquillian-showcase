@@ -16,9 +16,10 @@
  */
 package com.acme.cdiejb.mixedinterface;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -55,16 +56,32 @@ public class MixedInterfaceEjbTestCase {
         return ShrinkWrap.create(EnterpriseArchive.class, "test.ear").addAsModule(ejbClientJar).addAsModule(ejbServiceJar);
     }
 
-    // @EJB
-    // @Inject
-    // GreeterBean greeter;
-    // GreeterRemote greeter;
-    // @EJB GreeterDelegate greeter;
+//    @Inject
+//    GreeterRemote greeter;
+//    GreeterDelegate greeter;
+//    GreeterBean greeter;
+    
+    @EJB
+    GreeterRemote greeter;
+//    GreeterDelegate greeter;
+//    GreeterBean greeter;
 
     @Test
-    public void shouldBeAbleToInjectEJBAndInvoke() throws Exception {
+    public void should_be_able_to_lookup_and_invoke_ejb() throws Exception {
         String name = "Earthlings";
         GreeterDelegate greeter = (GreeterDelegate) new InitialContext().lookup("java:global/test/service/GreeterDelegate");
+        Assert.assertEquals("Hello, " + name, greeter.greet(name));
+    }
+    
+    @Test
+    public void should_be_able_to_at_inject_and_invoke_ejb(GreeterRemote greeter) {
+        String name = "Earthlings";
+        Assert.assertEquals("Hello, " + name, greeter.greet(name));
+    }
+    
+    @Test
+    public void should_be_able_to_ejb_inject_and_invoke_ejb() {
+        String name = "Earthlings";
         Assert.assertEquals("Hello, " + name, greeter.greet(name));
     }
 }

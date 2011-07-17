@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<arquillian xmlns="http://jboss.com/arquillian"
+<arquillian xmlns="http://jboss.org/schema/arquillian"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian-1.0.xsd">
+    xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
     <!-- Uncomment to have test archives exported to the file system for inspection -->
     <!--
@@ -10,10 +10,30 @@
     </engine>
     -->
 
+    <container qualifier="dev" default="true"/>
+    
+    <container qualifier="qa">
+        <configuration>
+            <property name="managementPort">19999</property>
+            <property name="jmxPort">1190</property>
+            <property name="httpPort">8180</property>
+        </configuration>
+    </container>
+    
+    <container qualifier="stage">
+        <configuration>
+            <property name="managementPort">29999</property>
+            <property name="jmxPort">1290</property>
+            <property name="httpPort">8280</property>
+        </configuration>
+    </container>
+
     <!-- Required configuration for an embedded GlassFish instance -->
     <container qualifier="glassfish-embedded">
-         <property name="bindHttpPort">7070</property>
-         <property name="sunResourcesXml">src/test/resources-glassfish-embedded/sun-resources.xml</property>
+        <configuration>
+            <property name="bindHttpPort">8080</property>
+            <property name="sunResourcesXml">src/test/resources-glassfish-embedded/sun-resources.xml</property>
+        </configuration>
     </container>
 
 </arquillian>

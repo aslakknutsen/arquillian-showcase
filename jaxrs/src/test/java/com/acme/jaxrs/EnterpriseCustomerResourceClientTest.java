@@ -15,7 +15,10 @@ import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,17 +29,21 @@ import com.acme.jaxrs.rs.JaxRsActivator;
 
 @RunWith(Arquillian.class)
 @RunAsClient
-public class CustomerResourceClientTest {
+@Ignore
+public class EnterpriseCustomerResourceClientTest {
     private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Customer.class.getPackage())
-                .addClasses(EntityManagerProducer.class, CustomerResource.class, JaxRsActivator.class)
-                //.addAsManifestResource("test-persistence.xml", "persistence.xml")
-                .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+    public static EnterpriseArchive createDeployment() {
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class).addPackage(Customer.class.getPackage())
+                .addClasses(EntityManagerProducer.class, CustomerResource.class)
+                .addAsManifestResource("test-persistence.xml", "persistence.xml")
                 .addAsResource("import.sql")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        
+        WebArchive war = ShrinkWrap.create(WebArchive.class, "test.war").addClass(JaxRsActivator.class);
+        
+        return ShrinkWrap.create(EnterpriseArchive.class, "test.ear").addAsModule(jar).addAsModule(war);
     }
 
     @ArquillianResource
@@ -44,7 +51,6 @@ public class CustomerResourceClientTest {
 
     @Test
     public void testGetCustomerByIdUsingClientRequest() throws Exception {
-        //deploymentUrl = new URL("http://localhost:8180/test/");
         // GET http://localhost:8080/test/rest/customer/1
         ClientRequest request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/customer/1");
         request.header("Accept", MediaType.APPLICATION_XML);

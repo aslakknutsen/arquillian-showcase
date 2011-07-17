@@ -1,7 +1,7 @@
 package com.acme.cdi.failure;
 
-import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.api.ShouldThrowException;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.ShouldThrowException;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;

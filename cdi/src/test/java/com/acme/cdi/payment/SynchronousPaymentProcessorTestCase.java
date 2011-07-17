@@ -20,11 +20,12 @@ import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 import org.junit.Test;
@@ -66,13 +67,18 @@ public class SynchronousPaymentProcessorTestCase {
         assertEquals(secondPayment, MockPaymentProcessor.PAYMENTS.get(1));
     }
 
+    
+    
+    
+    
     // Use this deployment for GlassFish due to visibility issues
-    /*
-     * @Deployment public static WebArchive createDeployment() { BeansDescriptor beansXml =
-     * Descriptors.create(BeansDescriptor.class);
-     * 
-     * return ShrinkWrap.create(WebArchive.class) .addAsWebInfResource(new
-     * StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()), beansXml.getDescriptorName())
-     * .addPackage(Synchronous.class.getPackage()); }
-     */
+    //@Deployment
+    public static WebArchive createDeploymentForGlassFish() {
+        BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+
+        return ShrinkWrap.create(WebArchive.class)
+                .addAsWebInfResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()),
+                        beansXml.getDescriptorName()).addPackage(Synchronous.class.getPackage());
+    }
+     
 }

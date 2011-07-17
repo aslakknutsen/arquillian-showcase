@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -45,6 +45,7 @@ public class BeanManagerTestCase {
     public void testCdiBootstrap() {
         assertNotNull(beanManager);
         assertFalse(beanManager.getBeans(BeanManager.class).isEmpty());
+        printCdiImplementationInfo(beanManager);
     }
 
     protected void printCdiImplementationInfo(BeanManager beanManager) {
@@ -52,6 +53,5 @@ public class BeanManagerTestCase {
         if (impl != null) {
             System.out.println("CDI implementation: " + impl.replaceFirst("^([^ ]+)( .*)?$", "$1"));
         }
-        System.out.println("BeanManager implementation class: " + beanManager.getClass().getName());
-    }
+   }
 }

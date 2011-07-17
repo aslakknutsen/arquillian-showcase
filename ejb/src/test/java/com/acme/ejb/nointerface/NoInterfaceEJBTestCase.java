@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.ejb.EJB;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -38,7 +38,8 @@ import org.junit.runner.RunWith;
 public class NoInterfaceEJBTestCase {
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class).addClass(NoInterfaceEJB.class);
+        // explicit archive name required until ARQ-77 is resolved
+        return ShrinkWrap.create(JavaArchive.class, "test.jar").addClass(NoInterfaceEJB.class);
     }
 
     @EJB

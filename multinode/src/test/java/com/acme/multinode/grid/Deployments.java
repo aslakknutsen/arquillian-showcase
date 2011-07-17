@@ -22,9 +22,6 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
-import org.jboss.shrinkwrap.resolver.impl.maven.MavenRepositorySettings;
-
-import com.acme.multinode.grid.CacheProducer;
 
 /**
  * Deployments
@@ -33,17 +30,12 @@ import com.acme.multinode.grid.CacheProducer;
  * @version $Revision: $
  */
 public class Deployments {
-    {
-        System.setProperty(MavenRepositorySettings.ALT_USER_SETTINGS_XML_LOCATION, "grid/jboss-repositories.xml");
-    }
-
-    public static WebArchive createActiveClient() {
-        return ShrinkWrap.create(WebArchive.class)
+    public static WebArchive createActiveClient(String name) {
+        return ShrinkWrap.create(WebArchive.class, name)
                 .addPackage(CacheProducer.class.getPackage())
                 .addClass(TestUtils.class)
-                .addAsLibraries(
-                        DependencyResolvers.use(MavenDependencyResolver.class)
-                                .artifact("org.infinispan:infinispan-core:4.2.1.FINAL").resolveAsFiles())
+                .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml")
+                        .artifact("org.infinispan:infinispan-core:4.2.1.FINAL").resolveAsFiles())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addAsResource("grid/infinispan.xml", "infinispan.xml")
                 .setWebXML("grid/in-container-web.xml");
     }
