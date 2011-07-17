@@ -50,12 +50,15 @@ public class BeanManagerTestCase {
 
     protected void printCdiImplementationInfo(BeanManager beanManager) {
         String impl = beanManager.getClass().getPackage().getImplementationTitle();
+        if (impl == null) {
+            impl = beanManager.getClass().getPackage().getImplementationVendor();
+        }
         if (impl != null) {
             System.out.println("CDI implementation: " + impl.replaceFirst("^([^ ]+)( .*)?$", "$1"));
         }
         else {
-		    System.out.println("Could not determine CDI implementation");
-		}
-   		System.out.println("BeanManager implementation class: " + beanManager.getClass().getName());
+            System.out.println("Could not determine CDI implementation");
+        }
+        System.out.println("BeanManager implementation class: " + beanManager.getClass().getName());
    }
 }
