@@ -53,5 +53,9 @@ public class BeanManagerTestCase {
         if (impl != null) {
             System.out.println("CDI implementation: " + impl.replaceFirst("^([^ ]+)( .*)?$", "$1"));
         }
+        else {
+		    System.out.println("Could not determine CDI implementation");
+		}
+   		System.out.println("BeanManager implementation class: " + beanManager.getClass().getName());
    }
 }

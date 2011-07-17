@@ -29,6 +29,7 @@
         <version.log4j>1.2.14</version.log4j>
         <version.openejb>3.1.4</version.openejb>
         <version.openwebbeans>1.0.0</version.openwebbeans>
+        <version.resin>4.0.20</version.resin>
         <version.resteasy>2.0.1.GA</version.resteasy>
         <version.slf4j>1.5.10</version.slf4j>
         <version.testng>5.14.6</version.testng>
@@ -117,6 +118,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>container-bom-jetty-embedded-7</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>container-bom-resin-embedded-4</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>
@@ -257,6 +264,12 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-resin-embedded-4</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.jsfunit</groupId>
                 <artifactId>jsfunit-arquillian</artifactId>
                 <version>${version.jsfunit}</version>
@@ -297,6 +310,12 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-plus</artifactId>
                 <version>${version.jetty}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>resin</artifactId>
+                <version>${version.resin}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

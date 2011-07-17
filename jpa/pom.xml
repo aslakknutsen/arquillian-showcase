@@ -146,7 +146,6 @@
         </profile>
 
         <profile>
-            <!-- WORKING! -->
             <id>arq-glassfish-embedded</id>
             <dependencies>
                 <dependency>
