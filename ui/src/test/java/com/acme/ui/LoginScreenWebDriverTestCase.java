@@ -18,10 +18,9 @@ package com.acme.ui;
 
 import java.net.URL;
 
-import org.jboss.arquillian.api.ArquillianResource;
-import org.jboss.arquillian.drone.annotation.Drone;
-import org.jboss.arquillian.drone.factory.WebDriverFactory;
+import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,7 +61,7 @@ public class LoginScreenWebDriverTestCase extends AbstractLoginScreenTestCase {
 
     @Test
     public void testLoginAndLogout() {
-        driver.get(deploymentUrl + "/home.jsf");
+        driver.get(deploymentUrl + "home.jsf");
 
         driver.findElement(USERNAME_FIELD).sendKeys(USERNAME);
         driver.findElement(PASSWORD_FIELD).sendKeys(PASSWORD);

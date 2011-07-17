@@ -18,9 +18,9 @@ package com.acme.ui;
 
 import java.net.URL;
 
-import org.jboss.arquillian.api.ArquillianResource;
-import org.jboss.arquillian.drone.annotation.Drone;
+import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,7 +60,7 @@ public class LoginScreenDefaultSeleniumTestCase extends AbstractLoginScreenTestC
     public void testLoginAndLogout() {
         Assert.assertNotNull("Path is not null", deploymentUrl);
 
-        driver.open(deploymentUrl + "/home.jsf");
+        driver.open(deploymentUrl + "home.jsf");
 
         driver.type(USERNAME_FIELD, USERNAME);
         driver.type(PASSWORD_FIELD, PASSWORD);

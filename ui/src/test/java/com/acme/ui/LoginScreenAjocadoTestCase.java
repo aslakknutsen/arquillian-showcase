@@ -18,7 +18,7 @@ package com.acme.ui;
 
 import static org.jboss.arquillian.ajocado.Ajocado.elementPresent;
 import static org.jboss.arquillian.ajocado.Ajocado.waitModel;
-import static org.jboss.arquillian.ajocado.guard.request.RequestTypeGuardFactory.waitHttp;
+import static org.jboss.arquillian.ajocado.Ajocado.waitForHttp;
 import static org.jboss.arquillian.ajocado.locator.LocatorFactory.id;
 import static org.jboss.arquillian.ajocado.locator.LocatorFactory.xp;
 
@@ -26,9 +26,9 @@ import java.net.URL;
 
 import org.jboss.arquillian.ajocado.framework.AjaxSelenium;
 import org.jboss.arquillian.ajocado.locator.IdLocator;
-import org.jboss.arquillian.ajocado.locator.XpathLocator;
-import org.jboss.arquillian.api.ArquillianResource;
-import org.jboss.arquillian.drone.annotation.Drone;
+import org.jboss.arquillian.ajocado.locator.XPathLocator;
+import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,15 +42,15 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @RunWith(Arquillian.class)
-public class LoginScreenAjacodoTestCase extends AbstractLoginScreenTestCase {
+public class LoginScreenAjocadoTestCase extends AbstractLoginScreenTestCase {
     @Drone
     AjaxSelenium driver;
 
     @ArquillianResource
     URL deploymentUrl;
 
-    protected XpathLocator LOGGED_IN = xp("//li[contains(text(),'Welcome')]");
-    protected XpathLocator LOGGED_OUT = xp("//li[contains(text(),'Goodbye')]");
+    protected XPathLocator LOGGED_IN = xp("//li[contains(text(),'Welcome')]");
+    protected XPathLocator LOGGED_OUT = xp("//li[contains(text(),'Goodbye')]");
 
     protected IdLocator USERNAME_FIELD = id("loginForm:username");
     protected IdLocator PASSWORD_FIELD = id("loginForm:password");
@@ -59,17 +59,17 @@ public class LoginScreenAjacodoTestCase extends AbstractLoginScreenTestCase {
     protected IdLocator LOGOUT_BUTTON = id("loginForm:logout");
 
     @Test
-    public void testLoginAndLogout() {
+    public void testLoginAndLogout() throws Exception {
         driver.open(deploymentUrl);
         waitModel.until(elementPresent.locator(USERNAME_FIELD));
         Assert.assertFalse("User should not be logged in!", driver.isElementPresent(LOGOUT_BUTTON));
         driver.type(USERNAME_FIELD, "demo");
         driver.type(PASSWORD_FIELD, "demo");
 
-        waitHttp(driver).click(LOGIN_BUTTON);
+        waitForHttp(driver).click(LOGIN_BUTTON);
         Assert.assertTrue("User should be logged in!", driver.isElementPresent(LOGGED_IN));
 
-        waitHttp(driver).click(LOGOUT_BUTTON);
+        waitForHttp(driver).click(LOGOUT_BUTTON);
         Assert.assertTrue("User should not be logged in!", driver.isElementPresent(LOGGED_OUT));
     }
 }
