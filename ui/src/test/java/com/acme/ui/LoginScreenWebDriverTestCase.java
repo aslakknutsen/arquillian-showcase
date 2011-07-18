@@ -18,9 +18,11 @@ package com.acme.ui;
 
 import java.net.URL;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +41,13 @@ import org.openqa.selenium.WebDriver;
  * @see WebDriverFactory
  */
 @RunWith(Arquillian.class)
-public class LoginScreenWebDriverTestCase extends AbstractLoginScreenTestCase {
+public class LoginScreenWebDriverTestCase {
+    
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return Deployments.createLoginScreenDeployment();
+    }
+    
     private static final String USERNAME = "demo";
     private static final String PASSWORD = "demo";
 
@@ -61,19 +69,21 @@ public class LoginScreenWebDriverTestCase extends AbstractLoginScreenTestCase {
 
     @Test
     public void testLoginAndLogout() {
+        Assert.assertNotNull("Deployment URL should not be null", deploymentUrl);
+
         driver.get(deploymentUrl + "home.jsf");
 
         driver.findElement(USERNAME_FIELD).sendKeys(USERNAME);
         driver.findElement(PASSWORD_FIELD).sendKeys(PASSWORD);
         driver.findElement(LOGIN_BUTTON).click();
-        checkElementPresence(driver, LOGGED_IN, "User should be logged in!");
+        checkElementPresent(driver, LOGGED_IN, "User should be logged in!");
 
         driver.findElement(LOGOUT_BUTTON).click();
-        checkElementPresence(driver, LOGGED_OUT, "User should not be logged in!");
+        checkElementPresent(driver, LOGGED_OUT, "User should not be logged in!");
     }
 
-    // check is element is presence on page, fails otherwise
-    private void checkElementPresence(WebDriver driver, By by, String errorMsg) {
+    // check is element is present on page, fail otherwise
+    private void checkElementPresent(WebDriver driver, By by, String errorMsg) {
         try {
             Assert.assertTrue(errorMsg, driver.findElement(by) != null);
         } catch (NoSuchElementException e) {

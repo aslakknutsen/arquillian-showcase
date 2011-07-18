@@ -18,7 +18,6 @@ package com.acme.ui;
 
 import java.io.File;
 
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -30,7 +29,9 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
  * 
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
-public abstract class AbstractLoginScreenTestCase {
+public class Deployments {
+    public static final String ARCHIVE_NAME = "cdi-login.war";
+    public static final String BUILD_DIRECTORY = "target";
     public static final String WEBAPP_SRC = "src/main/webapp";
     
     /**
@@ -38,11 +39,10 @@ public abstract class AbstractLoginScreenTestCase {
      * 
      * @return WebArchive to be tested
      */
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+    public static WebArchive createLoginScreenDeployment() {
         MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml");
 
-        return ShrinkWrap.create(WebArchive.class, "cdi-login.war")
+        return ShrinkWrap.create(WebArchive.class, ARCHIVE_NAME)
                 .addClasses(Credentials.class, LoggedIn.class, Login.class, User.class, UsersProducer.class)
                 .addAsResource("import.sql")
                 // .addAsManifestResource("test-persistence.xml", "persistence.xml")

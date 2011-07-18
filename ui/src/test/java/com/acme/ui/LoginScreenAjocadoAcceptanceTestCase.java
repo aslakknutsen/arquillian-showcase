@@ -16,12 +16,16 @@
  */
 package com.acme.ui;
 
+import static com.acme.ui.Deployments.ARCHIVE_NAME;
+import static com.acme.ui.Deployments.BUILD_DIRECTORY;
+
 import static org.jboss.arquillian.ajocado.Ajocado.elementPresent;
-import static org.jboss.arquillian.ajocado.Ajocado.waitModel;
 import static org.jboss.arquillian.ajocado.Ajocado.waitForHttp;
+import static org.jboss.arquillian.ajocado.Ajocado.waitModel;
 import static org.jboss.arquillian.ajocado.locator.LocatorFactory.id;
 import static org.jboss.arquillian.ajocado.locator.LocatorFactory.xp;
 
+import java.io.File;
 import java.net.URL;
 
 import org.jboss.arquillian.ajocado.framework.AjaxSelenium;
@@ -29,10 +33,13 @@ import org.jboss.arquillian.ajocado.locator.IdLocator;
 import org.jboss.arquillian.ajocado.locator.XPathLocator;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -44,11 +51,13 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @RunWith(Arquillian.class)
-public class LoginScreenAjocadoTestCase {
+@Ignore
+public class LoginScreenAjocadoAcceptanceTestCase {
     
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return Deployments.createLoginScreenDeployment();
+        return ShrinkWrap.create(ZipImporter.class, ARCHIVE_NAME)
+                .importFrom(new File(BUILD_DIRECTORY + '/' + ARCHIVE_NAME)).as(WebArchive.class);
     }
 
     private static final String USERNAME = "demo";

@@ -18,9 +18,11 @@ package com.acme.ui;
 
 import java.net.URL;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,12 +37,12 @@ import com.thoughtworks.selenium.DefaultSelenium;
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @RunWith(Arquillian.class)
-public class LoginScreenDefaultSeleniumTestCase extends AbstractLoginScreenTestCase {
-    @Drone
-    DefaultSelenium driver;
-
-    @ArquillianResource
-    URL deploymentUrl;
+public class LoginScreenDefaultSeleniumTestCase {
+    
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return Deployments.createLoginScreenDeployment();
+    }
 
     private static final String USERNAME = "demo";
     private static final String PASSWORD = "demo";
@@ -55,10 +57,16 @@ public class LoginScreenDefaultSeleniumTestCase extends AbstractLoginScreenTestC
     private static final String LOGOUT_BUTTON = "id=loginForm:logout";;
 
     private static final String TIMEOUT = "15000";
+    
+    @Drone
+    DefaultSelenium driver;
+
+    @ArquillianResource
+    URL deploymentUrl;
 
     @Test
     public void testLoginAndLogout() {
-        Assert.assertNotNull("Path is not null", deploymentUrl);
+        Assert.assertNotNull("Deployment URL should not be null", deploymentUrl);
 
         driver.open(deploymentUrl + "home.jsf");
 
