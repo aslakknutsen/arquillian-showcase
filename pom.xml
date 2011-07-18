@@ -13,17 +13,11 @@
 
     <modules>
         <module>parent</module>
-        <module>container-boms/weld-se-embedded-1.1</module>
-        <module>container-boms/weld-ee-embedded-1.1</module>
-        <module>container-boms/openwebbeans-embedded-1</module>
-        <module>container-boms/openejb-embedded-3.1</module>
-        <module>container-boms/jbossas-remote-6</module>
-        <module>container-boms/jbossas-managed-6</module>
-        <module>container-boms/glassfish-embedded-3.1</module>
-        <module>container-boms/glassfish-remote-3.1</module>
-        <module>container-boms/jetty-embedded-7</module>
+        <module>container-boms</module>
+        <module>extension-weld-servlet</module>
         <module>cdi</module>
         <module>ejb</module>
+        <module>ejb-testng</module>
         <module>cdi-ejb</module>
         <!-- jms only works on JBoss AS 6, add queue/test to server/default/deploy/hornetq/hornetq-jms.xml -->
         <!--

@@ -43,31 +43,31 @@
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-drone-impl</artifactId>
-            <version>${version.arquillian}</version>
+            <version>${version.arquillian_extension}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-drone-selenium</artifactId>
-            <version>${version.arquillian}</version>
+            <version>${version.arquillian_extension}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-drone-selenium-server</artifactId>
-            <version>${version.arquillian}</version>
+            <version>${version.arquillian_extension}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-drone-webdriver</artifactId>
-            <version>${version.arquillian}</version>
+            <version>${version.arquillian_extension}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.ajocado</groupId>
             <artifactId>arquillian-ajocado-drone</artifactId>
-            <version>${version.arquillian}</version>
+            <version>${version.arquillian_extension}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

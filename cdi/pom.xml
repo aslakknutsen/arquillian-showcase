@@ -93,6 +93,7 @@
                     <type>pom</type>
                     <scope>test</scope>
                 </dependency>
+                <!-- required for compile; shouldn't be needed if we can get the scopes right -->
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
                     <artifactId>jboss-javaee-web-6.0</artifactId>
@@ -197,6 +198,44 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+        </profile>
+
+        <profile>
+            <id>arq-jetty-embedded</id>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>container-bom-jetty-embedded-7</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension.cdi</groupId>
+                    <artifactId>arquillian-weld-servlet-extension</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.spec</groupId>
+                    <artifactId>jboss-javaee-web-6.0</artifactId>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/AmbiguousDependencyTestCase.java</exclude>
+                                <exclude>**/SynchronousPaymentProcessorTestCase.java</exclude>
+                                <exclude>**/DocumentEventTestCase.java</exclude>
+                                <exclude>**/AnnouncerDecoratorTestCase.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
     </profiles>
