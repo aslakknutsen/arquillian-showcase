@@ -45,11 +45,6 @@
                     <type>pom</type>
                     <scope>test</scope>
                 </dependency>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
-                    <type>pom</type>
-                </dependency>
             </dependencies>
             <build>
                 <testResources>
@@ -118,7 +113,6 @@
 
         <profile>
             <!-- Test requires the default JavaDB to be started (asadmin start-database) -->
-            <!-- Broken since Weld is not injected UserTransaction correctly -->
             <id>arq-glassfish-remote</id>
             <dependencies>
                 <dependency>
@@ -126,11 +120,6 @@
                     <artifactId>container-bom-glassfish-remote-3.1</artifactId>
                     <type>pom</type>
                     <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
-                    <type>pom</type>
                 </dependency>
             </dependencies>
             <build>

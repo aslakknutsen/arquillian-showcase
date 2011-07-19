@@ -4,4 +4,5 @@
  interact as a remote client.
  
  All about arquillian: http://jboss.org/arquillian
-  
+ 
+GlassFish requires update to Weld 1.1.1.Final, see http://seamframework.org/Seam3/Compatibility

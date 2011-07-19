@@ -42,11 +42,6 @@
                     <type>pom</type>
                     <scope>test</scope>
                 </dependency>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
-                    <type>pom</type>
-                </dependency>
             </dependencies>
             <build>
                 <plugins>
@@ -75,11 +70,6 @@
                     <artifactId>container-bom-weld-ee-embedded-1.1</artifactId>
                     <type>pom</type>
                     <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
-                    <type>pom</type>
                 </dependency>
             </dependencies>
         </profile>
@@ -146,6 +136,18 @@
         </profile>
 
         <profile>
+            <id>arq-jbossas-remote-6</id>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>container-bom-jbossas-remote-6</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
             <id>arq-glassfish-embedded</id>
             <dependencies>
                 <dependency>
@@ -162,6 +164,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/AmbiguousDependencyTestCase.java</exclude>
+                                <!-- use alternate @Deployment method to make this test pass -->
                                 <exclude>**/SynchronousPaymentProcessorTestCase.java</exclude>
                             </excludes>
                         </configuration>
@@ -179,12 +182,20 @@
                     <type>pom</type>
                     <scope>test</scope>
                 </dependency>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
-                    <type>pom</type>
-                </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <!-- use alternate @Deployment method to make this test pass -->
+                                <exclude>**/SynchronousPaymentProcessorTestCase.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <!-- resin-embedded cannot run tests sequentially (only one per run) -->

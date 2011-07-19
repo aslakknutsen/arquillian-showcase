@@ -103,29 +103,16 @@
             <id>arq-glassfish-remote</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>container-bom-glassfish-remote-3.1</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
                 </dependency>
+                <!-- need the jms apis -->
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
                     <artifactId>jboss-javaee-6.0</artifactId>
                     <type>pom</type>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-api</artifactId>
-                    <version>1.1.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.jersey</groupId>
-                    <artifactId>jersey-bundle</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.jersey.contribs</groupId>
-                    <artifactId>jersey-multipart</artifactId>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>

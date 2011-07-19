@@ -133,17 +133,9 @@
             -->
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.jersey</groupId>
-                    <artifactId>jersey-bundle</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.jersey.contribs</groupId>
-                    <artifactId>jersey-multipart</artifactId>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>container-bom-glassfish-remote-3.1</artifactId>
+                    <type>pom</type>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
