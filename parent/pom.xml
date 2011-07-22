@@ -51,7 +51,8 @@
                 <updatePolicy>never</updatePolicy>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <!-- temporary until we get to Arquillian 1.0.0.Final -->
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -205,7 +206,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-openejb-embedded-3.1</artifactId>
-                <version>${version.arquillian_container}-SNAPSHOT</version>
+                <version>1.0.0.CR2-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
