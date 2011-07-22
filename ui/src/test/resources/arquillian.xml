@@ -17,4 +17,10 @@
         <property name="enable">true</property>
     </extension>
 
+    <!--
+    <extension qualifier="selenium">
+        <property name="browser">*googlechrome</property>
+    </extension>
+    -->
+
 </arquillian>
