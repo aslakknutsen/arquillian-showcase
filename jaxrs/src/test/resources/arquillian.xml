@@ -27,6 +27,12 @@
             <property name="httpPort">8280</property>
         </configuration>
     </container>
+    
+    <container qualifier="lan">
+        <configuration>
+            <property name="bindAddress">192.168.1.2</property>
+        </configuration>
+    </container>
 
     <!-- Required configuration for an embedded GlassFish instance -->
     <container qualifier="glassfish-embedded">
