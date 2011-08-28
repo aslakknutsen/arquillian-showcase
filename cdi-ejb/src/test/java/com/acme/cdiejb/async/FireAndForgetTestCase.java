@@ -53,8 +53,9 @@ public class FireAndForgetTestCase {
         System.out.println("Current thread [id=" + Thread.currentThread().getId() + "; name=" + Thread.currentThread().getName() + "]");
         asyncBean.fire(1000);
         System.out.println("Async operation fired");
-        assertTrue(BlockingFireAndForgetBean.LATCH.await(30, TimeUnit.SECONDS));
+        assertTrue("Async operation completed in given time", BlockingFireAndForgetBean.LATCH.await(30, TimeUnit.SECONDS));
         System.out.println("Async thread complete");
-        assertNull(BlockingFireAndForgetBean.threadValue.get());
+        // what does the cleanup here?
+        assertNull("Async operation correctly cleaned up", BlockingFireAndForgetBean.threadValue.get());
     }
 }

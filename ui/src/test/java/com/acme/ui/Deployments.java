@@ -40,7 +40,7 @@ public class Deployments {
      * @return WebArchive to be tested
      */
     public static WebArchive createLoginScreenDeployment() {
-        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml");
+        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
 
         return ShrinkWrap.create(WebArchive.class, ARCHIVE_NAME)
                 .addClasses(Credentials.class, LoggedIn.class, Login.class, User.class, UsersProducer.class)

@@ -34,7 +34,7 @@ public class Deployments {
         return ShrinkWrap.create(WebArchive.class, name)
                 .addPackage(CacheProducer.class.getPackage())
                 .addClass(TestUtils.class)
-                .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml")
+                .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml")
                         .artifact("org.infinispan:infinispan-core:4.2.1.FINAL").resolveAsFiles())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addAsResource("grid/infinispan.xml", "infinispan.xml")
                 .setWebXML("grid/in-container-web.xml");
