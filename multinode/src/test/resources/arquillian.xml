@@ -5,9 +5,6 @@
 
     <group qualifier="Grid">
         <container qualifier="container.active-1">
-            <protocol type="jmx-as7">
-               <property name="executionType">REMOTE</property>
-            </protocol>
             <configuration>
                 <property name="managementPort">19999</property>
                 <property name="jmxPort">1190</property>
@@ -15,9 +12,6 @@
             </configuration>
         </container>
         <container qualifier="container.active-2">
-            <protocol type="jmx-as7">
-               <property name="executionType">REMOTE</property>
-            </protocol>
             <configuration>
                 <property name="managementPort">29999</property>
                 <property name="jmxPort">1290</property>
@@ -25,9 +19,6 @@
             </configuration>
         </container>
         <container qualifier="container.active-3">
-            <protocol type="jmx-as7">
-               <property name="executionType">REMOTE</property>
-            </protocol>
             <configuration>
                 <property name="managementPort">39999</property>
                 <property name="jmxPort">1390</property>

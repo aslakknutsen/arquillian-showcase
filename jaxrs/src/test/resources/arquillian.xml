@@ -10,7 +10,11 @@
     </engine>
     -->
 
-    <container qualifier="dev" default="true"/>
+    <container qualifier="dev" default="true">
+        <configuration>
+            <property name="jbossHome">target/jboss-as-7.0.1.Final</property>
+        </configuration>
+    </container>
     
     <container qualifier="qa">
         <configuration>

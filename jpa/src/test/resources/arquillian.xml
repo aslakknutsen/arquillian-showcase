@@ -11,9 +11,9 @@
     -->
 
     <container qualifier="jbossas-remote-7" default="true">
-        <protocol type="jmx-as7">
-            <property name="executionType">REMOTE</property>
-        </protocol>
+        <configuration>
+            <property name="jbossHome">target/jboss-as-7.0.1.Final</property>
+        </configuration>
     </container>
 
     <!-- Required configuration for an embedded GlassFish instance -->

@@ -12,9 +12,6 @@
     -->
     
     <container qualifier="jbossas-remote-7" default="true">
-        <protocol type="jmx-as7">
-            <property name="executionType">REMOTE</property>
-        </protocol>
     </container>
 
     <container qualifier="glassfish-embedded">
