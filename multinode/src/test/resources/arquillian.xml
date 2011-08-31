@@ -3,26 +3,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
+    <defaultProtocol type="Servlet 3.0" />
+
     <group qualifier="Grid">
         <container qualifier="container.active-1">
             <configuration>
+                <property name="jbossHome">target/node1/jboss-as-7.0.1.Final</property>
                 <property name="managementPort">19999</property>
-                <property name="jmxPort">1190</property>
-                <property name="httpPort">8180</property>
             </configuration>
         </container>
         <container qualifier="container.active-2">
             <configuration>
+                <property name="jbossHome">target/node2/jboss-as-7.0.1.Final</property>
                 <property name="managementPort">29999</property>
-                <property name="jmxPort">1290</property>
-                <property name="httpPort">8280</property>
             </configuration>
         </container>
         <container qualifier="container.active-3">
             <configuration>
                 <property name="managementPort">39999</property>
-                <property name="jmxPort">1390</property>
-                <property name="httpPort">8380</property>
+                <property name="jbossHome">target/node3/jboss-as-7.0.1.Final</property>
             </configuration>
         </container>
     </group>
