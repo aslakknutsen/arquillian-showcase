@@ -5,7 +5,7 @@
 
     <container qualifier="jbossas-remote-7" default="true">
         <configuration>
-            <property name="jbossHome">target/jboss-as-7.0.1.Final</property>
+            <property name="jbossHome">target/jboss-as-${jboss.version}</property>
         </configuration>
     </container>
 

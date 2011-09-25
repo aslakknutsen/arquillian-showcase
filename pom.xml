@@ -14,7 +14,6 @@
     <modules>
         <module>parent</module>
         <module>container-boms</module>
-        <module>extension-weld-servlet</module>
         <module>cdi</module>
         <module>ejb</module>
         <module>ejb-testng</module>
@@ -37,6 +36,8 @@
         -->
         <module>ui</module>
         <module>multinode</module>
+	
+        <module>extensions</module>
     </modules>
 
 <!--

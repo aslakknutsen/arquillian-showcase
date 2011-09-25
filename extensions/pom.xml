@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>arquillian-showcase-parent</artifactId>
+        <groupId>org.jboss.arquillian.showcase</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.jboss.arquillian.showcase</groupId>
+    <artifactId>arquillian-showcase-extension</artifactId>
+    <packaging>pom</packaging>
+    <name>Arquillian Showcase Extensions Aggregator</name>
+    <url>http://jboss.org/arquillian</url>
+    <description>Arquillian Showcase Extensions Aggregator</description>
+
+    <modules>
+        <module>declarative</module>
+	<module>autodiscover</module>
+        <module>lifecycle</module>
+	<module>deploymentscenario</module>
+	<module>weld-servlet</module>
+    </modules>
+
+</project>

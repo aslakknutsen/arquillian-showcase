@@ -67,6 +67,7 @@
                         <configuration>
                             <systemProperties>
                                 <arquillian.launch>Grid</arquillian.launch>
+                                <jboss.version>${version.jbossas_7}</jboss.version>
                             </systemProperties>
                         </configuration>
                     </plugin>

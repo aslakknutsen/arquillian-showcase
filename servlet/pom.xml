@@ -55,6 +55,14 @@
             <build>
                 <plugins>
                     <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemProperties>
+                                <jboss.version>${version.jbossas_7}</jboss.version>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
