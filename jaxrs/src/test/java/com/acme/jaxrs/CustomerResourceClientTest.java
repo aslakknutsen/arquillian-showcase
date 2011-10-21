@@ -33,7 +33,6 @@ public class CustomerResourceClientTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Customer.class.getPackage())
                 .addClasses(EntityManagerProducer.class, CustomerResource.class, JaxRsActivator.class)
-                //.addAsManifestResource("test-persistence.xml", "persistence.xml")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("import.sql")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

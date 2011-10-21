@@ -33,8 +33,8 @@ import org.mockito.Mockito;
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-@Library("org.mockito:mockito-all:1.8.3")
 @RunWith(Arquillian.class)
+@Library("org.mockito:mockito-all:1.8.3")
 public class DeclarativeTestCase
 {
    @Deployment

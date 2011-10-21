@@ -36,7 +36,7 @@ public class ArchiveAppender implements AuxiliaryArchiveAppender
    @Override
    public Archive<?> createAuxiliaryArchive()
    {
-      return ShrinkWrap.create(JavaArchive.class, "1arquillian-showcase-autodiscover.jar")
+      return ShrinkWrap.create(JavaArchive.class, "arquillian-showcase-autodiscover.jar")
             .addClass(ReflectionHelper.class)
             .addPackage(AutodiscoverRemoteExtension.class.getPackage())
             .addAsServiceProvider(RemoteLoadableExtension.class, AutodiscoverRemoteExtension.class);

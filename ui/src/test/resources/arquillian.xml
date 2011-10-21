@@ -3,9 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
+    <defaultProtocol type="Servlet 3.0" />
+    
     <container qualifier="jbossas-remote-7" default="true">
         <configuration>
-            <property name="jbossHome">target/jboss-as-${jboss.version}</property>
+            <property name="jbossHome">target/jboss-as-${jboss.version:7.0.2.Final}</property>
         </configuration>
     </container>
 
@@ -17,10 +19,10 @@
         <property name="enable">true</property>
     </extension>
 
-    <!--
+    
     <extension qualifier="selenium">
-        <property name="browser">*googlechrome</property>
+        <property name="browser">*firefox</property>
     </extension>
-    -->
+    
 
 </arquillian>

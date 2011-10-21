@@ -63,7 +63,6 @@ public class LoginScreenWebDriverTestCase {
     @ArquillianResource
     URL deploymentUrl;
     
-    // NOTE cannot use test method argument injection w/ WebDriver due to bug in cleanup phase
     @Drone
     WebDriver driver;
 
