@@ -22,6 +22,7 @@
 	<module>autodiscover</module>
         <module>lifecycle</module>
 	<module>deploymentscenario</module>
+        <module>systemproperties</module>
 	<module>weld-servlet</module>
     </modules>
 
