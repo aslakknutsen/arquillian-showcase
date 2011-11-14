@@ -1,3 +1,4 @@
+package org.jboss.arquillian.showcase.extension.deploymentscenario;
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2011 Red Hat Inc. and/or its affiliates and other contributors
@@ -15,32 +16,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.arquillian.showcase.extension.autodiscover;
 
-import org.jboss.arquillian.container.test.api.Deployment;
+import javax.inject.Inject;
+
+import junit.framework.Assert;
+
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * DeclarativeTestCase
+ * Externalized @Deployment, see arquillian.xml
  *
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
 @RunWith(Arquillian.class)
-public class NotUsedTestCase
+public class ConfigurableDeploymentScenarioTestCase
 {
-   @Deployment
-   public static WebArchive deploy() {
-      return ShrinkWrap.create(WebArchive.class)
-            .addClass(AccountService.class);
-   }
+   @Inject
+   private AccountService service;
 
-   @Test(expected = ClassNotFoundException.class)
-   public void shouldBeAbleToMock() throws Exception {
-      Class.forName("org.mockito.Mock");
+   @Test
+   public void shouldBeAbleTo() throws Exception {
+      Assert.assertEquals(100, service.withdraw(100));
    }
 }

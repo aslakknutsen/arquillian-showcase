@@ -29,11 +29,11 @@ import javax.inject.Inject;
 public class Manager
 {
    @Inject 
-   private Instance<AccountService> service;
+   private AccountService service;
    
    public int execute(int amount)
    {
-      return service.get().widraw(amount);
+      return service.withdraw(amount);
    }
    
 }

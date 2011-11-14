@@ -47,11 +47,11 @@ public class AutodiscoverTestCase
    
    @Before
    public void setupMock() {
-      Mockito.when(service.widraw(100)).thenReturn(100);      
+      Mockito.when(service.withdraw(100)).thenReturn(100);      
    }
    
    @Test
    public void shouldBeAbleToMock() throws Exception {
-      Assert.assertEquals(100, service.widraw(100));
+      Assert.assertEquals(100, service.withdraw(100));
    }
 }

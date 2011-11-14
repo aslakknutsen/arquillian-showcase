@@ -47,9 +47,9 @@ public class DeclarativeTestCase
    public void shouldBeAbleToMock() throws Exception {
       
       AccountService service = Mockito.mock(AccountService.class);
-      Mockito.when(service.widraw(100)).thenReturn(100);
+      Mockito.when(service.withdraw(100)).thenReturn(100);
       
-      Assert.assertEquals(100, service.widraw(100));
+      Assert.assertEquals(100, service.withdraw(100));
       
    }
 }

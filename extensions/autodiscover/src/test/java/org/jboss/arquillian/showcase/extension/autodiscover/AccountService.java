@@ -25,5 +25,5 @@ package org.jboss.arquillian.showcase.extension.autodiscover;
  */
 public interface AccountService
 {
-   int widraw(int amount);
+   int withdraw(int amount);
 }

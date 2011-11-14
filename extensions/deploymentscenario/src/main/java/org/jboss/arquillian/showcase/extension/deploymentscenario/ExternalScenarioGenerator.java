@@ -18,6 +18,7 @@
 package org.jboss.arquillian.showcase.extension.deploymentscenario;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.Map;
 import org.jboss.arquillian.config.descriptor.api.ArquillianDescriptor;
 import org.jboss.arquillian.config.descriptor.api.ExtensionDef;
 import org.jboss.arquillian.container.spi.client.deployment.DeploymentDescription;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.spi.client.deployment.DeploymentScenarioGenerator;
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.annotation.Inject;
@@ -49,20 +51,28 @@ public class ExternalScenarioGenerator implements DeploymentScenarioGenerator
    {
       List<DeploymentDescription> descriptions = new ArrayList<DeploymentDescription>();
       
-      Map<String, String> mappings = getConfiguration();
-      
       Method deploymentMethod = null;
+      String deploymentName = "_DEFAULT_";
       
-      try {
-         deploymentMethod = getDeploymentMethod(mappings, testClass);
+      if (testClass.isAnnotationPresent(ReadDeploymentFrom.class)) {
+          deploymentMethod = getDeploymentMethodFromAnnotation(testClass);
+          if (deploymentMethod != null) {
+              deploymentName = deploymentMethod.getAnnotation(Deployment.class).name();
+          }
       }
-      catch (Exception e) {
-         throw new RuntimeException("Could not find externalized @Deployment for TestClass: " + testClass.getName(), e);
-      } 
+      
+      if (deploymentMethod == null) {
+          try {
+             deploymentMethod = getDeploymentMethodFromConfiguration(getConfiguration(), testClass);
+          }
+          catch (Exception e) {
+              throw new RuntimeException("Could not find externalized @Deployment for TestClass: " + testClass.getName(), e);
+          }
+      }
       
       try {
-         Archive<?> archive = (Archive<?>)deploymentMethod.invoke(null);
-         descriptions.add(new DeploymentDescription("_NO_NAME_", archive));
+         Archive<?> archive = (Archive<?>) deploymentMethod.invoke(null);
+         descriptions.add(new DeploymentDescription(deploymentName, archive));
       }
       catch (Exception e) {
          throw new RuntimeException("Could not read externalized @Deployment from method: " + deploymentMethod, e);
@@ -70,8 +80,23 @@ public class ExternalScenarioGenerator implements DeploymentScenarioGenerator
       
       return descriptions;
    }
+   
+   private Method getDeploymentMethodFromAnnotation(TestClass testClass) {
+       ReadDeploymentFrom from = testClass.getAnnotation(ReadDeploymentFrom.class);
+       
+       Class<?> deploymentHolderClass = from.value();
+       String deploymentName = from.named();
+       for (Method m : deploymentHolderClass.getMethods()) {
+           if (Modifier.isStatic(m.getModifiers()) &&
+                   m.isAnnotationPresent(Deployment.class) &&
+                   m.getAnnotation(Deployment.class).name().equals(deploymentName)) {
+               return m;
+           }
+       }
+       return null;
+   }
 
-   private Method getDeploymentMethod(Map<String, String> mappings, TestClass testClass) throws Exception
+   private Method getDeploymentMethodFromConfiguration(Map<String, String> mappings, TestClass testClass) throws Exception
    {
       String mapping = mappings.get(testClass.getJavaClass().getSimpleName()).trim();
 

@@ -50,16 +50,13 @@ public class AutodiscoverCDITestCase
    @Mock @Produces
    private static AccountService service;
    
-   @Inject 
-   private Manager manager;
-   
    @Before
    public void setupMock() {
-      Mockito.when(service.widraw(100)).thenReturn(100);      
+      Mockito.when(service.withdraw(100)).thenReturn(100);      
    }
    
    @Test
-   public void shouldBeAbleToMock() throws Exception {
+   public void shouldBeAbleToMock(Manager manager) throws Exception {
       Assert.assertEquals(100, manager.execute(100));
    }
 }

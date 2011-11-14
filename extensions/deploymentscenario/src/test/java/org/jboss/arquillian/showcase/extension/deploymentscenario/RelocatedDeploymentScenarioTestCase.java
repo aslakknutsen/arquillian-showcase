@@ -32,7 +32,8 @@ import org.junit.runner.RunWith;
  * @version $Revision: $
  */
 @RunWith(Arquillian.class)
-public class DeploymentScenarioTestCase
+@ReadDeploymentFrom(value = AccountServiceDeployments.class)
+public class RelocatedDeploymentScenarioTestCase
 {
    @Inject
    private AccountService service;

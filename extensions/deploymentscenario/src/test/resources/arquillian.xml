@@ -12,7 +12,7 @@
     </container>
 
     <extension qualifier="deployments">
-        <property name="DeploymentScenarioTestCase">
+        <property name="ConfigurableDeploymentScenarioTestCase">
           org.jboss.arquillian.showcase.extension.deploymentscenario.Deployments#deploymentScenarioTestCase
         </property>
     </extension>
