@@ -18,7 +18,6 @@
 package org.jboss.arquillian.showcase.extension.autodiscover;
 
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
