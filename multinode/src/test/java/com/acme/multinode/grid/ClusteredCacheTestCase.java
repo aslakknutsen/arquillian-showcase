@@ -30,6 +30,7 @@ import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.container.test.api.TargetsContainer;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -45,76 +46,79 @@ import org.junit.runner.RunWith;
  * @version $Revision: $
  */
 @RunWith(Arquillian.class)
-public class ClusteredCacheTestCase {
-    @Deployment(name = "dep.active-1")
-    @TargetsContainer("container.active-1")
-    public static WebArchive createTestDeployment() {
-        return Deployments.createActiveClient("test-1.war");
-    }
+public class ClusteredCacheTestCase
+{
+   @Deployment(name = "dep.active-1")
+   @TargetsContainer("container.active-1")
+   public static WebArchive createTestDeployment()
+   {
+      return Deployments.createActiveClient("test-1.war");
+   }
 
-    @Deployment(name = "dep.active-2")
-    @TargetsContainer("container.active-2")
-    public static WebArchive createTestDeployment2() {
-        return Deployments.createActiveClient("test-2.war");
-    }
+   @Deployment(name = "dep.active-2")
+   @TargetsContainer("container.active-2")
+   public static WebArchive createTestDeployment2()
+   {
+      return Deployments.createActiveClient("test-2.war");
+   }
 
-    @Deployment(name = "dep.active-3")
-    @TargetsContainer("container.active-3")
-    public static WebArchive createTestDeployment3() {
-        return Deployments.createActiveClient("test-3.war");
-    }
+   @Deployment(name = "dep.active-3")
+   @TargetsContainer("container.active-3")
+   public static WebArchive createTestDeployment3()
+   {
+      return Deployments.createActiveClient("test-3.war");
+   }
 
-    @Inject
-    private Cache<String, Integer> cache;
+   @Inject
+   private Cache<String, Integer> cache;
 
-    @Test
-    @OperateOnDeployment("dep.active-1")
-    public void callActive1() throws Exception {
-        int count = incrementCache(cache);
-        System.out.println("Cache incremented, current count: " + count);
-        Assert.assertEquals(1, count);
-    }
+   @Test @InSequence(1) @OperateOnDeployment("dep.active-1")
+   public void callActive1() throws Exception
+   {
+      int count = incrementCache(cache);
+      System.out.println("Cache incremented, current count: " + count);
+      Assert.assertEquals(1, count);
+   }
 
-    @Test
-    @OperateOnDeployment("dep.active-2")
-    public void callActive2() throws Exception {
-        int count = incrementCache(cache);
-        System.out.println("Cache incremented, current count: " + count);
-        Assert.assertEquals(2, count);
-    }
+   @Test @InSequence(2) @OperateOnDeployment("dep.active-2")
+   public void callActive2() throws Exception
+   {
+      int count = incrementCache(cache);
+      System.out.println("Cache incremented, current count: " + count);
+      Assert.assertEquals(2, count);
+   }
 
-    @Test
-    @OperateOnDeployment("dep.active-3")
-    public void callActive3() throws Exception {
-        int count = incrementCache(cache);
-        System.out.println("Cache incremented, current count: " + count);
-        Assert.assertEquals(3, count);
-    }
+   @Test @InSequence(3) @OperateOnDeployment("dep.active-3")
+   public void callActive3() throws Exception
+   {
+      int count = incrementCache(cache);
+      System.out.println("Cache incremented, current count: " + count);
+      Assert.assertEquals(3, count);
+   }
 
-    @Test
-    @OperateOnDeployment("dep.active-1")
-    public void callActive4() throws Exception {
-        int count = incrementCache(cache);
-        System.out.println("Cache incremented, current count: " + count);
-        Assert.assertEquals(4, count);
-    }
+   @Test @InSequence(4) @OperateOnDeployment("dep.active-1")
+   public void callActive4() throws Exception
+   {
+      int count = incrementCache(cache);
+      System.out.println("Cache incremented, current count: " + count);
+      Assert.assertEquals(4, count);
+   }
 
-    @Test
-    @OperateOnDeployment("dep.active-3")
-    public void callActive5() throws Exception {
-        int count = incrementCache(cache);
-        System.out.println("Cache incremented, current count: " + count);
-        Assert.assertEquals(5, count);
-    }
+   @Test @InSequence(5) @OperateOnDeployment("dep.active-3")
+   public void callActive5() throws Exception
+   {
+      int count = incrementCache(cache);
+      System.out.println("Cache incremented, current count: " + count);
+      Assert.assertEquals(5, count);
+   }
 
-    @Test
-    @RunAsClient
-    @OperateOnDeployment("dep.active-2")
-    public void callActive6(@ArquillianResource URL baseURL) throws Exception {
-        // @see AS7-1152
-        baseURL = new URL("http://localhost:8180/test-1/");
-        int count = readInt(baseURL.openStream());
-        System.out.println("Cache incremented, current count: " + count);
-        Assert.assertEquals(6, count);
-    }
+   @Test @RunAsClient @InSequence(6) @OperateOnDeployment("dep.active-2")
+   public void callActive6(@ArquillianResource URL baseURL) throws Exception
+   {
+      // @see AS7-1152
+      baseURL = new URL("http://localhost:8180/test-1/");
+      int count = readInt(baseURL.openStream());
+      System.out.println("Cache incremented, current count: " + count);
+      Assert.assertEquals(6, count);
+   }
 }
