@@ -115,8 +115,6 @@ public class ClusteredCacheTestCase
    @Test @RunAsClient @InSequence(6) @OperateOnDeployment("dep.active-2")
    public void callActive6(@ArquillianResource URL baseURL) throws Exception
    {
-      // @see AS7-1152
-      baseURL = new URL("http://localhost:8180/test-1/");
       int count = readInt(baseURL.openStream());
       System.out.println("Cache incremented, current count: " + count);
       Assert.assertEquals(6, count);

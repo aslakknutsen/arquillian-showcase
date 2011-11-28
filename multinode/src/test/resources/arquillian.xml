@@ -8,19 +8,19 @@
     <group qualifier="Grid">
         <container qualifier="container.active-1">
             <configuration>
-                <property name="jbossHome">target/node1/jboss-as-${jboss.version:7.0.2.Final}</property>
+                <property name="jbossHome">target/node1/jboss-as-${jboss.version:7.1.0.Beta1}</property>
                 <property name="managementPort">19999</property>
             </configuration>
         </container>
         <container qualifier="container.active-2">
             <configuration>
-                <property name="jbossHome">target/node2/jboss-as-${jboss.version:7.0.2.Final}</property>
+                <property name="jbossHome">target/node2/jboss-as-${jboss.version:7.1.0.Beta1}</property>
                 <property name="managementPort">29999</property>
             </configuration>
         </container>
         <container qualifier="container.active-3">
             <configuration>
-                <property name="jbossHome">target/node3/jboss-as-${jboss.version:7.0.2.Final}</property>
+                <property name="jbossHome">target/node3/jboss-as-${jboss.version:7.1.0.Beta1}</property>
                 <property name="managementPort">39999</property>
             </configuration>
         </container>

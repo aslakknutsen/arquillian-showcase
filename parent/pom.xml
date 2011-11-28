@@ -14,7 +14,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.arquillian_core>1.0.0.Final-SNAPSHOT</version.arquillian_core>
+		<version.arquillian_core>1.0.0.CR6</version.arquillian_core>
 		<!-- partition version.arquillian_container as needed for containers with 
 			unique versions -->
 		<version.arquillian_container>1.0.0.CR1</version.arquillian_container>
@@ -27,7 +27,7 @@
 		<version.hibernate_jpamodelgen>1.1.1.Final</version.hibernate_jpamodelgen>
 		<version.jboss_javaee6_spec>2.0.0.Final</version.jboss_javaee6_spec>
 		<version.jbossas_6>6.0.0.Final</version.jbossas_6>
-		<version.jbossas_7>7.0.2.Final</version.jbossas_7>
+		<version.jbossas_7>7.1.0.Beta1</version.jbossas_7>
 		<version.jbossas_server_manager>1.0.3.GA</version.jbossas_server_manager>
 		<version.jersey>1.6</version.jersey>
 		<version.jetty>8.0.0.M3</version.jetty>
