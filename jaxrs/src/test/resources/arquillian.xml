@@ -12,7 +12,7 @@
 
     <container qualifier="dev" default="true">
         <configuration>
-            <property name="jbossHome">target/jboss-as-${jboss.version:7.1.0.Beta1}</property>
+            <property name="jbossHome">target/jboss-as-${jboss.version:7.1.0.CR1b}</property>
         </configuration>
     </container>
     

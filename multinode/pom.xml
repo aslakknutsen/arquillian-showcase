@@ -112,66 +112,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-resources-node1</id>
-                                <!-- here the phase you need -->
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <overwrite>true</overwrite>
-                                    <outputDirectory>${project.build.directory}/node1/jboss-as-${version.jbossas_7}/standalone/configuration/</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/test/resources/node1</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-resources-node2</id>
-                                <!-- here the phase you need -->
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <overwrite>true</overwrite>
-                                    <outputDirectory>${project.build.directory}/node2/jboss-as-${version.jbossas_7}/standalone/configuration/</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/test/resources/node2</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-resources-node3</id>
-                                <!-- here the phase you need -->
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <overwrite>true</overwrite>
-                                    <outputDirectory>${project.build.directory}/node3/jboss-as-${version.jbossas_7}/standalone/configuration/</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/test/resources/node3</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
