@@ -16,10 +16,13 @@
  */
 package com.acme.jpa;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -34,91 +37,112 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class GamePersistenceTestCase
-{
-   private static final String[] GAME_TITLES =
-   {"Super Mario Brothers", "Mario Kart", "F-Zero"};
+public class GamePersistenceTestCase {
+    private static final String[] GAME_TITLES = { "Super Mario Brothers",
+            "Mario Kart", "F-Zero" };
 
-   @Deployment
-   public static WebArchive createDeployment()
-   {
-      return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Game.class.getPackage())
-            // .addManifestResource("test-persistence.xml", "persistence.xml")
-            .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                         .addPackage(Game.class.getPackage())
+                         .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+                         .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @PersistenceContext
-   EntityManager em;
+    @PersistenceContext
+    EntityManager em;
 
-   // not being injected on GlassFish
-   @Inject
-   UserTransaction utx;
+    // not being injected on GlassFish
+    @Inject
+    UserTransaction utx;
 
-   @Test
-   public void testInsert() throws Exception
-   {
-      assertNotNull(utx);
+    @Before
+    public void preparePersistenceTest() throws Exception {
+        clearDatabase();
+        insertData();
+        startTransaction();
+    }
 
-      // flushing database
-      utx.begin();
-      em.joinTransaction();
-      em.createQuery("delete from Game").executeUpdate();
-      utx.commit();
+    @After
+    public void commitTransaction() throws Exception {
+        utx.commit();
+    }
 
-      // insert records
-      utx.begin();
-      em.joinTransaction();
-      System.out.println("Inserting records...");
-      for (String title : GAME_TITLES)
-      {
-         Game game = new Game(title);
-         em.persist(game);
-      }
-      utx.commit();
+    @Test
+    public void shouldFindAllGamesUsingJpqlQuery() throws Exception {
+        // given
+        String fetchingAllGamesInJpql = "select g from Game g order by g.id";
 
-      List<Game> games;
+        // when
+        System.out.println("Selecting (using JPQL)...");
+        List<Game> games = em.createQuery(fetchingAllGamesInJpql, Game.class)
+                .getResultList();
 
-      // query with JPQL
-      utx.begin();
-      em.joinTransaction();
-      System.out.println("Selecting (using JPQL)...");
-      games = em.createQuery("select g from Game g order by g.id", Game.class).getResultList();
-      System.out.println("Found " + games.size() + " games (using JPQL)");
-      assertEquals(GAME_TITLES.length, games.size());
-      for (int i = 0; i < GAME_TITLES.length; i++)
-      {
-         assertEquals(GAME_TITLES[i], games.get(i).getTitle());
-         System.out.println(games.get(i));
-      }
-      utx.commit();
+        // then
+        System.out.println("Found " + games.size() + " games (using JPQL)");
+        assertContainsAllGames(games);
+    }
 
-      // query with Criteria
-      utx.begin();
-      em.joinTransaction();
-      CriteriaBuilder builder = em.getCriteriaBuilder();
-      CriteriaQuery<Game> criteria = builder.createQuery(Game.class);
+    @Test
+    public void shouldFindAllGamesUsingCriteriaApi() throws Exception {
+        // given
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Game> criteria = builder.createQuery(Game.class);
 
-      Root<Game> game = criteria.from(Game.class);
-      criteria.select(game);
-      // Toggle comment on first orderBy criteria below (and comment the subsequent line)
-      // if you want to try out type-safe criteria queries, a new feature in JPA 2.0
-      // requires that the metamodel generator is configured correctly
-      // criteria.orderBy(builder.asc(game.get(Game_.id)));
-      criteria.orderBy(builder.asc(game.get("id")));
-      System.out.println("Selecting (using Criteria)...");
-      games = em.createQuery(criteria).getResultList();
-      System.out.println("Found " + games.size() + " games (using Criteria)");
-      assertEquals(GAME_TITLES.length, games.size());
-      for (int i = 0; i < GAME_TITLES.length; i++)
-      {
-         assertEquals(GAME_TITLES[i], games.get(i).getTitle());
-         System.out.println(games.get(i));
-      }
-      utx.commit();
-   }
+        Root<Game> game = criteria.from(Game.class);
+        criteria.select(game);
+        // Toggle comment on first orderBy criteria below (and comment the subsequent line)
+        // if you want to try out type-safe criteria queries, a new feature in JPA 2.0
+        // requires that the metamodel generator is configured correctly
+        // criteria.orderBy(builder.asc(game.get(Game_.id)));
+        criteria.orderBy(builder.asc(game.get("id")));
+
+        // when
+        System.out.println("Selecting (using Criteria)...");
+        List<Game> games = em.createQuery(criteria).getResultList();
+
+        // then
+        System.out.println("Found " + games.size() + " games (using Criteria)");
+        assertContainsAllGames(games);
+    }
+
+    // Private utility methods
+
+    private static void assertContainsAllGames(Collection<Game> retrievedGames) {
+        assertEquals(GAME_TITLES.length, retrievedGames.size());
+        final Set<String> retrievedGameTitles = new HashSet<String>();
+        for (Game game : retrievedGames) {
+            retrievedGameTitles.add(game.getTitle());
+        }
+        assertTrue(retrievedGameTitles.containsAll(Arrays.asList(GAME_TITLES)));
+    }
+
+    private void clearDatabase() throws Exception {
+        utx.begin();
+        em.joinTransaction();
+        em.createQuery("delete from Game").executeUpdate();
+        utx.commit();
+    }
+
+    private void insertData() throws Exception {
+        utx.begin();
+        em.joinTransaction();
+        for (String title : GAME_TITLES) {
+            Game game = new Game(title);
+            em.persist(game);
+        }
+        utx.commit();
+    }
+
+    private void startTransaction() throws Exception {
+        utx.begin();
+        em.joinTransaction();
+    }
+
 }

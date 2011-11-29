@@ -24,50 +24,43 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Game implements Serializable
-{
-   private static final long serialVersionUID = 1L;
+public class Game implements Serializable {
 
-   private Long id;
+    private static final long serialVersionUID = 1L;
 
-   private String title;
+    private Long id;
 
-   public Game()
-   {
-   }
+    private String title;
 
-   public Game(String title)
-   {
-      this.title = title;
-   }
+    public Game() {
+    }
 
-   @Id
-   @GeneratedValue
-   public Long getId()
-   {
-      return id;
-   }
+    public Game(String title) {
+        this.title = title;
+    }
 
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
 
-   @NotNull
-   @Size(min = 3, max = 50)
-   public String getTitle()
-   {
-      return title;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   public void setTitle(String name)
-   {
-      this.title = name;
-   }
+    @NotNull
+    @Size(min = 3, max = 50)
+    public String getTitle() {
+        return title;
+    }
 
-   @Override
-   public String toString()
-   {
-      return "Game@" + hashCode() + "[id = " + id + "; title = " + title + "]";
-   }
+    public void setTitle(String name) {
+        this.title = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Game@" + hashCode() + "[id = " + id + "; title = " + title + "]";
+    }
 }
