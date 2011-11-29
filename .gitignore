@@ -1,10 +1,37 @@
 .apt_generated/
+
+# Eclipse
+.project
 .classpath
+.settings/
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea
+
+# Gradle
 .gradle/
 .ivy/
-.project
-.settings/
+
+# Maven
 target/
+
+# TestNG
+test-output/
+
+# JBoss AS
 transaction.log
-derby.log
+
+# Infinitest configuration
+infinitest.filters
+
+# Logs
+*.log
 WORKLOG
+
+# Libreoffice leftovers (XLS)
+.~lock*
+
+
