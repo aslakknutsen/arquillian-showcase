@@ -5,14 +5,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+@Path("/customer")
 public interface CustomerClient {
     @GET
-    @Path("/customer")
     @Produces("application/xml")
     String getCustomers();
 
     @GET
-    @Path("/customer/{id}")
+    @Path("/{id}")
     @Produces("application/xml")
     String getCustomerById(@PathParam("id") long id);
 }
