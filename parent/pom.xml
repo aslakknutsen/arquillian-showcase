@@ -15,14 +15,18 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.arquillian_core>1.0.0.CR6</version.arquillian_core>
-		<!-- partition version.arquillian_container as needed for containers with 
-			unique versions -->
-		<version.arquillian_container>1.0.0.CR1</version.arquillian_container>
-		<!-- partition version.arquillian_drone as needed for Drone -->
-		<version.arquillian_drone>1.0.0.CR1</version.arquillian_drone>
-		<!-- partion version.arquillian_ajocado as needed for Ajocado -->
-		<version.arquillian_ajocado>1.0.0.CR1</version.arquillian_ajocado>
-		<version.glassfish>3.1</version.glassfish>
+		<version.arquillian_container_glassfish>1.0.0.CR2</version.arquillian_container_glassfish>
+		<version.arquillian_container_openwebbeans>1.0.0.CR1</version.arquillian_container_openwebbeans>
+		<version.arquillian_container_jbossas>1.0.0.CR2</version.arquillian_container_jbossas>
+		<version.arquillian_container_weld>1.0.0.CR2</version.arquillian_container_weld>
+		<version.arquillian_container_tomcat>1.0.0.CR2</version.arquillian_container_tomcat>
+		<version.arquillian_container_jetty>1.0.0.CR1</version.arquillian_container_jetty>
+		<version.arquillian_container_osgi>1.0.0.CR4</version.arquillian_container_osgi>
+		<version.arquillian_container_openejb>1.0.0.CR2-SNAPSHOT</version.arquillian_container_openejb>
+		<version.arquillian_container_resin>1.0.0-SNAPSHOT</version.arquillian_container_resin>
+		<version.arquillian_drone>1.0.0.CR3</version.arquillian_drone>
+		<version.arquillian_ajocado>1.0.0.CR2</version.arquillian_ajocado>
+		<version.glassfish>3.1</version.glassfish> <!-- 3.1.1 gives us ClassNotFoundException org.osgi.framework.ServiceException -->
 		<version.hamcrest>1.2</version.hamcrest>
 		<version.hibernate_jpamodelgen>1.1.1.Final</version.hibernate_jpamodelgen>
 		<version.jboss_javaee6_spec>2.0.0.Final</version.jboss_javaee6_spec>
@@ -142,7 +146,6 @@
 				<version>${project.version}</version>
 				<type>pom</type>
 			</dependency>
-
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-6.0</artifactId>
@@ -203,59 +206,58 @@
             	<type>pom</type>            	
             	<scope>test</scope>
         	</dependency>
-						
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_weld}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_weld}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-openejb-embedded-3.1</artifactId>
-				<version>1.0.0.CR2-SNAPSHOT</version>
+				<version>${version.arquillian_container_openejb}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-openwebbeans-embedded-1</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_openwebbeans}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-osgi-embedded-4.2</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_osgi}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-jbossas-remote-5.1</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_jbossas}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-jbossas-remote-6</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_jbossas}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-jbossas-embedded-6</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_jbossas}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-jbossas-managed-6</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_jbossas}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -273,31 +275,31 @@
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-glassfish-remote-3.1</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_glassfish}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_glassfish}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-tomcat-embedded-6</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_tomcat}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-jetty-embedded-7</artifactId>
-				<version>${version.arquillian_container}</version>
+				<version>${version.arquillian_container_jetty}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-resin-embedded-4</artifactId>
-				<version>${version.arquillian_container}-SNAPSHOT</version>
+				<version>${version.arquillian_container_resin}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -497,5 +499,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- vi:ts=4:sw=4:expandtab: -->
+<!--
+vi:ts=4:sw=4:expandtab:
+-->
 </project>
