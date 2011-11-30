@@ -42,7 +42,7 @@
 
     <profiles>
         <profile>
-            <!-- all tests are failing -->
+            <!-- tests work on 7.1, but need to switch the deployment used in FireAndForget*TestCase classes -->
             <id>arq-jbossas-managed-7</id>
             <dependencies>
                 <dependency>
@@ -58,7 +58,7 @@
         </profile>
 
         <profile>
-            <!-- all tests are failing -->
+            <!-- tests work on 7.1, but need to switch the deployment used in FireAndForget*TestCase classes -->
             <id>arq-jbossas-remote-7</id>
             <dependencies>
                 <dependency>

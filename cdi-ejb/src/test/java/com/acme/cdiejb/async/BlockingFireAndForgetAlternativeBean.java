@@ -10,7 +10,7 @@ import javax.enterprise.inject.Alternative;
 @Alternative
 @Stateless
 @Local(FireAndForget.class)
-public class BlockingFireAndForgetBean extends FireAndForgetBean {
+public class BlockingFireAndForgetAlternativeBean extends FireAndForgetBean {
     public static CountDownLatch LATCH = new CountDownLatch(1);
 
     public static ThreadLocal<Long> threadValue = new ThreadLocal<Long>();

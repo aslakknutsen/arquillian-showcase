@@ -10,38 +10,29 @@ import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FireAndForgetTestCase {
+public class FireAndForgetUsingSpecializedBeanTestCase {
     
     // use on compatible containers
     //@Deployment
     public static JavaArchive createDeployment() {
-        BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
         return ShrinkWrap.create(JavaArchive.class)
-                .addClasses(FireAndForget.class, FireAndForgetBean.class, BlockingFireAndForgetBean.class)
-                .addAsManifestResource(
-                        new StringAsset(beansXml.alternativeClass(BlockingFireAndForgetBean.class).exportAsString()),
-                        beansXml.getDescriptorName());
+                .addClasses(FireAndForget.class, FireAndForgetBean.class, BlockingFireAndForgetSpecializedBean.class)
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     // use on GlassFish because of a visibility bug
     @Deployment
     public static WebArchive createDeploymentForGlassFish() {
-        BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
-
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(FireAndForget.class, FireAndForgetBean.class, BlockingFireAndForgetBean.class)
-                .addAsWebInfResource(
-                        new StringAsset(beansXml.alternativeClass(BlockingFireAndForgetBean.class).exportAsString()),
-                        beansXml.getDescriptorName());
+                .addClasses(FireAndForget.class, FireAndForgetBean.class, BlockingFireAndForgetSpecializedBean.class)
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Inject
@@ -53,9 +44,9 @@ public class FireAndForgetTestCase {
         System.out.println("Current thread [id=" + Thread.currentThread().getId() + "; name=" + Thread.currentThread().getName() + "]");
         asyncBean.fire(1000);
         System.out.println("Async operation fired");
-        assertTrue("Async operation completed in given time", BlockingFireAndForgetBean.LATCH.await(30, TimeUnit.SECONDS));
+        assertTrue("Async operation completed in given time", BlockingFireAndForgetSpecializedBean.LATCH.await(30, TimeUnit.SECONDS));
         System.out.println("Async thread complete");
-        // what does the cleanup here?
-        assertNull("Async operation correctly cleaned up", BlockingFireAndForgetBean.threadValue.get());
+        // Thread local value in this thread should remain unset after the async invocation
+        assertNull("Async operation correctly cleaned up", BlockingFireAndForgetSpecializedBean.threadValue.get());
     }
 }

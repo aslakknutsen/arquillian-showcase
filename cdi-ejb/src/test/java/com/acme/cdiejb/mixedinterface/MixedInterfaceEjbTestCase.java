@@ -51,7 +51,8 @@ public class MixedInterfaceEjbTestCase {
                                         + "</ejb-jar>"), "ejb-jar.xml")
                 .setManifest(new StringAsset("Manifest-Version: 1.0\nClass-Path: client.jar\n"))
                 .add(ejbClientJar, "/", ZipExporter.class).addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addClasses(GreeterBean.class, GreeterDelegate.class);
+                // JBoss AS requires the test case class to be available on client and server
+                .addClasses(GreeterBean.class, GreeterDelegate.class, MixedInterfaceEjbTestCase.class);
 
         return ShrinkWrap.create(EnterpriseArchive.class, "test.ear").addAsModule(ejbClientJar).addAsModule(ejbServiceJar);
     }
