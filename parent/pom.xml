@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.arquillian_core>1.0.0.CR6</version.arquillian_core>
 		<version.arquillian_container_glassfish>1.0.0.CR2</version.arquillian_container_glassfish>
-		<version.arquillian_container_openwebbeans>1.0.0.CR1</version.arquillian_container_openwebbeans>
+		<version.arquillian_container_openwebbeans>1.0.0.CR2</version.arquillian_container_openwebbeans>
 		<version.arquillian_container_jbossas>1.0.0.CR2</version.arquillian_container_jbossas>
 		<version.arquillian_container_weld>1.0.0.CR2</version.arquillian_container_weld>
 		<version.arquillian_container_tomcat>1.0.0.CR2</version.arquillian_container_tomcat>
@@ -39,7 +39,7 @@
 		<version.junit>4.8.1</version.junit>
 		<version.log4j>1.2.14</version.log4j>
 		<version.openejb>3.1.4</version.openejb>
-		<version.openwebbeans>1.0.0</version.openwebbeans>
+		<version.openwebbeans>1.1.1</version.openwebbeans>
 		<version.resin>4.0.20</version.resin>
 		<version.resteasy>2.0.1.GA</version.resteasy>
 		<version.slf4j>1.5.10</version.slf4j>
