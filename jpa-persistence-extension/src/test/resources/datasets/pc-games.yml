@@ -1,0 +1,10 @@
+game:
+  - title: "Batman Arkham Asylum"
+    year: 2009
+    price: 17.0
+  - title: "Baldur's Gate"
+    year: 1998
+    price: 9.0
+
+platform:
+  - name: "PC"

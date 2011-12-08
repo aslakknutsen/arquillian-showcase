@@ -23,6 +23,7 @@
         <module>jms</module>
         -->
         <module>jpa</module>
+        <module>jpa-persistence-extension</module>
         <!--
         <module>jpa-lite</module>
         -->

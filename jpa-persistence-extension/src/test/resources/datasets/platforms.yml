@@ -1,0 +1,21 @@
+platform:
+  - id: 1
+    name: "Playstation 3"
+  - id: 2
+    name: "PC"
+  - id: 3
+    name: "Nintendo Wii"
+  - id: 4
+    name: "XBOX 360"
+
+game_platform:
+  - game_id: 1
+    supportedPlatforms_id: 3
+  - game_id: 2
+    supportedPlatforms_id: 1
+  - game_id: 2
+    supportedPlatforms_id: 2
+  - game_id: 2
+    supportedPlatforms_id: 4
+  - game_id: 3
+    supportedPlatforms_id: 2
