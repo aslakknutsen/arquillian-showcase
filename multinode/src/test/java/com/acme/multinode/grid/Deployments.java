@@ -35,7 +35,7 @@ public class Deployments {
                 .addPackage(CacheProducer.class.getPackage())
                 .addClass(TestUtils.class)
                 .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml")
-                        .artifact("org.infinispan:infinispan-core:4.2.1.FINAL").resolveAsFiles())
+                        .artifact("org.infinispan:infinispan-core").resolveAsFiles())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addAsResource("grid/infinispan.xml", "infinispan.xml")
                 .setWebXML("grid/in-container-web.xml");
     }
