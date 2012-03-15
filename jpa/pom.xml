@@ -183,6 +183,16 @@
         </dependency>
       </dependencies>
       <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemProperties>
+                <arquillian.launch>glassfish-embedded</arquillian.launch>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
         <testResources>
           <testResource>
             <directory>src/test/resources</directory>
