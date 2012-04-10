@@ -28,7 +28,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 
@@ -82,7 +82,7 @@ public class WeldServletDeploymentAppender implements AuxiliaryArchiveAppender {
                 .resolveAs(JavaArchive.class).iterator().next();
         WebAppDescriptor webFragmentXml = Descriptors.create(WebAppDescriptor.class);
         return weldServlet.addAsManifestResource(new StringAsset(
-                webFragmentXml.listener("org.jboss.weld.environment.servlet.Listener").exportAsString()
+                webFragmentXml.createListener().listenerClass("org.jboss.weld.environment.servlet.Listener").up().exportAsString()
                 .replaceAll("web-app", "web-fragment").replace("<listener>", "<name>WeldServlet</name><listener>")),
                 "web-fragment.xml");
     }

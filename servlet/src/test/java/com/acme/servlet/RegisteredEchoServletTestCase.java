@@ -18,28 +18,32 @@ package com.acme.servlet;
 
 import java.net.URL;
 
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-@RunAsClient
 public class RegisteredEchoServletTestCase {
     @Deployment(testable = false)
     public static WebArchive getTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "servlet-test.war")
                 .addClass(EchoServlet.class)
                 .setWebXML(new StringAsset(Descriptors.create(WebAppDescriptor.class).metadataComplete(true).version("2.5")
-                        .servlet(EchoServlet.class, EchoServlet.URL_PATTERN).exportAsString()));
+                        .createServlet()
+                            .servletName(EchoServlet.class.getSimpleName())
+                            .servletClass(EchoServlet.class.getName()).up()
+                        .createServletMapping()
+                            .servletName(EchoServlet.class.getSimpleName())
+                            .urlPattern(EchoServlet.URL_PATTERN).up()
+                        .exportAsString()));
     }
 
     @ArquillianResource

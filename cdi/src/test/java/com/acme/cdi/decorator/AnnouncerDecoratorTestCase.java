@@ -11,7 +11,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.beans10.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,7 +27,7 @@ public class AnnouncerDecoratorTestCase {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(Announcer.class.getPackage())
                 .addAsManifestResource(
-                        new StringAsset(beansXml.decorator(AnnouncerDecorator.class).exportAsString()),
+                        new StringAsset(beansXml.createDecorators().clazz(AnnouncerDecorator.class.getName()).up().exportAsString()),
                         beansXml.getDescriptorName());
     }
 

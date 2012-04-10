@@ -27,7 +27,7 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.beans10.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,9 +39,8 @@ public class SynchronousPaymentProcessorTestCase {
 
         return ShrinkWrap.create(JavaArchive.class)
                 .addAsManifestResource(
-                        new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()),
+                        new StringAsset(beansXml.createAlternatives().clazz(MockPaymentProcessor.class.getName()).up().exportAsString()),
                         beansXml.getDescriptorName())
-                // .addAsManifestResource(SynchronousPaymentProcessorTestCase.class.getPackage(), "beans.xml", "beans.xml")
                 .addPackage(Synchronous.class.getPackage());
     }
 
@@ -77,7 +76,7 @@ public class SynchronousPaymentProcessorTestCase {
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
 
         return ShrinkWrap.create(WebArchive.class)
-                .addAsWebInfResource(new StringAsset(beansXml.alternativeClass(MockPaymentProcessor.class).exportAsString()),
+                .addAsWebInfResource(new StringAsset(beansXml.createAlternatives().clazz(MockPaymentProcessor.class.getName()).up().exportAsString()),
                         beansXml.getDescriptorName()).addPackage(Synchronous.class.getPackage());
     }
      

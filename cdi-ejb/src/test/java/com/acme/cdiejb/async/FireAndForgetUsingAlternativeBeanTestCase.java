@@ -14,7 +14,7 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.beans10.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -28,7 +28,7 @@ public class FireAndForgetUsingAlternativeBeanTestCase {
         return ShrinkWrap.create(JavaArchive.class)
                 .addClasses(FireAndForget.class, FireAndForgetBean.class, BlockingFireAndForgetAlternativeBean.class)
                 .addAsManifestResource(
-                        new StringAsset(beansXml.alternativeClass(BlockingFireAndForgetAlternativeBean.class).exportAsString()),
+                        new StringAsset(beansXml.createAlternatives().clazz(BlockingFireAndForgetAlternativeBean.class.getName()).up().exportAsString()),
                         beansXml.getDescriptorName());
     }
 
@@ -40,7 +40,7 @@ public class FireAndForgetUsingAlternativeBeanTestCase {
         return ShrinkWrap.create(WebArchive.class)
                 .addClasses(FireAndForget.class, FireAndForgetBean.class, BlockingFireAndForgetAlternativeBean.class)
                 .addAsWebInfResource(
-                        new StringAsset(beansXml.alternativeClass(BlockingFireAndForgetAlternativeBean.class).exportAsString()),
+                        new StringAsset(beansXml.createAlternatives().clazz(BlockingFireAndForgetAlternativeBean.class.getName()).up().exportAsString()),
                         beansXml.getDescriptorName());
     }
 
