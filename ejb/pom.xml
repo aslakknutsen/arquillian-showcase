@@ -15,6 +15,20 @@
     <name>Arquillian Showcase: EJB</name>
     <description>Examples that demonstrate how to test EJB components using Arquillian</description>
 
+	<repositories>
+		<repository>
+			<id>apache-snapshots-repository</id>
+			<name>Apache Snapshots Repository</name>
+			<url>https://repository.apache.org/content/groups/snapshots</url>
+			<releases>
+                <enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -28,7 +42,7 @@
 
     <profiles>
         <profile>
-            <id>arq-openejb-embedded</id>
+            <id>arq-openejb-embedded-3.1</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -47,6 +61,36 @@
                         <configuration>
                             <excludes>
                                 <exclude>com/acme/ejb/TemperatureConverterTestCase.java</exclude>
+                                <exclude>com/acme/ejb/calc/MortgageCalculatorEnvEntryTestCase.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>arq-openejb-embedded-4</id>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>container-bom-openejb-embedded-4</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openejb</groupId>
+                    <artifactId>openejb-core</artifactId>
+                    <version>${version.openejb_4}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
                                 <exclude>com/acme/ejb/calc/MortgageCalculatorEnvEntryTestCase.java</exclude>
                             </excludes>
                         </configuration>

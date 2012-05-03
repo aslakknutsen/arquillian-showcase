@@ -23,6 +23,7 @@
 		<version.arquillian_container_jetty>1.0.0.CR1</version.arquillian_container_jetty>
 		<version.arquillian_container_osgi>1.0.0.CR4</version.arquillian_container_osgi>
 		<version.arquillian_container_openejb>1.0.0.CR2-SNAPSHOT</version.arquillian_container_openejb>
+		<version.arquillian_container_openejb_tomee>1.0.0-beta-3-SNAPSHOT</version.arquillian_container_openejb_tomee>
 		<version.arquillian_container_resin>1.0.0-SNAPSHOT</version.arquillian_container_resin>
 		<version.arquillian_drone>1.0.0.CR3</version.arquillian_drone>
 		<version.arquillian_ajocado>1.0.0.CR2</version.arquillian_ajocado>
@@ -39,6 +40,7 @@
 		<version.junit>4.8.1</version.junit>
 		<version.log4j>1.2.14</version.log4j>
 		<version.openejb>3.1.4</version.openejb>
+		<version.openejb_4>4.0.0</version.openejb_4>
 		<version.openwebbeans>1.1.1</version.openwebbeans>
 		<version.resin>4.0.20</version.resin>
 		<version.resteasy>2.0.1.GA</version.resteasy>
@@ -101,6 +103,12 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>container-bom-openejb-embedded-3.1</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>container-bom-openejb-embedded-4</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 			</dependency>
@@ -222,6 +230,12 @@
 				<groupId>org.jboss.arquillian.container</groupId>
 				<artifactId>arquillian-openejb-embedded-3.1</artifactId>
 				<version>${version.arquillian_container_openejb}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.openejb</groupId>
+				<artifactId>arquillian-openejb-container</artifactId>
+				<version>${version.arquillian_container_openejb_tomee}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>

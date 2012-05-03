@@ -15,6 +15,7 @@
         <module>weld-ee-embedded-1.1</module>
         <module>openwebbeans-embedded-1</module>
         <module>openejb-embedded-3.1</module>
+        <module>openejb-embedded-4</module>
         <module>jbossas-remote-6</module>
         <module>jbossas-managed-6</module>
         <module>glassfish-embedded-3.1</module>
