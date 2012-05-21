@@ -1,9 +1,9 @@
 game:
   - title: "Batman Arkham Asylum"
-    year: 2009
+    year_released: 2009
     price: 17.0
   - title: "Baldur's Gate"
-    year: 1998
+    year_released: 1998
     price: 9.0
 
 platform:
