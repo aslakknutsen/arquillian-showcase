@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.enterprise.inject.Instance;
 import javax.faces.application.ProjectStage;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -59,7 +60,7 @@ public class ConferenceCalendarUiTestCase {
 
     @Test
     @InitialPage("/submit.jsf")
-    public void submittedConferenceShouldBeSaved(JSFClientSession client, JSFServerSession server) throws Exception {
+    public void submittedConferenceShouldBeSaved(JSFClientSession client, JSFServerSession server, Instance<List<Conference>> conferencesInstance) throws Exception {
         assertEquals("/submit.xhtml", server.getCurrentViewID());
 
         assertEquals(null, server.getManagedBeanValue("#{conference.title}"));
@@ -82,8 +83,10 @@ public class ConferenceCalendarUiTestCase {
 
         assertEquals("/submission.xhtml", server.getCurrentViewID());
 
-        @SuppressWarnings("unchecked")
-        List<Conference> conferences = (List<Conference>) server.getManagedBeanValue("#{conferences}");
+        // FIXME ELContext is not being properly wrapped when resolving via JSFServerSession
+//        @SuppressWarnings("unchecked")
+//        List<Conference> conferences = (List<Conference>) server.getManagedBeanValue("#{conferences}");
+        List<Conference> conferences = conferencesInstance.get();
         assertNotNull(conferences);
         assertEquals(1, conferences.size());
         Conference conference = conferences.get(0);
