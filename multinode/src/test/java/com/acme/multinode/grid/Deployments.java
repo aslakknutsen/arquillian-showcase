@@ -19,7 +19,10 @@ package com.acme.multinode.grid;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 
@@ -31,12 +34,15 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
  */
 public class Deployments {
     public static WebArchive createActiveClient(String name) {
+        WebAppDescriptor webXml = Descriptors.create(WebAppDescriptor.class);
         return ShrinkWrap.create(WebArchive.class, name)
                 .addPackage(CacheProducer.class.getPackage())
                 .addClass(TestUtils.class)
                 .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml")
                         .artifact("org.infinispan:infinispan-core").resolveAsFiles())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addAsResource("grid/infinispan.xml", "infinispan.xml")
-                .setWebXML("grid/in-container-web.xml");
+                .setWebXML(new StringAsset(webXml.getOrCreateEnvEntry()
+                        .envEntryName("name").envEntryType("java.lang.String").envEntryValue("infinispan.xml").up()
+                        .exportAsString()));
     }
 }

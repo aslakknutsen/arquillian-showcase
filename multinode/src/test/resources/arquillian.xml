@@ -5,6 +5,12 @@
 
     <defaultProtocol type="Servlet 3.0" />
 
+    <!--
+    <engine>
+        <property name="deploymentExportPath">target/test-archives</property>
+    </engine>
+    -->
+
     <group qualifier="Grid">
         <container qualifier="container.active-1">
             <configuration>
