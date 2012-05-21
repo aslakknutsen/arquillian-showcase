@@ -17,6 +17,8 @@
  */
 package org.jboss.arquillian.showcase.extension.autodiscover;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 import javax.enterprise.inject.Produces;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -24,7 +26,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 /**
- *
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
@@ -56,6 +56,6 @@ public class AutodiscoverCDITestCase
    
    @Test
    public void shouldBeAbleToMock(Manager manager) throws Exception {
-      Assert.assertEquals(100, manager.execute(100));
+      assertThat(manager.execute(100)).isEqualTo(100);
    }
 }

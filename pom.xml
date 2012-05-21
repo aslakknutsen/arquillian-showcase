@@ -29,15 +29,12 @@
         -->
         <module>servlet</module>
         <module>jaxrs</module>
-        <!--
         <module>jaxws</module>
-        -->
         <!--
         <module>jsf</module>
         -->
         <module>ui</module>
         <module>multinode</module>
-	
         <module>extensions</module>
     </modules>
 

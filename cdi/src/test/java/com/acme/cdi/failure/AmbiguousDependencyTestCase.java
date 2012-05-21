@@ -21,5 +21,6 @@ public class AmbiguousDependencyTestCase {
 
     @Test
     public void shouldFailDeployment() {
+        // this method forces the deployment to be attempted
     }
 }

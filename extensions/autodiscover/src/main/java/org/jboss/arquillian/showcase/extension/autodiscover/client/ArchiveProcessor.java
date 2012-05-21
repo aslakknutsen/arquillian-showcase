@@ -36,20 +36,41 @@ public class ArchiveProcessor implements ApplicationArchiveProcessor
 {
    private static final String ANNOTATION_CLASS_NAME = "org.mockito.Mock";
    private static final String MOCKITO_ARTIFACT = "org.mockito:mockito-all";
+
+   private static final String FEST_ASSERTIONS_CLASS_NAME = "org.fest.assertions.Assertions";
+   private static final String FEST_ARTIFACT = "org.easytesting:fest-assert";
    
    @Override
    public void process(Archive<?> applicationArchive, TestClass testClass)
    {
+      if(ReflectionHelper.isClassPresent(FEST_ASSERTIONS_CLASS_NAME))
+      {
+         appendFestLibrary(applicationArchive);
+      }
+      
       if(ReflectionHelper.isClassPresent(ANNOTATION_CLASS_NAME))
       {
          if(ReflectionHelper.getFieldsWithAnnotation(testClass.getJavaClass(), Mock.class).size() > 0)
          {
-            appendLibrary(applicationArchive);
+            appendMockitoLibrary(applicationArchive);
          }
       }
    }
+   
+   private void appendFestLibrary(Archive<?> applicationArchive)
+   {
+       if(applicationArchive instanceof LibraryContainer)
+       {
+           LibraryContainer<?> container = (LibraryContainer<?>) applicationArchive;
+           container.addAsLibraries(
+                   DependencyResolvers.use(MavenDependencyResolver.class)
+                   .loadMetadataFromPom("pom.xml")
+                   .artifact(FEST_ARTIFACT)
+                   .resolveAsFiles());
+       }
+   }
 
-   private void appendLibrary(Archive<?> applicationArchive)
+   private void appendMockitoLibrary(Archive<?> applicationArchive)
    {
       if(applicationArchive instanceof LibraryContainer)
       {

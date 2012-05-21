@@ -75,17 +75,32 @@ public class GamePersistenceTestCase {
     }
 
     @Test
-    public void shouldFindAllGamesUsingJpqlQuery() throws Exception {
+    public void shouldFindAllGamesUsingExplicitJpqlQuery() throws Exception {
         // given
         String fetchingAllGamesInJpql = "select g from Game g order by g.id";
 
         // when
-        System.out.println("Selecting (using JPQL)...");
+        System.out.println("Selecting (using explicit JPQL)...");
         List<Game> games = em.createQuery(fetchingAllGamesInJpql, Game.class)
                 .getResultList();
 
         // then
-        System.out.println("Found " + games.size() + " games (using JPQL)");
+        System.out.println("Found " + games.size() + " games (using explicit JPQL)");
+        assertContainsAllGames(games);
+    }
+
+    @Test
+    public void shouldFindAllGamesUsingNamedJpqlQuery() throws Exception {
+        // given
+        String gamesNamedQuery = "games";
+
+        // when
+        System.out.println("Selecting (using named JPQL)...");
+        List<Game> games = em.createNamedQuery(gamesNamedQuery, Game.class)
+                .getResultList();
+
+        // then
+        System.out.println("Found " + games.size() + " games (using named JPQL)");
         assertContainsAllGames(games);
     }
 

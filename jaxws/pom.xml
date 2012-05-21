@@ -24,6 +24,13 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+            <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -47,7 +54,7 @@
         </profile>
 
         <profile>
-            <!-- TODO needs standalone-preview.xml, set using jboss.server.config.file.name property -->
+            <!-- TODO needs standalone-full.xml, set using jboss.server.config.file.name property -->
             <id>arq-jbossas-managed-7</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -59,14 +66,51 @@
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
+                    <artifactId>jboss-javaee-6.0</artifactId>
                     <type>pom</type>
                 </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemProperties>
+                                <jboss.version>${version.jbossas_7}</jboss.version>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-dependency-plugin</artifactId>
+                      <executions>
+                          <execution>
+                              <id>unpack</id>
+                              <phase>process-test-classes</phase>
+                              <goals>
+                                  <goal>unpack</goal>
+                              </goals>
+                              <configuration>
+                                  <artifactItems>
+                                      <artifactItem>
+                                          <groupId>org.jboss.as</groupId>
+                                          <artifactId>jboss-as-dist</artifactId>
+                                          <version>${version.jbossas_7}</version>
+                                          <type>zip</type>
+                                          <overWrite>false</overWrite>
+                                          <outputDirectory>${project.build.directory}</outputDirectory>
+                                      </artifactItem>
+                                  </artifactItems>
+                              </configuration>
+                          </execution>
+                      </executions>
+                  </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>
-            <!-- Use standalone-preview.xml server config -->
+            <!-- Use standalone-full.xml server config -->
             <id>arq-jbossas-remote-7</id>
             <dependencies>
                 <dependency>
@@ -75,7 +119,7 @@
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
+                    <artifactId>jboss-javaee-6.0</artifactId>
                     <type>pom</type>
                 </dependency>
             </dependencies>

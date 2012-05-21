@@ -12,13 +12,13 @@
 
     <container qualifier="dev" default="true">
         <configuration>
-            <property name="jbossHome">target/jboss-as-${jboss.version:7.1.0.Final}</property>
+            <property name="jbossHome">target/jboss-as-${jboss.version:7.1.1.Final}</property>
         </configuration>
     </container>
     
     <container qualifier="qa">
         <configuration>
-            <property name="managementPort">19999</property>
+            <property name="managementPort">10099</property>
             <property name="jmxPort">1190</property>
             <property name="httpPort">8180</property>
         </configuration>
@@ -26,7 +26,7 @@
     
     <container qualifier="stage">
         <configuration>
-            <property name="managementPort">29999</property>
+            <property name="managementPort">10199</property>
             <property name="jmxPort">1290</property>
             <property name="httpPort">8280</property>
         </configuration>

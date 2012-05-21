@@ -15,19 +15,19 @@
     <name>Arquillian Showcase: EJB</name>
     <description>Examples that demonstrate how to test EJB components using Arquillian</description>
 
-	<repositories>
-		<repository>
-			<id>apache-snapshots-repository</id>
-			<name>Apache Snapshots Repository</name>
-			<url>https://repository.apache.org/content/groups/snapshots</url>
-			<releases>
+    <repositories>
+        <repository>
+            <id>apache-snapshots-repository</id>
+            <name>Apache Snapshots Repository</name>
+            <url>https://repository.apache.org/content/groups/snapshots</url>
+            <releases>
                 <enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>

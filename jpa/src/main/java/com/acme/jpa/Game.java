@@ -17,13 +17,16 @@
 package com.acme.jpa;
 
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@NamedQuery(name = "games", query = "select g from Game g order by g.id")
 public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;

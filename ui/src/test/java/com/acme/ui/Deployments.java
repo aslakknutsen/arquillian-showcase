@@ -53,7 +53,7 @@ public class Deployments {
                 .addAsWebResource(new File(WEBAPP_SRC, "template.xhtml"))
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/faces-config.xml"))
-                .addAsLibraries(resolver.artifact("org.jboss.seam.solder:seam-solder:3.0.0.Final").resolveAsFiles())
+                .addAsLibraries(resolver.artifact("org.jboss.seam.solder:seam-solder").resolveAsFiles())
                 .setWebXML(new File(WEBAPP_SRC, "WEB-INF/web.xml"));
     }
 }

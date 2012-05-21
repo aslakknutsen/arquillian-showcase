@@ -19,12 +19,12 @@
 
     <modules>
         <module>declarative</module>
-	<module>autodiscover</module>
+        <module>autodiscover</module>
         <module>lifecycle</module>
-	<module>deploymentscenario</module>
+        <module>deploymentscenario</module>
         <module>systemproperties</module>
         <module>resteasy</module>
-	<module>weld-servlet</module>
+        <module>weld-servlet</module>
     </modules>
 
 </project>

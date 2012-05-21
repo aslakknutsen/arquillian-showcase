@@ -3,9 +3,9 @@ apply plugin: JavaPlugin
 buildDir = 'target/gradle-build'
 
 libraryVersions = [
-    junit: '4.8.1', arquillian: '1.0.0.CR1', jbossJavaeeSpec: '1.0.0.Final', weld: '1.1.1.Final',
-    slf4j: '1.5.10', log4j: '1.2.14', jbossas: '6.0.0.Final', glassfish: '3.1', cdi: '1.0-SP4',
-    hamcrest: '1.2', jbossAS7: '7.0.0.CR1'
+    junit: '4.8.1', arquillian: '1.0.0.Final', jbossJavaeeSpec: '1.0.0.Final', weld: '1.1.1.Final',
+    slf4j: '1.5.10', log4j: '1.2.14', jbossAS6: '6.0.0.Final', glassfish: '3.1.2', cdi: '1.0-SP4',
+    hamcrest: '1.2', jbossAS7: '7.1.1.Final', shrinkwrapDesc: '2.0.0-alpha-2'
 ]
 
 repositories {
@@ -32,8 +32,11 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: libraryVersions.junit
     testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: libraryVersions.hamcrest
     testCompile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-container', version: libraryVersions.arquillian
+    testCompile group: 'org.jboss.shrinkwrap.descriptors', name: 'shrinkwrap-descriptors-api-javaee', version: libraryVersions.shrinkwrapDesc
 
-    weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: libraryVersions.arquillian
+    testRuntime group: 'org.jboss.shrinkwrap.descriptors', name: 'shrinkwrap-descriptors-impl-javaee', version: libraryVersions.shrinkwrapDesc
+
+    weldEmbeddedTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-weld-ee-embedded-1.1', version: '1.0.0.CR3'
     weldEmbeddedTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
     weldEmbeddedTestRuntime group: 'org.jboss.weld', name: 'weld-core', version: libraryVersions.weld
     weldEmbeddedTestRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: libraryVersions.slf4j
@@ -41,7 +44,7 @@ dependencies {
 
     jbossAS6RemoteTestRuntime group: 'org.jboss.arquillian.container', name: 'arquillian-jbossas-remote-6', version: libraryVersions.arquillian
     jbossAS6RemoteTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
-    jbossAS6RemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-profileservice-client', version: libraryVersions.jbossas
+    jbossAS6RemoteTestRuntime group: 'org.jboss.jbossas', name: 'jboss-as-profileservice-client', version: libraryVersions.jbossAS6
 
     jbossAS7ManagedTestRuntime group: 'org.jboss.as', name: 'jboss-as-arquillian-container-managed', version: libraryVersions.jbossAS7
     jbossAS7ManagedTestRuntime group: 'org.jboss.spec', name: 'jboss-javaee-6.0', version: libraryVersions.jbossJavaeeSpec
