@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.arquillian_core>1.0.0.Final</version.arquillian_core>
-        <version.arquillian_container_glassfish>1.0.0.CR2</version.arquillian_container_glassfish>
+        <version.arquillian_container_glassfish>1.0.0.CR3</version.arquillian_container_glassfish>
         <version.arquillian_container_openwebbeans>1.0.0.CR2</version.arquillian_container_openwebbeans>
         <version.arquillian_container_jbossas>1.0.0.CR2</version.arquillian_container_jbossas>
         <version.arquillian_container_weld>1.0.0.CR2</version.arquillian_container_weld>
@@ -27,7 +27,7 @@
         <version.arquillian_container_resin>1.0.0-SNAPSHOT</version.arquillian_container_resin>
         <version.arquillian_drone>1.0.0.CR3</version.arquillian_drone>
         <version.arquillian_ajocado>1.0.0.CR2</version.arquillian_ajocado>
-        <version.glassfish>3.1</version.glassfish> <!-- 3.1.1 gives us ClassNotFoundException org.osgi.framework.ServiceException -->
+        <version.glassfish>3.1.2</version.glassfish>
         <version.hamcrest>1.2</version.hamcrest>
         <version.hibernate_jpamodelgen>1.1.1.Final</version.hibernate_jpamodelgen>
         <version.jboss_javaee6_spec>2.0.0.Final</version.jboss_javaee6_spec>
@@ -396,7 +396,7 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.glassfish.extras</groupId>
+                <groupId>org.glassfish.main.extras</groupId>
                 <artifactId>glassfish-embedded-all</artifactId>
                 <version>${version.glassfish}</version>
                 <scope>provided</scope>
