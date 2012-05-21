@@ -91,6 +91,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <excludes>
+                                <!-- change return value in @Deployment method from war to jar to pass this test -->
                                 <exclude>com/acme/ejb/calc/MortgageCalculatorEnvEntryTestCase.java</exclude>
                             </excludes>
                         </configuration>

@@ -29,6 +29,7 @@ public class MortgageCalculatorEnvEntryTestCase {
             .addClasses(MortgageCalculator.class, MortgageCalculatorBean.class)
             .addAsManifestResource("interest-rate-ejb-jar.xml", "ejb-jar.xml");
         
+        // jar is need to pass test in openejb 4
         return war;
     }
 
