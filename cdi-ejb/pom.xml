@@ -137,7 +137,7 @@
                                 <exclude>**/NoInterfaceNamedEjbTestCase.java</exclude>
                             </excludes>
                         </configuration>
-                    
+                    </plugin> 
                 </plugins>
             </build>
         </profile>
