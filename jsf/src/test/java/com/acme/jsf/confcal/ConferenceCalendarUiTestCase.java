@@ -25,9 +25,9 @@ import java.util.List;
 
 import javax.faces.application.ProjectStage;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.jsfunit.cdi.InitialPage;
+import org.jboss.jsfunit.api.InitialPage;
 import org.jboss.jsfunit.jsfsession.JSFClientSession;
 import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -35,7 +35,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -52,10 +52,9 @@ public class ConferenceCalendarUiTestCase {
                 .addAsWebResource("confcal/submission.xhtml", "submission.xhtml")
                 .addAsWebInfResource("common/faces-config.xml", "faces-config.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .setWebXML(
-                        new StringAsset(webXml.contextParam(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development)
-                                .exportAsString()));
-                // .setWebXML(new StringAsset(webXml.facesProjectStage(FacesProjectStage.DEVELOPMENT).exportAsString()));
+                .setWebXML(new StringAsset(webXml.getOrCreateContextParam()
+                        .paramName(ProjectStage.PROJECT_STAGE_PARAM_NAME).paramValue(ProjectStage.Development.name()).up()
+                        .exportAsString()));
     }
 
     @Test
