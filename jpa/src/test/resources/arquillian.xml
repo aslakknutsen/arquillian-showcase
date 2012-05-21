@@ -22,7 +22,7 @@
     <container qualifier="glassfish-embedded">
          <configuration>
              <property name="bindHttpPort">7070</property>
-             <property name="sunResourcesXml">src/test/resources-glassfish-embedded/sun-resources.xml</property>
+             <property name="resourcesXml">src/test/resources-glassfish-embedded/glassfish-resources.xml</property>
          </configuration>
     </container>
 
