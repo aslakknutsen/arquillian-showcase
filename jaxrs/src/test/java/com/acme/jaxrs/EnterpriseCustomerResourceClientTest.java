@@ -29,7 +29,7 @@ import com.acme.jaxrs.rs.JaxRsActivator;
 
 @RunWith(Arquillian.class)
 @RunAsClient
-@Ignore
+@Ignore // only works on Java EE 6 full profile
 public class EnterpriseCustomerResourceClientTest {
     private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
 
