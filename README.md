@@ -1,6 +1,6 @@
 # Arquillian Showcase
 
-This repository serves as a showcase of Arquillian's capabilities. The test cases are organized into projects according to the technology that is being tested. For instance, CDI tests are located in the cdi project, EJB tests in the ejb project and so on. The dependencies used in each of the projects are managed by the parent project.
+This repository contains a collection of tests that showcase Arquillian's capabilities. The test cases are organized into modules according to the technology that is being tested. For example, CDI tests are located in the cdi project, EJB tests in the ejb project and so on. The dependencies used in each of the projects are managed by the parent project.
 
 ## System Requirements 
 
