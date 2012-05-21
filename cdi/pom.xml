@@ -168,7 +168,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/AmbiguousDependencyTestCase.java</exclude>
-                                <!-- use alternate @Deployment method to make this test pass -->
+                                <!-- use alternate war archive in @Deployment method to make this test pass -->
                                 <exclude>**/SynchronousPaymentProcessorTestCase.java</exclude>
                             </excludes>
                         </configuration>
@@ -193,7 +193,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <excludes>
-                                <!-- use alternate @Deployment method to make this test pass -->
+                                <!-- use alternate war archive in @Deployment method to make this test pass -->
                                 <exclude>**/SynchronousPaymentProcessorTestCase.java</exclude>
                             </excludes>
                         </configuration>
@@ -246,6 +246,39 @@
                                 <exclude>**/SynchronousPaymentProcessorTestCase.java</exclude>
                                 <exclude>**/DocumentEventTestCase.java</exclude>
                                 <exclude>**/AnnouncerDecoratorTestCase.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>arq-wls-remote-12.1</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-12.1</artifactId>
+                    <version>1.0.0.Alpha2</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.spec</groupId>
+                    <artifactId>jboss-javaee-web-6.0</artifactId>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <!-- wls is not returning the deployment exception to Arquillian -->
+                                <exclude>**/AmbiguousDependencyTestCase.java</exclude>
+                                <!-- use alternate war archive in @Deployment method to make this test pass -->
+                                <exclude>**/SynchronousPaymentProcessorTestCase.java</exclude>
+                                <exclude>**/BeanManagerInitializedTestCase.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>

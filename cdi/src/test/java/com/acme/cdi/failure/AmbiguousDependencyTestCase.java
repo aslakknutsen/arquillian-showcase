@@ -1,5 +1,6 @@
 package com.acme.cdi.failure;
 
+import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.ShouldThrowException;
 import org.jboss.arquillian.junit.Arquillian;
@@ -18,6 +19,10 @@ public class AmbiguousDependencyTestCase {
                 .addPackage(Service.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
+
+    // the presense of this injection triggers the cdi validation on weblogic
+    @Inject
+    ServiceClient client;
 
     @Test
     public void shouldFailDeployment() {

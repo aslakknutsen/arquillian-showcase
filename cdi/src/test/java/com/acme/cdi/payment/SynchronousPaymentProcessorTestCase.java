@@ -24,6 +24,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
@@ -34,14 +35,21 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class SynchronousPaymentProcessorTestCase {
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static Archive<?> createDeployment() {
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+        // enable the alternative in beans.xml
+        beansXml.createAlternatives().clazz(MockPaymentProcessor.class.getName());
 
-        return ShrinkWrap.create(JavaArchive.class)
-                .addAsManifestResource(
-                        new StringAsset(beansXml.createAlternatives().clazz(MockPaymentProcessor.class.getName()).up().exportAsString()),
-                        beansXml.getDescriptorName())
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
+                .addAsManifestResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
                 .addPackage(Synchronous.class.getPackage());
+
+        WebArchive war = ShrinkWrap.create(WebArchive.class)
+                .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
+                .addPackage(Synchronous.class.getPackage());
+
+        // return war for GlassFish & WebLogic due to visibility issues
+        return jar;
     }
 
     @Inject
@@ -65,19 +73,4 @@ public class SynchronousPaymentProcessorTestCase {
         assertEquals(2, MockPaymentProcessor.PAYMENTS.size());
         assertEquals(secondPayment, MockPaymentProcessor.PAYMENTS.get(1));
     }
-
-    
-    
-    
-    
-    // Use this deployment for GlassFish due to visibility issues
-    //@Deployment
-    public static WebArchive createDeploymentForGlassFish() {
-        BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
-
-        return ShrinkWrap.create(WebArchive.class)
-                .addAsWebInfResource(new StringAsset(beansXml.createAlternatives().clazz(MockPaymentProcessor.class.getName()).up().exportAsString()),
-                        beansXml.getDescriptorName()).addPackage(Synchronous.class.getPackage());
-    }
-     
 }
