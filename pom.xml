@@ -11,32 +11,45 @@
     <url>http://jboss.org/arquillian</url>
     <description>Arquillian Showcase Aggregator</description>
 
-    <modules>
-        <module>parent</module>
-        <module>container-boms</module>
-        <module>cdi</module>
-        <module>ejb</module>
-        <module>ejb-testng</module>
-        <module>cdi-ejb</module>
-        <!-- jms only works on JBoss AS 6, add queue/test to server/default/deploy/hornetq/hornetq-jms.xml -->
-        <!--
-        <module>jms</module>
-        -->
-        <module>jpa</module>
-        <module>jpa-persistence-extension</module>
-        <!--
-        <module>jpa-lite</module>
-        -->
-        <module>servlet</module>
-        <module>jaxrs</module>
-        <module>jaxws</module>
-        <!--
-        <module>jsf</module>
-        -->
-        <module>ui</module>
-        <module>multinode</module>
-        <module>extensions</module>
-    </modules>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>parent</module>
+                <module>container-boms</module>
+                <module>cdi</module>
+                <module>ejb</module>
+                <module>ejb-testng</module>
+                <module>cdi-ejb</module>
+                <!-- jms only works on JBoss AS 6, add queue/test to server/default/deploy/hornetq/hornetq-jms.xml -->
+                <!--
+                <module>jms</module>
+                -->
+                <module>jpa</module>
+                <module>jpa-persistence-extension</module>
+                <!--
+                <module>jpa-lite</module>
+                -->
+                <module>servlet</module>
+                <module>jaxrs</module>
+                <module>jaxws</module>
+                <module>jsf</module>
+                <module>ui</module>
+                <module>multinode</module>
+                <module>extensions</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>setup</id>
+            <modules>
+                <module>parent</module>
+                <module>container-boms</module>
+            </modules>
+        </profile>
+    </profiles>
 
 <!--
 vi:ts=4:sw=4:expandtab:
