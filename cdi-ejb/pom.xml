@@ -112,6 +112,36 @@
             </build>
         </profile>
 
+        <profile>
+            <id>arq-wls-remote-12.1</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-12.1</artifactId>
+                    <version>1.0.0.Alpha2</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.spec</groupId>
+                    <artifactId>jboss-javaee-web-6.0</artifactId>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <!-- Fails with exception WELD-001414 Bean name is ambiguous. Name noInterfaceNamedEjb resolves to beans [Session bean [class com.acme.cdiejb.nointerface.NoInterfaceNamedEjb with qualifiers [@Any @Default @Named]; local interfaces are [NoInterfaceNamedEjb], Managed Bean [class com.acme.cdiejb.nointerface.NoInterfaceNamedEjb] with qualifiers [@Any @Default @Named]] -->
+                                <exclude>**/NoInterfaceNamedEjbTestCase.java</exclude>
+                            </excludes>
+                        </configuration>
+                    
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 <!--
 vi:ts=4:sw=4:expandtab:

@@ -5,4 +5,14 @@
 
     <defaultProtocol type="Servlet 3.0" />
 
+    <container qualifier="wls-remote-12.1">
+        <configuration>
+           <property name="adminUrl">t3://localhost:7001</property> 
+           <property name="adminUserName">weblogic</property>
+           <property name="adminPassword">passw0rd</property>
+           <property name="wlsHome">${wls.home:/home/dallen/opt/wls/wlserver}</property>
+           <property name="target">AdminServer</property>
+        </configuration>
+    </container>
+
 </arquillian>
