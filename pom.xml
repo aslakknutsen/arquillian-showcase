@@ -40,6 +40,7 @@
                 <module>ui</module>
                 <module>multinode</module>
                 <module>extensions</module>
+                <<module>spring</module>
             </modules>
         </profile>
         <profile>

@@ -1,0 +1,2 @@
+insert into Stock(id, name, symbol, value, date) values(1, 'Acme', 'ACM', '123.21', '2012-05-19 12:00:00');
+insert into Stock(id, name, symbol, value, date) values(2, 'Red Hat', 'RHC', '59.61', '2012-05-19 12:00:00');

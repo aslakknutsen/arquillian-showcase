@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+    <!-- Embedded data source settings -->
+    <!--<jdbc:embedded-database id="dataSource" type="H2">-->
+        <!--<jdbc:script location="classpath:create.sql"/>-->
+    <!--</jdbc:embedded-database>-->
+
+    <!-- Lookups the data source form the JNDI -->
+    <jee:jndi-lookup id="dataSource" expected-type="javax.sql.DataSource" jndi-name="jdbc/SpringJDBCTest"/>
+
+    <!-- Settings for external data source, DriverManagerDataSource is used only for test purpose in real situation use pooling datasource like DBCP  -->
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName" value="org.h2.Driver"/>-->
+        <!--<property name="url" value="jdbc:h2:mem:arquillian;DB_CLOSE_DELAY=-1"/>-->
+        <!--<property name="username" value=""/>-->
+        <!--<property name="password" value=""/>-->
+    <!--</bean>-->
+
+    <!-- Registers Hibernate Session Factory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.acme.spring.hibernate.domain.Stock</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.current_session_context_class=thread
+                hibernate.dialect=org.hibernate.dialect.H2Dialect
+                hibernate.hbm2ddl.auto=create-drop
+            </value>
+        </property>
+    </bean>
+
+    <!-- Scans for the beans definitions -->
+    <context:component-scan base-package="com.acme.spring.hibernate.repository.impl"/>
+
+</beans>
