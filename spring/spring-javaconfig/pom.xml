@@ -6,18 +6,19 @@
     <!-- Parent -->
     <parent>
         <groupId>org.jboss.arquillian.showcase</groupId>
-        <artifactId>spring</artifactId>
+        <artifactId>arquillian-showcase-spring</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
 
     <!-- Model Version -->
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.arquillian.showcase</groupId>
-    <artifactId>spring-javaconfig</artifactId>
+    <artifactId>arquillian-showcase-spring-javaconfig</artifactId>
     <packaging>jar</packaging>
 
-    <name>Java-based Configuration Showcase Arquillian Spring Framework 3 Extension</name>
+    <name>Arquillian Showcase Spring: Java-based Configuration</name>
     <url>http://www.jboss.org</url>
     <description>Java-based Configuration Showcase of Spring Framework 3 extension for Arquillian</description>
 

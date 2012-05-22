@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <!-- Parent -->
     <parent>
-	<groupId>org.jboss.arquillian.showcase</groupId>
-	<artifactId>arquillian-showcase</artifactId>
+        <artifactId>arquillian-showcase-parent</artifactId>
+        <groupId>org.jboss.arquillian.showcase</groupId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <!-- Model Version -->
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.arquillian.showcase</groupId>
-    <artifactId>spring</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>arquillian-showcase-spring</artifactId>
     <packaging>pom</packaging>
 
-    <name>Showcase for Arquillian Spring Framework Extension</name>
+    <name>Arquillian Showcase Spring Aggregator</name>
     <url>http://www.jboss.org</url>
     <description>Showcase for Spring Framework extension for Arquillian</description>
 
@@ -34,9 +34,6 @@
 
     <!-- Properties -->
     <properties>
-        <!-- jboss-parent override -->
-        <maven.compiler.argument.target>1.5</maven.compiler.argument.target>
-        <maven.compiler.argument.source>1.5</maven.compiler.argument.source>
 
         <!-- Arquillian version -->
         <version.arquillian>1.0.0.Final</version.arquillian>
@@ -51,39 +48,9 @@
         <version.cglib>2.2.2</version.cglib>
     </properties>
 
-    <!-- Licenses -->
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
     <!-- Dependency Management -->
     <dependencyManagement>
         <dependencies>
-
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>3.0.0.Final</version>
-                <type>pom</type>
-                <scope>provided</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
 
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
@@ -189,64 +156,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven.compiler.argument.source}</source>
-                    <target>${maven.compiler.argument.target}</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    <trimStackTrace>false</trimStackTrace>
-                    <printSummary>true</printSummary>
-                    <includes>
-                        <include>**/*TestCase.java</include>
-                        <include>**/*TestSuite.java</include>
-                    </includes>
-                    <useFile>true</useFile>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>animal-sniffer-maven-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <id>signature-check</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <signature>
-                        <groupId>org.codehaus.mojo.signature</groupId>
-                        <artifactId>java15</artifactId>
-                        <version>1.0</version>
-                    </signature>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <profiles>
         <profile>
             <activation>
@@ -263,7 +172,6 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.1.1.Final</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -347,20 +255,6 @@
             <url>http://repo.springsource.org/release</url>
         </repository>
 
-        <!-- Uncomment when running the tests for JBoss AS 6 -->
-        <!--<repository>-->
-            <!--<id>jboss-deprecated</id>-->
-            <!--<name>JBoss Deprecated</name>-->
-            <!--<url>https://repository.jboss.org/nexus/content/repositories/deprecated/</url>-->
-            <!--<layout>default</layout>-->
-            <!--<releases>-->
-                <!--<enabled>true</enabled>-->
-                <!--<updatePolicy>never</updatePolicy>-->
-            <!--</releases>-->
-            <!--<snapshots>-->
-                <!--<enabled>false</enabled>-->
-            <!--</snapshots>-->
-        <!--</repository>-->
     </repositories>
 
 </project>
