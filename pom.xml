@@ -45,6 +45,9 @@
         </profile>
         <profile>
             <id>setup</id>
+            <build>
+                <defaultGoal>install</defaultGoal>
+            </build>
             <modules>
                 <module>parent</module>
                 <module>container-boms</module>
