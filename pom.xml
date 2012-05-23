@@ -41,6 +41,7 @@
                 <module>multinode</module>
                 <module>extensions</module>
                 <module>spring</module>
+                <module>warp</module>
             </modules>
         </profile>
         <profile>
