@@ -48,8 +48,12 @@ public class SynchronousPaymentProcessorTestCase {
                 .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
                 .addPackage(Synchronous.class.getPackage());
 
-        // return war for GlassFish & WebLogic due to visibility issues
-        return jar;
+        // return jar => will only work with JBoss AS 7 adapters when using the default JMX protocol and embedded CDI adapters
+        // return war => will work in all cases
+        // NOTE: Arquillian does not move the custom beans.xml to WEB-INF when
+        //       it bundles the jar in a war in order to deploy to a Java EE
+        //       container and execute tests over the Servlet protocol.
+        return war;
     }
 
     @Inject
