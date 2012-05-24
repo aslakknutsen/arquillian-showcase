@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>arquillian-showcase-warp</artifactId>
-
+    <name>Arquillian Showcase: JSF with Warp Extension</name>
     <dependencies>
 
         <dependency>
@@ -75,9 +75,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <jbossHome>${project.build.directory}/jboss-as-${version.org.jboss.jbossas}</jbossHome>
-            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -93,18 +90,34 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemProperties>
+                                <jboss.version>${version.jbossas_7}</jboss.version>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>default-test</id>
+                                <id>unpack</id>
+                                <phase>process-test-classes</phase>
                                 <goals>
-                                    <goal>test</goal>
+                                    <goal>unpack</goal>
                                 </goals>
                                 <configuration>
-                                    <systemPropertyVariables>
-                                        <jbossHome>${jbossHome}</jbossHome>
-                                    </systemPropertyVariables>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.jboss.as</groupId>
+                                            <artifactId>jboss-as-dist</artifactId>
+                                            <version>${version.jbossas_7}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
                                 </configuration>
                             </execution>
                         </executions>

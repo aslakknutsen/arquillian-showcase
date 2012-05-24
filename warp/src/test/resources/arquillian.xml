@@ -7,7 +7,7 @@
 
     <container qualifier="jboss" default="true">
         <configuration>
-            <property name="jbossHome">${jbossHome}</property>
+            <property name="jbossHome">target/jboss-as-${jboss.version:7.1.1.Final}</property>
         </configuration>
     </container>
 

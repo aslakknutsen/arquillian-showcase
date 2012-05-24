@@ -30,6 +30,7 @@ infinitest.filters
 # Logs
 *.log
 WORKLOG
+log.txt
 
 # Libreoffice leftovers (XLS)
 .~lock*

@@ -37,11 +37,11 @@
                 <module>jaxrs</module>
                 <module>jaxws</module>
                 <module>jsf</module>
+                <module>warp</module>
                 <module>ui</module>
                 <module>multinode</module>
                 <module>extensions</module>
                 <module>spring</module>
-                <module>warp</module>
             </modules>
         </profile>
         <profile>
