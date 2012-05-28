@@ -5,20 +5,17 @@ Extension showing how you can replace the default behavior of defining the @Depl
 
 We're implementing the DeploymentScenarioGenerator to read mapping between TestClass and Archive from a external source, arquillian.xml.  
 
-```java
-@RunWith(Arquillian.class)
-public class MyTestCase {
-
-  @Inject 
-  private AccountService service;
-  
-  @Test
-  public void shouldBeAbleTo() {
-    service.withdraw(100);
-  }
-}
-```
-
+    @RunWith(Arquillian.class)
+    public class MyTestCase {
+    
+        @Inject 
+        private AccountService service;
+    
+        @Test
+        public void shouldBeAbleTo() {
+            service.withdraw(100);
+        }
+    }
 
 Following SPI's are used:
 

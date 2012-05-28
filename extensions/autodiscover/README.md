@@ -7,26 +7,23 @@ without defining them directly in the @Deployemnt method and do runtime enrichme
 Extension will add the library "org.mockito:mockito-all" to the @Deployment if a @Mock field is defined on the TestClass. 
 When executed in-container the @Mock fields will be enriched by mocking them in Mockito and injected into the test instance.  
 
-```java
-@RunWith(Arquillian.class)
-public class MyTestCase {
-
-  @Deployment
-  public static WebArchive deploy() {
-    return ShrinkWrap.create(WebArchive.class)
-      .addClass(AccountService.class);
-  }
-
-  @Mock
-  private AccountService service;
-  
-  @Test
-  public void shouldBeAbleToAccessMockito() {
-    service.withdraw(100);
-  }
-}
-```
-
+    @RunWith(Arquillian.class)
+    public class MyTestCase {
+    
+        @Deployment
+        public static WebArchive deploy() {
+            return ShrinkWrap.create(WebArchive.class)
+            .addClass(AccountService.class);
+        }
+    
+        @Mock
+        private AccountService service;
+    
+        @Test
+        public void shouldBeAbleToAccessMockito() {
+            service.withdraw(100);
+        }
+    }
 
 Following SPI's are used:
 
