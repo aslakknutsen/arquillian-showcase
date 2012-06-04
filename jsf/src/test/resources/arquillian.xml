@@ -12,5 +12,11 @@
         <property name="deploymentExportPath">target/test-archives</property>
     </engine>
     -->
+
+    <container qualifier="jbossas-remote-7" default="true">
+        <configuration>
+            <property name="jbossHome">target/jboss-as-${jboss.version:7.1.1.Final}</property>
+        </configuration>
+    </container>
     
 </arquillian>

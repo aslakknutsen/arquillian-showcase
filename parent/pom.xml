@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.arquillian_core>1.0.0.Final</version.arquillian_core>
+        <version.arquillian_core>1.0.1.Final</version.arquillian_core>
         <version.arquillian_container_glassfish>1.0.0.CR3</version.arquillian_container_glassfish>
         <version.arquillian_container_openwebbeans>1.0.0.CR2</version.arquillian_container_openwebbeans>
         <version.arquillian_container_jbossas>1.0.0.CR2</version.arquillian_container_jbossas>
