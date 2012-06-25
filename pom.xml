@@ -42,6 +42,7 @@
                 <module>multinode</module>
                 <module>extensions</module>
                 <module>spring</module>
+		<module>universe</module>
             </modules>
         </profile>
         <profile>

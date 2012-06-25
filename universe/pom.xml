@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>8</version>
+        <relativePath />
+    </parent>
+
+    <groupId>org.jboss.arquillian.showcase</groupId>
+    <artifactId>arquillian-showcase-universe</artifactId>
+    <packaging>war</packaging>
+    <name>Arquillian Showcase: Universe</name>
+    <description>Examples that demonstrate the combined use of multiple Arquillian Extensions</description>
+
+    <properties>
+        <version.arquillian_core>1.0.1.Final</version.arquillian_core>
+
+        <version.arquillian_glassfish>1.0.0.CR3</version.arquillian_glassfish>
+        <version.glassfish>3.1.1</version.glassfish>
+
+        <version.arquillian_drone>1.0.0.Final</version.arquillian_drone>
+        <version.arquillian_persistence>1.0.0.Alpha4</version.arquillian_persistence>
+        <version.arquillian_warp>1.0.0.Alpha1</version.arquillian_warp>
+        
+        <version.arquillian_jrebel>1.0.0.Alpha1-SNAPSHOT</version.arquillian_jrebel>
+        <version.arquillian_jacoco>1.0.0.Final-SNAPSHOT</version.arquillian_jacoco>
+
+        <version.jbossas>7.1.1.Final</version.jbossas>
+        <version.jboss_spec>3.0.0.Final</version.jboss_spec>
+        <version.junit>4.8.1</version.junit>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.arquillian_core}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-warp-bom</artifactId>
+                <version>${version.arquillian_warp}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-drone-bom</artifactId>
+                <version>${version.arquillian_drone}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-persistence-impl</artifactId>
+                <version>${version.arquillian_persistence}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-6.0</artifactId>
+                <version>${version.jboss_spec}</version>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+
+        <!-- Arquillian Core -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet</artifactId>
+        </dependency>
+
+        <!-- Arquillian Persistence -->
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-impl</artifactId>
+        </dependency>
+
+        <!-- Arquillian Warp -->
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-warp-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Arquillian Drone -->
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-webdriver-depchain</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Others -->
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+
+        <!-- Containers -->
+        <profile>
+            <id>arq-jbossas-remote-7</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                    <version>${version.jbossas}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>arq-glassfish-embedded</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.conainer</groupId>
+                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                    <version>${arquillian.glassfish}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.extras</groupId>
+                    <artifactId>glassfish-embedded-web</artifactId>
+                    <version>${version.glassfish}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Optional Extensions -->
+
+        <profile>
+            <id>arq-jrebel</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-jrebel-impl</artifactId>
+                    <version>${version.arquillian_jrebel}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>arq-jacoco</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-jacoco</artifactId>
+                    <version>${version.arquillian_jacoco}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+</project>
