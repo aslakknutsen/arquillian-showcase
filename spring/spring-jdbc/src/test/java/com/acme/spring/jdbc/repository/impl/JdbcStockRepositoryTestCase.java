@@ -17,12 +17,11 @@
 package com.acme.spring.jdbc.repository.impl;
 
 import com.acme.spring.jdbc.Deployments;
-import com.acme.spring.jdbc.JdbcTestHelper;
 import com.acme.spring.jdbc.domain.Stock;
 import com.acme.spring.jdbc.repository.StockRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.spring.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
 import org.junit.Test;

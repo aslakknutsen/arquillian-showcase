@@ -22,7 +22,7 @@ import com.acme.spring.javaconfig.domain.Stock;
 import com.acme.spring.javaconfig.repository.StockRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.spring.test.annotation.SpringAnnotatedConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringAnnotationConfiguration;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +43,7 @@ import static org.junit.Assert.assertTrue;
  * @author <a href="mailto:jmnarloch@gmail.com">Jakub Narloch</a>
  */
 @RunWith(Arquillian.class)
-@SpringAnnotatedConfiguration(classes = StockConfig.class)
+@SpringAnnotationConfiguration(classes = StockConfig.class)
 public class DefaultStockRepositoryTestCase {
 
     /**
@@ -112,7 +112,8 @@ public class DefaultStockRepositoryTestCase {
     }
 
     /**
-     * <p>Tests the {@link com.acme.spring.javaconfig.repository.impl.DefaultStockRepository#getBySymbol(String)} method.</p>
+     * <p>Tests the {@link com.acme.spring.javaconfig.repository.impl.DefaultStockRepository#getBySymbol(String)}
+     * method.</p>
      */
     @Test
     public void testGetBySymbol() throws Exception {

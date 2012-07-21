@@ -21,7 +21,7 @@ import com.acme.spring.jsr330.domain.Stock;
 import com.acme.spring.jsr330.service.StockService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.spring.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,7 +63,8 @@ public class DefaultStockServiceTestCase {
     private StockService stockService;
 
     /**
-     * <p>Tests the {@link com.acme.spring.jsr330.service.impl.DefaultStockService#save(com.acme.spring.jsr330.domain.Stock)} method.</p>
+     * <p>Tests the {@link com.acme.spring.jsr330.service.impl.DefaultStockService#save(com.acme.spring.jsr330.domain.Stock)}
+     * method.</p>
      */
     @Test
     public void testSave() {

@@ -82,7 +82,6 @@ public final class Deployments {
         files.addAll(resolveDependencies("org.hibernate:hibernate-core:3.6.0.Final"));
         files.addAll(resolveDependencies("org.hibernate:hibernate-annotations:3.4.0.GA"));
         files.addAll(resolveDependencies("javassist:javassist:3.6.0.GA"));
-        files.addAll(resolveDependencies("com.h2database:h2:1.3.166"));
 
         return files.toArray(new File[files.size()]);
     }

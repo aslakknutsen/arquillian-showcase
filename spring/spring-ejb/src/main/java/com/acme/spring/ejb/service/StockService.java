@@ -21,7 +21,7 @@ import com.acme.spring.ejb.domain.Stock;
 import javax.ejb.Local;
 
 /**
- * <p></p>
+ * <p>A stock service.</p>
  *
  * @author <a href="mailto:jmnarloch@gmail.com">Jakub Narloch</a>
  */

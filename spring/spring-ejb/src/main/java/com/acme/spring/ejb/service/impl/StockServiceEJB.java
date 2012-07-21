@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * <p></p>
+ * <p>An implementation of {@link StockService}</p>
  *
  * @author <a href="mailto:jmnarloch@gmail.com">Jakub Narloch</a>
  */

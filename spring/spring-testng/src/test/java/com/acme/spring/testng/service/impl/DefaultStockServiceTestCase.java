@@ -20,7 +20,7 @@ import com.acme.spring.testng.Deployments;
 import com.acme.spring.testng.domain.Stock;
 import com.acme.spring.testng.service.StockService;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.spring.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
 import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,8 @@ public class DefaultStockServiceTestCase extends Arquillian {
     private StockService stockService;
 
     /**
-     * <p>Tests the {@link com.acme.spring.testng.service.impl.DefaultStockService#save(com.acme.spring.testng.domain.Stock)} method.</p>
+     * <p>Tests the {@link com.acme.spring.testng.service.impl.DefaultStockService#save(com.acme.spring.testng.domain.Stock)}
+     * method.</p>
      */
     @Test
     public void testSave() {

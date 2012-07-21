@@ -20,7 +20,7 @@ import com.acme.spring.testng.Deployments;
 import com.acme.spring.testng.domain.Stock;
 import com.acme.spring.testng.repository.StockRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.spring.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
 import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +109,8 @@ public class DefaultStockRepositoryTestCase extends Arquillian {
     }
 
     /**
-     * <p>Tests the {@link com.acme.spring.testng.repository.impl.DefaultStockRepository#getBySymbol(String)} method.</p>
+     * <p>Tests the {@link com.acme.spring.testng.repository.impl.DefaultStockRepository#getBySymbol(String)}
+     * method.</p>
      */
     @Test
     public void testGetBySymbol() throws Exception {

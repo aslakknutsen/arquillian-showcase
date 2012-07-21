@@ -21,7 +21,7 @@ import com.acme.spring.ejb.domain.Stock;
 import com.acme.spring.ejb.service.StockService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.spring.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +65,7 @@ public class StockServiceEJBTestCase {
         Stock stock = stockService.getStock("ACM");
 
         assertNotNull("Returned stock was null.", stock);
-        assertEquals("Stock has invalid name.", "Acme" , stock.getName());
-        assertEquals("Stock has invalid symbol.", "ACM" , stock.getSymbol());
+        assertEquals("Stock has invalid name.", "Acme", stock.getName());
+        assertEquals("Stock has invalid symbol.", "ACM", stock.getSymbol());
     }
 }

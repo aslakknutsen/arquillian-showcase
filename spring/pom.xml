@@ -36,8 +36,8 @@
     <properties>
 
         <!-- Arquillian version -->
-        <version.arquillian>1.0.0.Final</version.arquillian>
-        <version.arquillian.spring>1.0.0.Alpha1</version.arquillian.spring>
+        <version.arquillian>1.0.1.Final</version.arquillian>
+        <version.arquillian.spring>1.0.0.Alpha2</version.arquillian.spring>
 
         <!-- Test related -->
         <version.junit_junit>4.8.1</version.junit_junit>
@@ -55,6 +55,20 @@
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-service-deployer-spring-3</artifactId>
+                <version>${version.arquillian.spring}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-service-integration-spring-inject</artifactId>
+                <version>${version.arquillian.spring}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-service-integration-spring-javaconfig</artifactId>
                 <version>${version.arquillian.spring}</version>
                 <scope>test</scope>
             </dependency>

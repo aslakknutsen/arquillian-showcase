@@ -20,7 +20,7 @@ import com.acme.spring.jms.Deployments;
 import com.acme.spring.jms.MessageSender;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.spring.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +83,7 @@ public class MessageSenderImplTestCase {
         assertNotNull("The received message was null.", result);
         assertTrue("The received message had invalid type.", result instanceof TextMessage);
         assertEquals("The received message had invalid text.", message, ((TextMessage) result).getText());
-        
+
         System.out.println(((TextMessage) result).getText());
     }
 }

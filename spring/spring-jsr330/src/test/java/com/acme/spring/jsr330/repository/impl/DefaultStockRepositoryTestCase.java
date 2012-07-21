@@ -21,7 +21,7 @@ import com.acme.spring.jsr330.domain.Stock;
 import com.acme.spring.jsr330.repository.StockRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.spring.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -111,7 +111,8 @@ public class DefaultStockRepositoryTestCase {
     }
 
     /**
-     * <p>Tests the {@link com.acme.spring.jsr330.repository.impl.DefaultStockRepository#getBySymbol(String)} method.</p>
+     * <p>Tests the {@link com.acme.spring.jsr330.repository.impl.DefaultStockRepository#getBySymbol(String)}
+     * method.</p>
      */
     @Test
     public void testGetBySymbol() throws Exception {
