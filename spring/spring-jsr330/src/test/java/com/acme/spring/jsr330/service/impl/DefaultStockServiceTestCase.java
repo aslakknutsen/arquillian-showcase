@@ -196,9 +196,9 @@ public class DefaultStockServiceTestCase {
      */
     private static void assertStock(Stock expected, Stock actual) {
 
-        assertEquals("Stock has invalid id property.", expected.getId(), expected.getId());
-        assertEquals("Stock has invalid name property.", expected.getName(), expected.getName());
-        assertEquals("Stock has invalid symbol property.", expected.getSymbol(), expected.getSymbol());
-        assertEquals("Stock has invalid value property.", expected.getValue(), expected.getValue());
+        assertEquals("Stock has invalid id property.", expected.getId(), actual.getId());
+        assertEquals("Stock has invalid name property.", expected.getName(), actual.getName());
+        assertEquals("Stock has invalid symbol property.", expected.getSymbol(), actual.getSymbol());
+        assertEquals("Stock has invalid value property.", expected.getValue(), actual.getValue());
     }
 }
