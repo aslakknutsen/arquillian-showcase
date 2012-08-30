@@ -21,9 +21,7 @@ import com.acme.spring.jpa.repository.StockRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -36,20 +34,10 @@ import java.util.List;
 public class JpaStockRepository implements StockRepository {
 
     /**
-     * <p>Represents the instance of {@link EntityManagerFactory} used for persistence operation.</p>
+     * <p>Represents the instance of {@link EntityManager} used for persistence operation.</p>
      */
-    @PersistenceUnit
-    private EntityManagerFactory entityManagerFactory;
-
-    /**
-     * <p>Retrieves the entity manger.</p>
-     *
-     * @return the entity manager
-     */
-    protected EntityManager getEntityManager() {
-
-        return entityManagerFactory.createEntityManager();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * <p>Creates new instance of {@link JpaStockRepository}</p>
@@ -68,23 +56,11 @@ public class JpaStockRepository implements StockRepository {
         validateNoNull(stock, "stock");
         validateNotEmpty(stock.getSymbol(), "symbol");
 
-        EntityManager entityManager = getEntityManager();
+        // persists the entity
+        entityManager.persist(stock);
 
-        try {
-            entityManager.getTransaction().begin();
-
-            // persists the entity
-            entityManager.persist(stock);
-
-            entityManager.getTransaction().commit();
-
-            // return the newly created id for the entity
-            return stock.getId();
-        } catch (PersistenceException exc) {
-            entityManager.getTransaction().rollback();
-
-            throw exc;
-        }
+        // return the newly created id for the entity
+        return stock.getId();
     }
 
     /**
@@ -97,20 +73,7 @@ public class JpaStockRepository implements StockRepository {
         validateNoNull(stock, "stock");
         validateNotEmpty(stock.getSymbol(), "symbol");
 
-        EntityManager entityManager = getEntityManager();
-
-        try {
-            entityManager.getTransaction().begin();
-
-            entityManager.merge(stock);
-
-            entityManager.getTransaction().commit();
-        } catch (PersistenceException exc) {
-
-            entityManager.getTransaction().rollback();
-
-            throw exc;
-        }
+        entityManager.merge(stock);
     }
 
     /**
@@ -120,7 +83,7 @@ public class JpaStockRepository implements StockRepository {
     public Stock get(long id) {
 
         // retrieves the entity by it's id
-        return getEntityManager().find(Stock.class, id);
+        return entityManager.find(Stock.class, id);
     }
 
     /**
@@ -132,7 +95,7 @@ public class JpaStockRepository implements StockRepository {
         validateNotEmpty(symbol, "symbol");
 
         // retrieves the entity by it's symbol
-        return (Stock) getEntityManager().createQuery("from Stock where symbol = :symbol")
+        return (Stock) entityManager.createQuery("from Stock where symbol = :symbol")
                 .setParameter("symbol", symbol)
                 .getSingleResult();
     }
@@ -144,7 +107,7 @@ public class JpaStockRepository implements StockRepository {
     public List<Stock> getAll() {
 
         // retrieves all stocks
-        return getEntityManager().createQuery("from Stock").getResultList();
+        return entityManager.createQuery("from Stock").getResultList();
     }
 
     /**

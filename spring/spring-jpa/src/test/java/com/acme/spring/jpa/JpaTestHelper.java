@@ -72,16 +72,10 @@ public final class JpaTestHelper {
         // splits the commands by semicolon
         String[] commands = stringBuilder.toString().split(";");
 
-        // begins the transaction
-        entityManager.getTransaction().begin();
-
         for (final String command : commands) {
 
             entityManager.createNativeQuery(command).executeUpdate();
         }
-
-        // commits the transaction
-        entityManager.getTransaction().commit();
     }
 
     /**

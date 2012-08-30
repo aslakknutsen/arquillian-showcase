@@ -22,6 +22,7 @@ import com.acme.spring.jdbc.service.StockService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
 import org.junit.Test;
@@ -46,6 +47,7 @@ import static org.junit.Assert.assertTrue;
  * @author <a href="mailto:jmnarloch@gmail.com">Jakub Narloch</a>
  */
 @RunWith(Arquillian.class)
+@Transactional(manager = "txManager")
 @SpringConfiguration("applicationContext.xml")
 public class DefaultStockServiceTestCase {
 

@@ -23,6 +23,7 @@ import com.acme.spring.jpa.service.StockService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.spring.integration.test.annotation.SpringConfiguration;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
 import org.junit.Test;
@@ -30,8 +31,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +48,7 @@ import static org.junit.Assert.assertTrue;
  * @author <a href="mailto:jmnarloch@gmail.com">Jakub Narloch</a>
  */
 @RunWith(Arquillian.class)
+@Transactional(manager = "txManager")
 @SpringConfiguration("applicationContext.xml")
 public class DefaultStockServiceTestCase {
 
@@ -69,20 +70,10 @@ public class DefaultStockServiceTestCase {
     private StockService stockService;
 
     /**
-     * <p>{@link javax.persistence.EntityManagerFactory} instance used by tests.</p>
+     * <p>{@link EntityManager} instance used by tests.</p>
      */
-    @PersistenceUnit
-    private EntityManagerFactory entityManager;
-
-    /**
-     * <p>Retrieves an entity manager.</p>
-     *
-     * @return the entity manager
-     */
-    public EntityManager getEntityManager() {
-
-        return entityManager.createEntityManager();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * <p>Tears down the test environment.</p>
@@ -92,12 +83,8 @@ public class DefaultStockServiceTestCase {
     @After
     public void tearDown() throws Exception {
 
-        EntityManager entityManager = getEntityManager();
-
         // deletes all records from database
-        entityManager.getTransaction().begin();
         entityManager.createQuery("delete from Stock").executeUpdate();
-        entityManager.getTransaction().commit();
     }
 
     /**
@@ -115,8 +102,6 @@ public class DefaultStockServiceTestCase {
         assertTrue("The stock id hasn't been assigned.", acme.getId() > 0);
         assertTrue("The stock id hasn't been assigned.", redhat.getId() > 0);
 
-        EntityManager entityManager = getEntityManager();
-
         List<Stock> stocks = retrieveAllStocks(entityManager);
 
         assertEquals("Incorrect number of created stocks, 2 were expected.", 2, stocks.size());
@@ -130,8 +115,6 @@ public class DefaultStockServiceTestCase {
      */
     @Test
     public void testUpdate() throws Exception {
-
-        EntityManager entityManager = getEntityManager();
 
         runScript(entityManager, "insert.sql");
 
@@ -153,8 +136,6 @@ public class DefaultStockServiceTestCase {
     @Test
     public void testGet() throws Exception {
 
-        EntityManager entityManager = getEntityManager();
-
         runScript(entityManager, "insert.sql");
 
         Stock acme = createStock("Acme", "ACM", 123.21D, new Date());
@@ -171,8 +152,6 @@ public class DefaultStockServiceTestCase {
     @Test
     public void testGetBySymbol() throws Exception {
 
-        EntityManager entityManager = getEntityManager();
-
         runScript(entityManager, "insert.sql");
 
         Stock acme = createStock("Acme", "ACM", 123.21D, new Date());
@@ -188,8 +167,6 @@ public class DefaultStockServiceTestCase {
      */
     @Test
     public void testGetAll() throws Exception {
-
-        EntityManager entityManager = getEntityManager();
 
         runScript(entityManager, "insert.sql");
 
@@ -222,8 +199,8 @@ public class DefaultStockServiceTestCase {
     /**
      * <p>Asserts that the actual stock's properties values are correct.</p>
      *
-     * @param expected   the expected stock object
-     * @param actual     the tested stock object
+     * @param expected the expected stock object
+     * @param actual   the tested stock object
      */
     private static void assertStock(Stock expected, Stock actual) {
 

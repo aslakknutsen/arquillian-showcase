@@ -36,8 +36,9 @@
     <properties>
 
         <!-- Arquillian version -->
-        <version.arquillian>1.0.1.Final</version.arquillian>
-        <version.arquillian.spring>1.0.0.Alpha2</version.arquillian.spring>
+        <version.arquillian>1.0.2.Final</version.arquillian>
+        <version.arquillian.spring>1.0.0.Beta1</version.arquillian.spring>
+        <version.arquillian.transaction>1.0.0.Alpha1</version.arquillian.transaction>
 
         <!-- Test related -->
         <version.junit_junit>4.8.1</version.junit_junit>
@@ -69,6 +70,13 @@
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-service-integration-spring-javaconfig</artifactId>
+                <version>${version.arquillian.spring}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-transaction-spring</artifactId>
                 <version>${version.arquillian.spring}</version>
                 <scope>test</scope>
             </dependency>
@@ -107,6 +115,15 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jms</artifactId>
                 <version>${version.spring_framework}</version>
+            </dependency>
+
+            <!-- Arquillian Transaction -->
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-transaction-bom</artifactId>
+                <version>${version.arquillian.transaction}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
 
             <dependency>
