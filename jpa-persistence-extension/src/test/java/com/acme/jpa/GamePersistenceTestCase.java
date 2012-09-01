@@ -10,7 +10,10 @@ import javax.persistence.PersistenceContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.persistence.Cleanup;
 import org.jboss.arquillian.persistence.ShouldMatchDataSet;
+import org.jboss.arquillian.persistence.TestExecutionPhase;
 import org.jboss.arquillian.persistence.TransactionMode;
 import org.jboss.arquillian.persistence.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
@@ -36,7 +39,7 @@ public class GamePersistenceTestCase {
     @PersistenceContext
     EntityManager em;
 
-    @Test
+    @Test @InSequence(1)
     @Transactional(TransactionMode.ROLLBACK)
     public void shouldPersistsPcGames() throws Exception {
         // given
@@ -59,7 +62,7 @@ public class GamePersistenceTestCase {
         assertThat(games).hasSize(2);
     }
 
-    @Test
+    @Test @InSequence(2)
     @Transactional
     // COMMIT after test execution is default transaction behavior
     public void shouldPersistsPcPlatformWithGames() throws Exception {
@@ -84,7 +87,7 @@ public class GamePersistenceTestCase {
                 baldurs);
     }
 
-    @Test
+    @Test @InSequence(3)
     @ShouldMatchDataSet("datasets/pc-games.yml")
     public void shouldPersistsPcGamesAndVerifiesStateAfterTestExecution()
             throws Exception {

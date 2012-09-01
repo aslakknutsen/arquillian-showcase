@@ -17,7 +17,7 @@
     <description>Examples that demonstrate how to test JPA to read and write a database using Arquillian together with Persistence Extension</description>
 
     <properties>
-        <version.arquillian_persistence>1.0.0.Alpha4</version.arquillian_persistence>
+        <version.arquillian_persistence>1.0.0.Alpha5</version.arquillian_persistence>
         <version.fest_assert>1.4</version.fest_assert>
         <version.commons_lang>2.5</version.commons_lang>
     </properties>
