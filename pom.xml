@@ -40,6 +40,7 @@
                 <module>warp</module>
                 <module>ui</module>
                 <module>multinode</module>
+                <module>universe</module>
                 <module>extensions</module>
                 <module>spring</module>
             </modules>

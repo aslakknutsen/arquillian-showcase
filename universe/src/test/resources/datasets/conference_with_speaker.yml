@@ -1,0 +1,13 @@
+conference:
+    - id: 10
+      name: JavaZone 2012
+      location: Oslo, Norway
+      description: Passion for More
+user:
+    - id: 20
+      firstName: aslak
+      lastName: knutsen
+      email: aslak@redhat.com
+conference_user:
+    - conference_id: 10
+      speakers_id: 20
