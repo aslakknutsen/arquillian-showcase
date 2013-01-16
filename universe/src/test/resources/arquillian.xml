@@ -9,6 +9,9 @@
 		<property name="deploymentExportPath">target/</property>
 	</engine>
 
+	<extension qualifier="webdriver">
+		<property name="chromeDriverBinary">/home/aslak/dev/tools/chromedriver</property>
+	</extension>
     <extension qualifier="persistence">
         <property name="defaultDataSource">java:jboss/datasources/ExampleDS</property>
     </extension>

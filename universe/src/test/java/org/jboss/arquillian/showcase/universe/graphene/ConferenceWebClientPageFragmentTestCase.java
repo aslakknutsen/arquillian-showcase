@@ -31,11 +31,11 @@ import org.jboss.arquillian.showcase.universe.Models;
 import org.jboss.arquillian.showcase.universe.model.Conference;
 import org.jboss.arquillian.showcase.universe.repository.ConferenceRepository;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.ServerAssertion;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.extension.servlet.AfterServlet;
+import org.jboss.arquillian.warp.servlet.AfterServlet;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -78,16 +78,16 @@ public class ConferenceWebClientPageFragmentTestCase {
         		.setDescription(conference.getDescription())
         		.redirect();
         
-        Warp.execute(new ClientAction() {
+        Warp.initiate(new Activity() {
             @Override
-            public void action() {
+            public void perform() {
                 form.submit();
             }
-        }).verify(new VerifyConference(conference));
+        }).inspect(new VerifyConference(conference));
 
     }
     
-    public static class VerifyConference extends ServerAssertion {
+    public static class VerifyConference extends Inspection {
         
         private static final long serialVersionUID = 1L;
 

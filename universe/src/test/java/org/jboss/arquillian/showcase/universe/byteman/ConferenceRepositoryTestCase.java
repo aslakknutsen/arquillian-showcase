@@ -22,6 +22,7 @@ import javax.ejb.EJBException;
 import javax.persistence.EntityExistsException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.extension.byteman.api.BMRule;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.showcase.universe.Deployments;
 import org.jboss.arquillian.showcase.universe.Models;
@@ -46,8 +47,8 @@ public class ConferenceRepositoryTestCase {
     @EJB
     private ConferenceRepository repository;
     
-//    @BMRule(name = "ForceEntityException", targetClass="ConferenceRepository", targetMethod="store",
-//            action = "throw new javax.persistence.EntityExistsException()")
+    @BMRule(name = "ForceEntityException", targetClass="ConferenceRepository", targetMethod="store",
+            action = "throw new javax.persistence.EntityExistsException()")
     @Test(expected = EntityExistsException.class)
     public void shouldBeAbleToPersistConference() throws Exception {
         final Conference conference = Models.createConference(); 

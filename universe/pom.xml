@@ -26,7 +26,7 @@
 		<version.arquillian_drone>1.1.0.CR3</version.arquillian_drone>
 		<version.arquillian_graphene>2.0.0.Alpha2</version.arquillian_graphene>
 		<version.arquillian_persistence>1.0.0.Alpha5</version.arquillian_persistence>
-		<version.arquillian_warp>1.0.0.Alpha1</version.arquillian_warp>
+		<version.arquillian_warp>1.0.0.Alpha2</version.arquillian_warp>
 
 		<version.arquillian_byteman>1.0.0.Alpha2</version.arquillian_byteman>
 		<version.arquillian_jrebel>1.0.0.Alpha1-SNAPSHOT</version.arquillian_jrebel>
@@ -122,12 +122,12 @@
 			<artifactId>arquillian-protocol-servlet</artifactId>
 		</dependency>
 
-		<!-- Arquillian Persistence
+		<!-- Arquillian Persistence -->
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-persistence-impl</artifactId>
 		</dependency>
-		-->
+
 		<!-- Arquillian Warp -->
 
 		<dependency>
@@ -154,7 +154,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Arquillian Byteman
+		<!-- Arquillian Byteman -->
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-extension-byteman</artifactId>
@@ -165,7 +165,7 @@
 			<artifactId>byteman-submit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		-->
+
 		<!-- Others -->
 		<dependency>
 			<groupId>org.jboss.spec</groupId>

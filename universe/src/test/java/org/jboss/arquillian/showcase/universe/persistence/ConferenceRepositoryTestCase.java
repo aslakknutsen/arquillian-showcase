@@ -22,6 +22,11 @@ import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.persistence.Cleanup;
+import org.jboss.arquillian.persistence.CleanupStrategy;
+import org.jboss.arquillian.persistence.ShouldMatchDataSet;
+import org.jboss.arquillian.persistence.TestExecutionPhase;
+import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.arquillian.showcase.universe.Deployments;
 import org.jboss.arquillian.showcase.universe.Models;
 import org.jboss.arquillian.showcase.universe.model.Conference;
@@ -49,8 +54,8 @@ public class ConferenceRepositoryTestCase {
     private ConferenceRepository repository;
 
     @Test @InSequence(1)
-//    @ShouldMatchDataSet(value = "conference_with_speaker.yml", excludeColumns = {"id", "conference_id", "speakers_id"})
-//    @Cleanup(strategy = CleanupStrategy.USED_TABLES_ONLY, phase = TestExecutionPhase.AFTER)
+    @ShouldMatchDataSet(value = "conference_with_speaker.yml", excludeColumns = {"id", "conference_id", "speakers_id"})
+    @Cleanup(strategy = CleanupStrategy.USED_TABLES_ONLY, phase = TestExecutionPhase.AFTER)
     public void shouldBeAbleToPersistConference() throws Exception {
         final Conference conference = Models.createConference(); 
         conference.addSpeaker(Models.createUser());
@@ -59,8 +64,8 @@ public class ConferenceRepositoryTestCase {
     }
 
     @Test @InSequence(2)
-//    @UsingDataSet("conference_with_speaker.yml")
-//    @Cleanup(strategy = CleanupStrategy.USED_TABLES_ONLY, phase = TestExecutionPhase.AFTER)
+    @UsingDataSet("conference_with_speaker.yml")
+    @Cleanup(strategy = CleanupStrategy.USED_TABLES_ONLY, phase = TestExecutionPhase.AFTER)
     public void shouldBeAbleToLoadConference() throws Exception {
         Conference conference = repository.get("10");
         
