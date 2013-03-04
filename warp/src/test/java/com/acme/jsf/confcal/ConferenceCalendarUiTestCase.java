@@ -36,12 +36,12 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.ServerAssertion;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.extension.phaser.AfterPhase;
-import org.jboss.arquillian.warp.extension.phaser.Phase;
+import org.jboss.arquillian.warp.jsf.AfterPhase;
+import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -81,11 +81,11 @@ public class ConferenceCalendarUiTestCase {
     @RunAsClient
     public void submittedConferenceShouldBeSaved(Instance<List<Conference>> conferencesInstance) throws Exception {
 
-        Warp.execute(new ClientAction() {
-            public void action() {
+        Warp.initiate(new Activity() {
+            public void perform() {
                 browser.navigate().to(contextPath + "submit.jsf");
             }
-        }).verify(new VerifyInitialState());
+        }).inspect(new VerifyInitialState());
 
         browser.findElement(By.id("conference:title")).sendKeys("Devoxx");
         browser.findElement(By.id("conference:startDate")).sendKeys("2010-11-15");
@@ -93,17 +93,17 @@ public class ConferenceCalendarUiTestCase {
         browser.findElement(By.id("conference:location")).sendKeys("Metropolis, Antwerp, Belgium");
         browser.findElement(By.id("conference:topic")).sendKeys("Java");
 
-        Warp.execute(new ClientAction() {
-            public void action() {
+        Warp.initiate(new Activity() {
+            public void perform() {
                 browser.findElement(By.id("conference:submit")).click();
             }
-        }).verify(new VerifySubmission());
+        }).inspect(new VerifySubmission());
 
         assertEquals("Conference Summary", browser.getTitle());
         assertEquals("Devoxx", browser.findElement(By.id("title")).getText());
     }
 
-    public static class VerifyInitialState extends ServerAssertion {
+    public static class VerifyInitialState extends Inspection {
 
         private static final long serialVersionUID = 1L;
 
@@ -124,7 +124,7 @@ public class ConferenceCalendarUiTestCase {
         }
     }
 
-    public static class VerifySubmission extends ServerAssertion {
+    public static class VerifySubmission extends Inspection {
 
         private static final long serialVersionUID = 1L;
 
@@ -143,17 +143,16 @@ public class ConferenceCalendarUiTestCase {
             assertEquals("Java", conference.getTopic());
         }
 
-    }
+        private Date buildDate(int year, int month, int date) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(year, month - 1, date, 0, 0, 0);
+            return cal.getTime();
+        }
 
-    private static Date buildDate(int year, int month, int date) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month - 1, date, 0, 0, 0);
-        return cal.getTime();
-    }
-
-    private static Date buildDate(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return buildDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+        private Date buildDate(Date date) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            return buildDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+        }
     }
 }

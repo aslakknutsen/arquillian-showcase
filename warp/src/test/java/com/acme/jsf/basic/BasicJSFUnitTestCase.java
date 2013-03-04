@@ -30,12 +30,12 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.ServerAssertion;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.extension.phaser.AfterPhase;
-import org.jboss.arquillian.warp.extension.phaser.Phase;
+import org.jboss.arquillian.warp.jsf.AfterPhase;
+import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -72,14 +72,14 @@ public class BasicJSFUnitTestCase {
     @Test
     @RunAsClient
     public void shouldExecutePage() throws Exception {
-        Warp.execute(new ClientAction() {
-            public void action() {
+        Warp.initiate(new Activity() {
+            public void perform() {
                 browser.navigate().to(contextPath + "index.jsf");
             }
-        }).verify(new verifyBeanValueOnInitialPage());
+        }).inspect(new verifyBeanValueOnInitialPage());
     }
 
-    public static class verifyBeanValueOnInitialPage extends ServerAssertion {
+    public static class verifyBeanValueOnInitialPage extends Inspection {
 
         private static final long serialVersionUID = 1L;
 
