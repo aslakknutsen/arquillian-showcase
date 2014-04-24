@@ -39,7 +39,7 @@ public class Models {
     }
 
     public static Conference createRandomConference() {
-        Conference conference = new Conference("JavaZone 2012");
+        Conference conference = new Conference("DevNation 2014");
         conference.setLocation("Oslo, Norway");
         conference.setDescription("Passion for More");
         

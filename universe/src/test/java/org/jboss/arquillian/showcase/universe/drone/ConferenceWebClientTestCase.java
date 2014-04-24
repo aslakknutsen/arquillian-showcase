@@ -31,7 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
 
 /**
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
@@ -49,7 +49,7 @@ public class ConferenceWebClientTestCase {
     public URL baseURL;
     
     @Drone
-    public ChromeDriver driver;
+    public WebDriver driver;
     
     @Test
     public void shouldBeAbleToAddConference() throws Exception {

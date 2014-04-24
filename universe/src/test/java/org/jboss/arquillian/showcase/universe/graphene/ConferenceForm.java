@@ -1,13 +1,12 @@
 package org.jboss.arquillian.showcase.universe.graphene;
 
-import org.jboss.arquillian.graphene.spi.annotations.Root;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ConferenceForm {
 
 	@Root
-	@SuppressWarnings("unused")
 	private WebElement root;
 	
 	@FindBy(id = "create:conferenceName")
