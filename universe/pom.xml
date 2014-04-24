@@ -24,7 +24,8 @@
 		<version.glassfish>3.1.1</version.glassfish>
 
 		<version.arquillian_drone>1.3.0.Final</version.arquillian_drone>
-		<version.arquillian_graphene>2.0.2.Final</version.arquillian_graphene>
+		<version.arquillian_graphene>2.1.0-SNAPSHOT</version.arquillian_graphene>
+		<version.arquillian_recorder>1.0.0.Alpha3-SNAPSHOT</version.arquillian_recorder>
 		<version.arquillian_persistence>1.0.0.Alpha6</version.arquillian_persistence>
 		<version.arquillian_warp>1.0.0.Alpha7</version.arquillian_warp>
 
@@ -159,6 +160,22 @@
 			<artifactId>graphene-webdriver</artifactId>
 			<type>pom</type>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.graphene</groupId>
+			<artifactId>arquillian-browser-screenshooter</artifactId>
+			<version>${version.arquillian_graphene}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.arquillian.extension</groupId>
+			<artifactId>arquillian-recorder-reporter-api</artifactId>
+			<version>${version.arquillian_recorder}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.arquillian.extension</groupId>
+			<artifactId>arquillian-recorder-client</artifactId>
+			<version>${version.arquillian_recorder}</version>
 		</dependency>
 
 		<!-- Arquillian Byteman

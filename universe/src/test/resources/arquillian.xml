@@ -17,7 +17,7 @@
     </container>
 
 	<extension qualifier="webdriver">
-		<property name="chromeDriverBinary">/home/aslak/dev/tools/chromedriver</property>
+		<property name="browser">firefox</property>
 	</extension>
     <extension qualifier="persistence">
         <property name="defaultDataSource">java:jboss/datasources/ExampleDS</property>
@@ -29,4 +29,9 @@
         <property name="agentProperties">org.jboss.byteman.verbose=true</property>
     </extension>
 
+    <extension qualifier="reporter">
+        <property name="takeBeforeTest">true</property>
+        <property name="takeAfterTest">true</property>
+        <property name="baseURL">http://127.0.0.1:8080/arquillian-recorder-server-1.0.0.Alpha3-SNAPSHOT/console/report</property>
+    </extension>
 </arquillian>
