@@ -35,6 +35,7 @@ import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.servlet.AfterServlet;
+import org.jboss.arquillian.warp.servlet.BeforeServlet;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,6 +47,7 @@ import org.openqa.selenium.WebDriver;
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
+@RunAsClient
 @WarpTest
 @RunWith(Arquillian.class)
 public class ConferenceWebClientTestCase {
@@ -53,7 +55,8 @@ public class ConferenceWebClientTestCase {
     @Deployment
     public static WebArchive deploy() {
         return Deployments.Client.web()
-                .addClass(Deployments.class);
+                .addClass(Deployments.class)
+                .addAsResource("datasets/conference_with_speaker.yml", "datasets/conference_with_speaker.yml");
     }
     
     @ArquillianResource
@@ -62,7 +65,7 @@ public class ConferenceWebClientTestCase {
     @Drone
     public WebDriver driver;
 
-    @Test @RunAsClient
+    @Test
     public void shouldBeAbleToInsertUser() throws Exception {
         final Conference conference = Models.createRandomConference();
         
@@ -96,8 +99,14 @@ public class ConferenceWebClientTestCase {
             this.conference = conference;
         }
         
+        @BeforeServlet
+        public void test() {
+            System.out.println("Before Size: " + manager.getAll().size());
+        }
+        
         @AfterServlet
         public void wasInserted() {
+            System.out.println("After Size: " + manager.getAll().size());
             Conference stored = manager.get(conference.getId());
             
             Assert.assertEquals(conference.getName(), stored.getName());

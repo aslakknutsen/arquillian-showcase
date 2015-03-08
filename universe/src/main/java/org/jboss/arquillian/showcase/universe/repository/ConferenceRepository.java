@@ -46,6 +46,6 @@ public class ConferenceRepository {
     }
     
     public List<Conference> getAll() {
-        return manager.createQuery("select Conference", Conference.class).getResultList();
+        return manager.createQuery("select x from Conference x", Conference.class).getResultList();
     }
 }

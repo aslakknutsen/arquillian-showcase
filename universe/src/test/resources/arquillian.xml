@@ -5,33 +5,36 @@
 
     <defaultProtocol type="Servlet 3.0" />
 
-<!--
 	<engine>
 		<property name="deploymentExportPath">target/</property>
 	</engine>
--->
+
     <container qualifier="jboss" default="true">
-        <configuration>
-            <property name="jbossHome">${jbossHome:target/jboss-as-7.1.1.Final}</property>    
-        </configuration>
     </container>
 
 	<extension qualifier="webdriver">
-		<property name="browser">firefox</property>
-	</extension>
+      <property name="browser">firefox</property>
+    </extension>
+
     <extension qualifier="persistence">
         <property name="defaultDataSource">java:jboss/datasources/ExampleDS</property>
     </extension>
 
+    <extension qualifier="reporter">
+        <property name="report">html5</property>
+        <property name="rootDir">target/recorder</property>
+    </extension>
+
+    <extension qualifier="screenshooter">
+        <property name="takeBeforeTest">true</property>
+        <property name="takeAfterTest">true</property>
+    </extension>
+
+<!--
     <extension qualifier="byteman">
         <property name="autoInstallContainerAgent">false</property>
         <property name="autoInstallClientAgent">false</property>
         <property name="agentProperties">org.jboss.byteman.verbose=true</property>
     </extension>
-
-    <extension qualifier="reporter">
-        <property name="takeBeforeTest">true</property>
-        <property name="takeAfterTest">true</property>
-        <property name="baseURL">http://127.0.0.1:8080/arquillian-recorder-server-1.0.0.Alpha3-SNAPSHOT/console/report</property>
-    </extension>
+-->
 </arquillian>

@@ -18,25 +18,27 @@
 	<description>Examples that demonstrate the combined use of multiple Arquillian Extensions</description>
 
 	<properties>
-		<version.arquillian_core>1.1.4.Final</version.arquillian_core>
+		<version.arquillian_core>1.1.5.Final</version.arquillian_core>
 
 		<version.arquillian_glassfish>1.0.0.CR3</version.arquillian_glassfish>
 		<version.glassfish>3.1.1</version.glassfish>
 
-		<version.arquillian_drone>1.3.0.Final</version.arquillian_drone>
-		<version.arquillian_graphene>2.1.0-SNAPSHOT</version.arquillian_graphene>
-		<version.arquillian_recorder>1.0.0.Alpha3-SNAPSHOT</version.arquillian_recorder>
-		<version.arquillian_persistence>1.0.0.Alpha6</version.arquillian_persistence>
+		<version.arquillian_drone>2.0.0.Alpha2</version.arquillian_drone>
+		<version.arquillian_graphene>2.1.0.Alpha1</version.arquillian_graphene>
+		<version.arquillian_recorder>1.0.0.Alpha4</version.arquillian_recorder>
+		<version.arquillian_persistence>1.0.0.Alpha7</version.arquillian_persistence>
 		<version.arquillian_warp>1.0.0.Alpha7</version.arquillian_warp>
 
 		<version.arquillian_byteman>1.0.0.Alpha2</version.arquillian_byteman>
 		<version.arquillian_jrebel>1.0.0.Alpha1-SNAPSHOT</version.arquillian_jrebel>
 		<version.arquillian_jacoco>1.0.0.Final-SNAPSHOT</version.arquillian_jacoco>
+        
+        <version.selenium>2.43.1</version.selenium>
 
 		<version.jbossas>7.1.1.Final</version.jbossas>
 	    <version.jboss_as>7.1.1.Final</version.jboss_as>
 	    <version.jboss_eap>7.2.0.Final</version.jboss_eap>
-	    <version.wildfly>8.0.0.Final</version.wildfly>
+	    <version.wildfly>8.2.0.Final</version.wildfly>
 	    <version.jboss_eap_managed>eap-6.1.0</version.jboss_eap_managed>
 		<version.jboss_spec>3.0.0.Final</version.jboss_spec>
 		
@@ -64,6 +66,13 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.selenium</groupId>
+                <artifactId>selenium-bom</artifactId>
+                <version>${version.selenium}</version>
+                <type>pom</type>
+                <scope>import</scope>
+           </dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.extension</groupId>
 				<artifactId>arquillian-drone-bom</artifactId>
@@ -79,7 +88,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian.extension</groupId>
-				<artifactId>arquillian-persistence-impl</artifactId>
+				<artifactId>arquillian-persistence-dbunit</artifactId>
 				<version>${version.arquillian_persistence}</version>
 				<scope>test</scope>
 			</dependency>
@@ -133,7 +142,7 @@
 		<!-- Arquillian Persistence -->
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
-			<artifactId>arquillian-persistence-impl</artifactId>
+			<artifactId>arquillian-persistence-dbunit</artifactId>
 		</dependency>
 
 		<!-- Arquillian Warp -->
@@ -162,21 +171,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jboss.arquillian.graphene</groupId>
-			<artifactId>arquillian-browser-screenshooter</artifactId>
-			<version>${version.arquillian_graphene}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.arquillian.extension</groupId>
-			<artifactId>arquillian-recorder-reporter-api</artifactId>
-			<version>${version.arquillian_recorder}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.arquillian.extension</groupId>
-			<artifactId>arquillian-recorder-client</artifactId>
-			<version>${version.arquillian_recorder}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.arquillian.extension</groupId>
+            <artifactId>arquillian-recorder-reporter-api</artifactId>
+            <version>${version.arquillian_recorder}</version>
+        </dependency>
 
 		<!-- Arquillian Byteman
 		<dependency>
@@ -191,6 +190,11 @@
 		</dependency>
         -->
 
+        <dependency>
+<groupId>io.undertow</groupId>
+<artifactId>undertow-websockets-jsr</artifactId>
+<version>1.1.0.Beta4</version>        
+        </dependency>
 		<!-- Others -->
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
@@ -204,6 +208,23 @@
 	</dependencies>
 
 	<profiles>
+
+        <profile>
+            <id>recorder</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.arquillian.extension</groupId>
+                    <artifactId>arquillian-recorder-reporter-impl</artifactId>
+                    <version>${version.arquillian_recorder}</version>
+                </dependency>
+        
+                <dependency>
+                    <groupId>org.jboss.arquillian.graphene</groupId>
+                    <artifactId>arquillian-browser-screenshooter</artifactId>
+                    <version>${version.arquillian_graphene}</version>
+                </dependency>
+            </dependencies>
+        </profile>
 
 		<!-- Containers -->
 		<profile>

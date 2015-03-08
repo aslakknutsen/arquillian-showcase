@@ -21,10 +21,11 @@ import java.net.URL;
 
 import javax.ejb.EJB;
 
+import org.arquillian.recorder.reporter.ReportMessage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.page.Page;
+import org.jboss.arquillian.graphene.page.InitialPage;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.showcase.universe.Deployments;
 import org.jboss.arquillian.showcase.universe.Models;
@@ -48,6 +49,7 @@ import org.openqa.selenium.WebDriver;
  */
 @WarpTest
 @RunWith(Arquillian.class)
+@ReportMessage("Register Conference via web front end")
 public class ConferenceWebClientPageFragmentTestCase {
     
     @Deployment
@@ -62,14 +64,10 @@ public class ConferenceWebClientPageFragmentTestCase {
 	@ArquillianResource
 	private URL baseURL;
 	
-    @Page
-    private ConferencePage page;
-    
     @Test @RunAsClient
-    public void shouldBeAbleToInsertUser() throws Exception {
+    @ReportMessage("Verify Conference stored in database on web front end submit")
+    public void shouldBeAbleToStoreConference(@InitialPage ConferencePage page) throws Exception {
         final Conference conference = Models.createRandomConference();
-        
-        driver.navigate().to(new URL(baseURL, "view/conference/create.jsf"));
         
         final ConferenceForm form = page.getForm()
         		.setId(conference.getId())
